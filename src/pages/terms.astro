@@ -2,68 +2,249 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Términos de Servicio — Lelemon Studio" description="Términos y condiciones de uso de Lelemon Studio.">
-  <nav class="bg-surface border-b border-dark/5">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center">
-      <a href="/" class="flex items-center gap-2">
-        <div class="w-9 h-9 rounded-lg bg-lemon-300 flex items-center justify-center">
-          <span class="text-dark font-extrabold text-lg">L</span>
+<Layout title="Términos de Servicio | Lelemon Studio" description="Términos y condiciones de uso de Lelemon Studio para equipos de ventas">
+  <main class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <nav class="bg-white border-b border-gray-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <a href="/" class="flex items-center">
+            <img src="/logo.svg" alt="Lelemon Studio" class="h-8" />
+          </a>
         </div>
-        <span class="font-bold text-xl text-dark">Lelemon <span class="font-medium text-dark/60">Studio</span></span>
-      </a>
-    </div>
-  </nav>
+      </div>
+    </nav>
 
-  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-    <h1 class="text-3xl font-extrabold text-dark mb-8">Términos de Servicio</h1>
-    <p class="text-sm text-dark/40 mb-8">Última actualización: Febrero 2026</p>
+    <div class="max-w-4xl mx-auto px-4 py-12">
+      <!-- Title -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+          Términos de Servicio
+        </h1>
+        <p class="text-sm text-gray-600">
+          Última actualización: Febrero 2026
+        </p>
+      </div>
 
-    <div class="prose prose-sm text-dark/70 space-y-6">
-      <section>
-        <h2 class="text-lg font-bold text-dark mb-3">1. Aceptación de los términos</h2>
-        <p>Al acceder y usar los servicios de Lelemon Studio, aceptas estos términos de servicio. Si no estás de acuerdo con alguna parte, no debes usar nuestros servicios.</p>
-      </section>
+      <!-- Content -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 space-y-8">
 
-      <section>
-        <h2 class="text-lg font-bold text-dark mb-3">2. Descripción del servicio</h2>
-        <p>Lelemon Studio provee una plataforma de CRM inteligente, gestión de campañas publicitarias y optimización de ventas mediante inteligencia artificial para equipos comerciales.</p>
-      </section>
+        <!-- 1. Aceptación -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">1. Aceptación de los Términos</h2>
+          <p class="text-gray-700 leading-relaxed">
+            Al acceder o utilizar los servicios de Lelemon Studio, incluyendo nuestra plataforma de CRM
+            inteligente, gestión de campañas y optimización de ventas para equipos de ventas, aceptas
+            estar sujeto a estos Términos de Servicio. Si no estás de acuerdo con alguna parte de estos
+            términos, no podrás acceder al servicio.
+          </p>
+        </section>
 
-      <section>
-        <h2 class="text-lg font-bold text-dark mb-3">3. Responsabilidades del usuario</h2>
-        <ul class="list-disc pl-6 space-y-1 mt-2">
-          <li>Proporcionar información veraz y actualizada</li>
-          <li>Mantener la confidencialidad de sus credenciales de acceso</li>
-          <li>Usar el servicio de acuerdo con las leyes aplicables</li>
-          <li>No intentar acceder a áreas restringidas del sistema</li>
-        </ul>
-      </section>
+        <!-- 2. Descripción del Servicio -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">2. Descripción del Servicio</h2>
+          <p class="text-gray-700 mb-3">Lelemon Studio proporciona:</p>
+          <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li>CRM inteligente con calificación automática de leads mediante IA</li>
+            <li>Gestión y optimización de campañas en Google Ads y Meta Ads</li>
+            <li>Dashboard unificado de métricas de ventas y marketing</li>
+            <li>Análisis de embudo de ventas y reportes de ROI</li>
+            <li>Alertas inteligentes para tu equipo comercial</li>
+            <li>Integración con WhatsApp Business para seguimiento de leads</li>
+            <li>Recomendaciones de IA para mejorar la tasa de conversión</li>
+          </ul>
+        </section>
 
-      <section>
-        <h2 class="text-lg font-bold text-dark mb-3">4. Propiedad intelectual</h2>
-        <p>Todo el contenido, código y tecnología de Lelemon Studio es propiedad de Lelemon Studio SpA. Los datos que ingresas al sistema siguen siendo de tu propiedad.</p>
-      </section>
+        <!-- 3. Registro y Cuenta -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">3. Registro y Cuenta</h2>
+          <p class="text-gray-700 mb-3">Para usar nuestros servicios debes:</p>
+          <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li>Ser mayor de 18 años y representar a una empresa o actuar como profesional independiente</li>
+            <li>Proporcionar información precisa y completa sobre tu empresa y equipo</li>
+            <li>Mantener la seguridad de tu cuenta y credenciales de acceso</li>
+            <li>Notificarnos inmediatamente de cualquier uso no autorizado</li>
+            <li>Ser responsable de todas las actividades realizadas bajo tu cuenta</li>
+          </ul>
+        </section>
 
-      <section>
-        <h2 class="text-lg font-bold text-dark mb-3">5. Limitación de responsabilidad</h2>
-        <p>Lelemon Studio no será responsable por daños indirectos, incidentales o consecuentes derivados del uso de la plataforma. Nuestro servicio se provee "tal cual" sin garantías implícitas.</p>
-      </section>
+        <!-- 4. Uso Aceptable -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">4. Uso Aceptable</h2>
+          <p class="text-gray-700 mb-3">Te comprometes a NO usar el servicio para:</p>
+          <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li>Enviar spam, mensajes no solicitados o publicidad masiva no autorizada</li>
+            <li>Hacerte pasar por otra persona, empresa o entidad</li>
+            <li>Violar leyes o regulaciones aplicables en Chile u otras jurisdicciones</li>
+            <li>Transmitir contenido ilegal, dañino, amenazante o abusivo</li>
+            <li>Interferir con el funcionamiento del servicio o sus servidores</li>
+            <li>Intentar acceder sin autorización a sistemas, datos o cuentas de otros usuarios</li>
+            <li>Recopilar información de leads o usuarios sin el consentimiento correspondiente</li>
+            <li>Usar el servicio para actividades que violen políticas de plataformas de ads</li>
+          </ul>
+        </section>
 
-      <section>
-        <h2 class="text-lg font-bold text-dark mb-3">6. Modificaciones</h2>
-        <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor al publicarse en esta página. Te notificaremos de cambios significativos.</p>
-      </section>
+        <!-- 5. Contenido del Usuario -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">5. Contenido del Usuario</h2>
+          <p class="text-gray-700 mb-3">
+            Eres responsable del contenido que proporcionas al servicio, incluyendo:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li>Datos de tu empresa, equipo y proceso de ventas</li>
+            <li>Información de leads y prospectos ingresada en el CRM</li>
+            <li>Configuraciones y criterios de calificación de leads</li>
+            <li>Accesos a cuentas de Google Ads y Meta Ads</li>
+          </ul>
+          <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-4">
+            <p class="text-sm text-amber-900">
+              <strong>Importante:</strong> Debes contar con los permisos y derechos necesarios para
+              conectar cuentas de ads y gestionar los datos de leads que ingreses a la plataforma.
+              Los datos de tus clientes potenciales deben ser tratados de acuerdo con la normativa
+              de protección de datos vigente.
+            </p>
+          </div>
+        </section>
 
-      <section>
-        <h2 class="text-lg font-bold text-dark mb-3">7. Contacto</h2>
-        <p>Para consultas sobre estos términos, contáctanos a través de WhatsApp: <a href="https://wa.me/56977066965" class="text-lemon-500 hover:underline">+56 9 7706 6965</a>.</p>
-      </section>
+        <!-- 6. Propiedad Intelectual -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">6. Propiedad Intelectual</h2>
+          <p class="text-gray-700 mb-3">
+            El servicio, su tecnología, algoritmos de IA y contenido original son propiedad
+            exclusiva de Lelemon Studio y están protegidos por leyes de propiedad intelectual.
+          </p>
+          <p class="text-gray-700">
+            Conservas todos los derechos sobre los datos de tu empresa y leads que ingresas al sistema.
+            Al usarlo, nos otorgas una licencia limitada para usar, almacenar y procesar dicho contenido
+            con el único fin de proporcionar y mejorar el servicio.
+          </p>
+        </section>
+
+        <!-- 7. Planes y Pagos -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">7. Planes y Pagos</h2>
+          <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li><strong>Facturación:</strong> Los planes se facturan según la periodicidad elegida (mensual o anual)</li>
+            <li><strong>Renovación:</strong> Los planes se renuevan automáticamente salvo cancelación expresa</li>
+            <li><strong>Cambios de precio:</strong> Notificaremos cambios con 30 días de anticipación</li>
+            <li><strong>Reembolsos:</strong> No se realizan reembolsos por periodos parciales del plan</li>
+            <li><strong>Suspensión:</strong> El servicio puede suspenderse por falta de pago tras aviso</li>
+          </ul>
+        </section>
+
+        <!-- 8. Limitación de Responsabilidad -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">8. Limitación de Responsabilidad</h2>
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="text-gray-700 mb-3">
+              En la máxima medida permitida por la ley, Lelemon Studio no será responsable por:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+              <li>Pérdidas indirectas, incidentales o consecuentes derivadas del uso del servicio</li>
+              <li>Pérdida de oportunidades de negocio o ventas no concretadas</li>
+              <li>Resultados de campañas de ads que no cumplan expectativas</li>
+              <li>Daños resultantes de la imposibilidad temporal de usar el servicio</li>
+              <li>Cambios en políticas de plataformas de terceros (Google, Meta, WhatsApp)</li>
+              <li>Interrupciones del servicio por causas fuera de nuestro control</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 9. Disponibilidad del Servicio -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">9. Disponibilidad del Servicio</h2>
+          <p class="text-gray-700">
+            Nos esforzamos por mantener la plataforma disponible 24/7, pero no garantizamos
+            disponibilidad ininterrumpida. El servicio puede verse afectado por mantenimiento
+            programado, actualizaciones, o circunstancias fuera de nuestro control. Notificaremos
+            las interrupciones planificadas con anticipación cuando sea posible.
+          </p>
+        </section>
+
+        <!-- 10. Integraciones -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">10. Integraciones con Terceros</h2>
+          <p class="text-gray-700 mb-3">
+            Nuestro servicio se integra con plataformas de terceros como:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li><strong>Google Ads:</strong> Para gestión y optimización de campañas de búsqueda y display</li>
+            <li><strong>Meta Ads (Facebook e Instagram):</strong> Para campañas en redes sociales</li>
+            <li><strong>WhatsApp/Meta:</strong> Para integración de mensajería y seguimiento de leads</li>
+            <li><strong>Proveedores de IA:</strong> Para procesamiento de lenguaje y calificación automática</li>
+          </ul>
+          <p class="text-gray-700 mt-3">
+            El uso de estas integraciones está sujeto a los términos de servicio de cada plataforma.
+            No somos responsables por cambios, restricciones o interrupciones en servicios de terceros
+            que puedan afectar las funcionalidades de Lelemon Studio.
+          </p>
+        </section>
+
+        <!-- 11. Terminación -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">11. Terminación</h2>
+          <p class="text-gray-700 mb-3">
+            Podemos suspender o terminar tu acceso al servicio:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li>Por violación de estos términos de servicio</li>
+            <li>Por uso fraudulento o abusivo de la plataforma</li>
+            <li>Por falta de pago tras el periodo de gracia establecido</li>
+            <li>A tu solicitud expresa de cancelación</li>
+          </ul>
+          <p class="text-gray-700 mt-3">
+            Puedes cancelar tu cuenta en cualquier momento contactándonos directamente. Tras la
+            cancelación, tendrás acceso a exportar tus datos durante 30 días.
+          </p>
+        </section>
+
+        <!-- 12. Modificaciones -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">12. Modificaciones</h2>
+          <p class="text-gray-700">
+            Nos reservamos el derecho de modificar estos términos en cualquier momento.
+            Te notificaremos de cambios significativos por email o mediante un aviso en
+            la plataforma. El uso continuado del servicio después de los cambios constituye
+            tu aceptación de los nuevos términos.
+          </p>
+        </section>
+
+        <!-- 13. Ley Aplicable -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">13. Ley Aplicable</h2>
+          <p class="text-gray-700">
+            Estos términos se rigen por las leyes de la República de Chile. Cualquier
+            disputa será sometida a la jurisdicción de los tribunales ordinarios de
+            Santiago de Chile, renunciando a cualquier otro fuero que pudiera corresponder.
+          </p>
+        </section>
+
+        <!-- 14. Contacto -->
+        <section>
+          <h2 class="text-xl font-semibold text-gray-900 mb-3">14. Contacto</h2>
+          <p class="text-gray-700 mb-3">
+            Para preguntas sobre estos términos, contáctanos:
+          </p>
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="text-gray-700 mb-2">
+              <strong>Email:</strong>{' '}
+              <a href="mailto:info@lelemon.dev" class="text-blue-600 underline">info@lelemon.dev</a>
+            </p>
+            <p class="text-gray-700">
+              <strong>WhatsApp:</strong>{' '}
+              <a href="https://wa.me/56977066965" class="text-blue-600 underline">+56 9 7706 6965</a>
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Back link -->
+      <div class="mt-8 text-center">
+        <a href="/" class="text-blue-600 hover:text-blue-700 underline text-sm">
+          &larr; Volver al inicio
+        </a>
+      </div>
     </div>
   </main>
-
-  <footer class="py-8 border-t border-dark/5">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-      <p class="text-xs text-dark/40">&copy; 2026 Lelemon Studio. Todos los derechos reservados.</p>
-    </div>
-  </footer>
 </Layout>

@@ -5,15 +5,18 @@ export default {
     extend: {
       colors: {
         lemon: {
-          300: '#FACC15',
-          400: '#EAB308',
-          500: '#CA8A04',
+          50: '#FEFCE8',
+          100: '#FEF9C3',
+          200: '#FEF08A',
+          300: '#FDE047',
+          400: '#FACC15',
+          500: '#EAB308',
+          600: '#CA8A04',
+          700: '#A16207',
         },
-        surface: '#FAFDF7',
-        dark: '#18181B',
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        lime: {
+          500: '#84CC16',
+        },
       },
     },
   },
