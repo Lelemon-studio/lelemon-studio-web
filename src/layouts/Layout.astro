@@ -2,9 +2,19 @@
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
 }
 
-const { title, description = "Te armamos una web profesional, conectamos un asistente inteligente en WhatsApp y traemos clientes con campañas. Un paquete. Un precio. Listo." } = Astro.props;
+const {
+  title,
+  description = "Te armamos una web profesional, conectamos un asistente inteligente en WhatsApp y traemos clientes con campañas. Un paquete. Un precio. Listo.",
+  ogImage = "/og.png",
+  canonicalUrl = "https://lelemon.cl",
+} = Astro.props;
+
+const siteName = "Lelemon";
+const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 ---
 
 <!doctype html>
@@ -12,12 +22,40 @@ const { title, description = "Te armamos una web profesional, conectamos un asis
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Lelemon" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${canonicalUrl}${ogImage}`} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="es_CL" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${canonicalUrl}${ogImage}`} />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#0a0a0a" />
   </head>
   <body class="bg-gray-50 text-gray-900 font-sans antialiased">
     <slot />

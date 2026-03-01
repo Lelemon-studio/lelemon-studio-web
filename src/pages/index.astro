@@ -57,7 +57,30 @@ const founder = {
 const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
 ---
 
-<Layout title="Lelemon | Web + CRM inteligente + Marketing para tu negocio">
+<Layout title="Web + CRM inteligente + Marketing para tu negocio">
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Lelemon",
+    "description": "Agencia digital que arma web profesional, CRM con asistente inteligente en WhatsApp y campañas de marketing. Un paquete, un precio, listo.",
+    "url": "https://lelemon.cl",
+    "logo": "https://lelemon.cl/logo.svg",
+    "email": "info@lelemon.dev",
+    "telephone": "+56977066965",
+    "address": { "@type": "PostalAddress", "addressCountry": "CL" },
+    "priceRange": "Desde $249 USD/mes",
+    "sameAs": ["https://www.linkedin.com/in/kmilo93sd"],
+    "offers": {
+      "@type": "Offer",
+      "name": "Paquete Lelemon",
+      "description": "Web + CRM + Asistente WhatsApp + Campañas de marketing",
+      "price": "249",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2026-12-31"
+    }
+  })} />
+
   <!-- Grain texture overlay -->
   <div class="grain-overlay" aria-hidden="true"></div>
 
