@@ -99,8 +99,8 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
     <Footer />
   </main>
 
-  <!-- Custom cursor - mix-blend-mode difference (Awwwards trend) -->
-  <div id="custom-cursor" class="fixed w-5 h-5 rounded-full bg-yellow-400 mix-blend-difference pointer-events-none z-[9999] hidden lg:block" aria-hidden="true"></div>
+  <!-- Custom cursor lemon -->
+  <div id="custom-cursor" class="fixed pointer-events-none z-[9999] hidden lg:block text-2xl leading-none" aria-hidden="true">🍋</div>
 </Layout>
 
 <style is:global>
@@ -171,13 +171,12 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
 
   /* ============ CUSTOM CURSOR ============ */
   #custom-cursor {
-    transition: width 0.3s cubic-bezier(0.23,1,0.32,1), height 0.3s cubic-bezier(0.23,1,0.32,1);
-    transform: translate(-50%, -50%);
+    transition: transform 0.3s cubic-bezier(0.23,1,0.32,1);
+    transform: translate(-50%, 50%);
     will-change: left, top;
   }
   #custom-cursor.cursor-hover {
-    width: 3rem;
-    height: 3rem;
+    transform: translate(-50%, 50%) scale(1.6);
   }
 
   /* ============ SMOOTH SCROLL ============ */
