@@ -89,11 +89,11 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
   <main>
     <Hero whatsappUrl={whatsappUrl} rubros={rubros} />
     <SectionProblem />
-    <SectionSolution />
-    <SectionTransformation beforeAfter={beforeAfter} />
+    <SectionSolution whatsappUrl={whatsappUrl} />
+    <SectionTransformation beforeAfter={beforeAfter} whatsappUrl={whatsappUrl} />
     <BannerBreak whatsappUrl={whatsappUrl} />
     <SectionPricing whatsappUrl={whatsappUrl} included={included} />
-    <SectionFaq faqs={faqs} />
+    <SectionFaq faqs={faqs} whatsappUrl={whatsappUrl} />
     <SectionTeam founder={founder} />
     <SectionCta whatsappUrl={whatsappUrl} />
     <Footer />
