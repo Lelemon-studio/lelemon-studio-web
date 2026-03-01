@@ -1,0 +1,52 @@
+---
+interface Props {
+  faqs: { question: string; answer: string }[];
+}
+const { faqs } = Astro.props;
+---
+
+<section class="relative bg-neutral-950 text-white py-20 lg:py-32 px-6 sm:px-10 overflow-hidden">
+  <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent"></div>
+  <!-- Diagonal accent -->
+  <div class="absolute top-0 right-[12%] w-px h-full bg-gradient-to-b from-yellow-400/15 via-transparent to-yellow-400/10 skew-x-[-15deg]"></div>
+
+  <div class="max-w-7xl mx-auto relative">
+    <div class="grid lg:grid-cols-12 gap-16">
+      <div class="lg:col-span-4">
+        <div class="sticky top-32">
+          <div class="flex items-center gap-3 mb-6 scroll-reveal">
+            <div class="w-8 h-px bg-yellow-400"></div>
+            <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">FAQ</span>
+          </div>
+          <h2 class="text-4xl sm:text-5xl font-black tracking-tight scroll-reveal" style="--d:50ms">
+            ¿Tienes<br/>dudas?
+          </h2>
+          <p class="text-neutral-500 mt-6 leading-relaxed scroll-reveal" style="--d:100ms">
+            Si no encuentras tu respuesta, escríbenos directo por WhatsApp.
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <div class="divide-y divide-neutral-800">
+          {faqs.map((item, i) => (
+            <details class="group scroll-reveal" style={`--d:${i * 50}ms`}>
+              <summary class="flex items-center justify-between py-6 cursor-pointer select-none">
+                <span class="font-bold text-white pr-8 text-lg group-hover:text-yellow-400 transition-colors">{item.question}</span>
+                <div class="w-8 h-8 border border-neutral-700 flex items-center justify-center shrink-0 group-open:bg-yellow-400 group-open:border-yellow-400 transition-all">
+                  <svg class="w-4 h-4 text-neutral-500 group-open:text-neutral-950 transition-all duration-200 group-open:rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                </div>
+              </summary>
+              <div class="pb-6 text-neutral-400 leading-relaxed pr-4 sm:pr-16">{item.answer}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  details summary::-webkit-details-marker { display: none; }
+  details summary { list-style: none; }
+</style>

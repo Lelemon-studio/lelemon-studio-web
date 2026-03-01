@@ -1,0 +1,123 @@
+---
+interface Props {
+  beforeAfter: { before: string; after: string }[];
+}
+const { beforeAfter } = Astro.props;
+---
+
+<section class="relative bg-white py-20 lg:py-32 px-6 sm:px-10 overflow-hidden">
+  <div class="absolute top-[10%] -left-[5%] text-[14vw] font-black text-neutral-950/[0.02] leading-none select-none pointer-events-none tracking-tighter whitespace-nowrap" aria-hidden="true">
+    ANTES / DESPUÉS
+  </div>
+
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-3 mb-6 scroll-reveal">
+      <div class="w-8 h-px bg-neutral-300"></div>
+      <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">La transformación</span>
+    </div>
+    <h2 class="text-4xl sm:text-5xl font-black tracking-tight text-neutral-950 mb-16 scroll-reveal" style="--d:50ms">
+      Antes vs Después
+    </h2>
+
+    <div class="grid lg:grid-cols-2 gap-0 mb-16 lg:mb-24 scroll-reveal" style="--d:100ms">
+      <div class="bg-neutral-200 p-6 sm:p-10 lg:p-14 relative">
+        <div class="absolute top-6 right-8 text-sm font-black uppercase tracking-[0.2em] text-neutral-950/40">Hoy</div>
+        <div class="space-y-6 mt-8">
+          {beforeAfter.map((row) => (
+            <div class="flex items-start gap-4">
+              <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              <span class="text-neutral-700 text-base leading-relaxed">{row.before}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="bg-neutral-950 text-white p-6 sm:p-10 lg:p-14 relative">
+        <div class="absolute top-0 left-0 w-full h-1 bg-yellow-400"></div>
+        <div class="absolute top-6 right-8 text-sm font-black uppercase tracking-[0.2em] text-yellow-400">Con Lelemon</div>
+        <div class="space-y-6 mt-8">
+          {beforeAfter.map((row) => (
+            <div class="flex items-start gap-4">
+              <svg class="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              <span class="text-neutral-200 text-base leading-relaxed">{row.after}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Sección full-width dark: demo en vivo -->
+<section class="relative bg-neutral-950 text-white py-20 lg:py-32 px-6 sm:px-10 overflow-hidden">
+  <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent"></div>
+
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-3 mb-6 scroll-reveal">
+      <div class="w-8 h-px bg-green-500"></div>
+      <span class="text-xs font-bold uppercase tracking-[0.3em] text-green-400">Así se ve en la vida real</span>
+    </div>
+    <p class="text-2xl sm:text-3xl font-black tracking-tight mb-4 scroll-reveal" style="--d:50ms">
+      Son las 10 de la noche. Te llega un cliente.
+    </p>
+    <p class="text-neutral-500 text-lg mb-16 max-w-2xl scroll-reveal" style="--d:100ms">
+      El asistente responde, califica y agenda. Tú ves el resumen en la mañana.
+    </p>
+
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+      <!-- Chat WhatsApp -->
+      <div class="scroll-reveal" style="--d:150ms">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-neutral-500 mb-4">WhatsApp de tu negocio</p>
+        <div class="overflow-hidden border border-neutral-800 rounded-lg">
+          <div class="bg-[#075E54] px-5 py-3 flex items-center gap-3">
+            <div class="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center">
+              <svg class="w-4 h-4 text-white/80" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div>
+              <p class="text-white text-sm font-medium">Estudio Jurídico Valdés</p>
+              <p class="text-white/50 text-xs">en línea</p>
+            </div>
+          </div>
+          <div class="bg-[#ECE5DD] p-4 space-y-2.5" id="chat-demo">
+            <div class="chat-msg flex justify-end"><div class="bg-[#DCF8C6] rounded-xl rounded-tr-sm px-3.5 py-2 max-w-[80%]"><p class="text-[13px] text-neutral-800">Hola, me despidieron hace una semana, ¿me pueden ayudar?</p><p class="text-[10px] text-neutral-400 text-right mt-1">22:03</p></div></div>
+            <div class="chat-msg flex justify-start"><div class="bg-white rounded-xl rounded-tl-sm px-3.5 py-2 max-w-[80%]"><p class="text-[13px] text-neutral-800">Hola, lamento tu situación. ¿Firmaste finiquito?</p><p class="text-[10px] text-neutral-400 text-right mt-1">22:03 <span class="text-yellow-500 font-bold">IA</span></p></div></div>
+            <div class="chat-msg flex justify-end"><div class="bg-[#DCF8C6] rounded-xl rounded-tr-sm px-3.5 py-2 max-w-[80%]"><p class="text-[13px] text-neutral-800">No, todavía no</p><p class="text-[10px] text-neutral-400 text-right mt-1">22:04</p></div></div>
+            <div class="chat-msg flex justify-start"><div class="bg-white rounded-xl rounded-tl-sm px-3.5 py-2 max-w-[80%]"><p class="text-[13px] text-neutral-800">Bien, tienes plazo legal. ¿Te sirve una consulta mañana a las 10 o a las 4?</p><p class="text-[10px] text-neutral-400 text-right mt-1">22:04 <span class="text-yellow-500 font-bold">IA</span></p></div></div>
+            <div class="chat-msg flex justify-end"><div class="bg-[#DCF8C6] rounded-xl rounded-tr-sm px-3.5 py-2 max-w-[80%]"><p class="text-[13px] text-neutral-800">Mañana a las 10</p><p class="text-[10px] text-neutral-400 text-right mt-1">22:04</p></div></div>
+            <div class="chat-msg flex justify-start"><div class="bg-white rounded-xl rounded-tl-sm px-3.5 py-2 max-w-[80%]"><p class="text-[13px] text-neutral-800">Listo, quedas agendado. Te mando recordatorio.</p><p class="text-[10px] text-neutral-400 text-right mt-1">22:04 <span class="text-yellow-500 font-bold">IA</span></p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lead card -->
+      <div class="scroll-reveal" style="--d:250ms">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-neutral-500 mb-4">Tu panel a la mañana siguiente</p>
+        <div class="bg-neutral-900 border border-neutral-800 p-8 relative rounded-lg">
+          <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400 rounded-l-lg"></div>
+          <div class="flex items-center gap-2 mb-5">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span class="text-xs font-bold text-red-400 uppercase tracking-widest">Prioridad alta</span>
+          </div>
+          <p class="text-2xl font-bold mb-2">María González</p>
+          <p class="text-neutral-400 text-sm leading-relaxed">Despido injustificado &middot; No firmó finiquito &middot; Consulta mañana 10am</p>
+          <div class="mt-6 pt-5 border-t border-neutral-800">
+            <p class="text-xs text-neutral-500">Lead calificado. Reunión agendada. Tú estabas durmiendo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .chat-msg {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+  .chat-msg.chat-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

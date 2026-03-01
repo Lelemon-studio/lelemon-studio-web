@@ -1,0 +1,74 @@
+---
+---
+
+<section id="como-funciona" class="relative bg-neutral-950 text-white py-20 lg:py-32 overflow-hidden">
+  <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
+  <div class="absolute bottom-0 left-[20%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_bottom,_rgba(250,204,21,0.08)_0%,_transparent_70%)]"></div>
+
+  <div class="max-w-7xl mx-auto px-6 sm:px-10">
+    <div class="flex items-center gap-3 mb-6 scroll-reveal">
+      <div class="w-8 h-px bg-yellow-400"></div>
+      <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">La solución</span>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8 mb-20">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight scroll-reveal" style="--d:50ms">
+        Antes hacías<br/>todo tú.<br/>
+        <span class="text-stroke-yellow">Ahora no.</span>
+      </h2>
+      <div class="flex items-end scroll-reveal" style="--d:100ms">
+        <div class="space-y-4 text-neutral-500 text-lg leading-relaxed max-w-md">
+          <p><strong class="text-white">Antes:</strong> te llegaba un mensaje, dejabas lo que estabas haciendo, respondías, cotizabas, agendabas.</p>
+          <p><strong class="text-white">Ahora:</strong> te llega una notificación que dice quién es, qué necesita, y a qué hora es la reunión.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-0 scroll-reveal" style="--d:200ms">
+      <div class="spotlight-card group relative p-8 sm:p-10 lg:p-12 border border-neutral-800 transition-all duration-500 overflow-hidden" data-spotlight>
+        <div class="spotlight-glow"></div>
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-yellow-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+        <span class="text-7xl lg:text-8xl font-black text-neutral-800 group-hover:text-yellow-400/20 transition-colors duration-500 leading-none relative">01</span>
+        <h3 class="text-xl font-bold text-white mt-6 mb-4 relative">Una web rápida, para el celu y lista para Google</h3>
+        <p class="text-neutral-500 leading-relaxed text-sm relative">Profesional, optimizada para que te encuentren. Con botón de WhatsApp para que te escriban al toque.</p>
+      </div>
+      <div class="spotlight-card group relative p-8 sm:p-10 lg:p-12 border border-neutral-800 border-t-0 md:border-t md:border-l-0 transition-all duration-500 overflow-hidden" data-spotlight>
+        <div class="spotlight-glow"></div>
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-yellow-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+        <span class="text-7xl lg:text-8xl font-black text-neutral-800 group-hover:text-yellow-400/20 transition-colors duration-500 leading-none relative">02</span>
+        <h3 class="text-xl font-bold text-white mt-6 mb-4 relative">Asistente inteligente en WhatsApp</h3>
+        <p class="text-neutral-500 leading-relaxed text-sm relative">Número dedicado. Responde en 3 segundos, a cualquier hora. Califica leads y agenda reuniones.</p>
+      </div>
+      <div class="spotlight-card group relative p-8 sm:p-10 lg:p-12 border border-neutral-800 border-t-0 md:border-t md:border-l-0 transition-all duration-500 overflow-hidden" data-spotlight>
+        <div class="spotlight-glow"></div>
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-yellow-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+        <span class="text-7xl lg:text-8xl font-black text-neutral-800 group-hover:text-yellow-400/20 transition-colors duration-500 leading-none relative">03</span>
+        <h3 class="text-xl font-bold text-white mt-6 mb-4 relative">Campañas que traen gente</h3>
+        <p class="text-neutral-500 leading-relaxed text-sm relative">Meta Ads y Google Ads apuntando a quien busca lo que tú haces. Nosotros configuramos, optimizamos y gestionamos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Spotlight cursor-follow glow (Linear/Vercel style) */
+  .spotlight-card {
+    --mx: -100px;
+    --my: -100px;
+  }
+  .spotlight-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      500px circle at var(--mx) var(--my),
+      rgba(250, 204, 21, 0.07),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .spotlight-card:hover .spotlight-glow {
+    opacity: 1;
+  }
+</style>

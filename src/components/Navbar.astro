@@ -1,0 +1,48 @@
+---
+interface Props {
+  whatsappUrl: string;
+}
+const { whatsappUrl } = Astro.props;
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10">
+    <div class="flex justify-between items-center h-20">
+      <a href="/" class="flex items-center">
+        <img src="/logo-white.svg" alt="Lelemon" class="h-8 transition-all duration-300" id="navbar-logo" />
+      </a>
+      <a href={whatsappUrl} target="_blank" class="text-sm font-medium text-white/70 hover:text-yellow-400 transition-colors tracking-wide" id="navbar-cta">
+        Agendar llamada &rarr;
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navbar-scrolled {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .navbar-scrolled #navbar-cta {
+    color: #18181B;
+  }
+  .navbar-scrolled #navbar-cta:hover {
+    color: #CA8A04;
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  const navLogo = document.getElementById('navbar-logo') as HTMLImageElement;
+  const heroEl = document.getElementById('hero');
+  const heroH = heroEl?.offsetHeight || 600;
+
+  function updateNavbar() {
+    const past = window.scrollY > heroH - 100;
+    navbar?.classList.toggle('navbar-scrolled', past);
+    if (navLogo) navLogo.src = past ? '/logo.svg' : '/logo-white.svg';
+  }
+  window.addEventListener('scroll', updateNavbar, { passive: true });
+  updateNavbar();
+</script>
