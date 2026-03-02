@@ -11,7 +11,7 @@ const { whatsappUrl } = Astro.props;
       <a href="/" class="flex items-center">
         <img src="/logo-white.svg" alt="Lelemon" class="h-14 sm:h-16 transition-all duration-300" id="navbar-logo" />
       </a>
-      <a href={whatsappUrl} target="_blank" class="text-sm font-medium text-white/70 hover:text-yellow-400 transition-colors tracking-wide" id="navbar-cta">
+      <a href={whatsappUrl} target="_blank" data-wa-cta class="text-sm font-medium text-white/70 hover:text-yellow-400 transition-colors tracking-wide" id="navbar-cta">
         Agendar llamada &rarr;
       </a>
     </div>

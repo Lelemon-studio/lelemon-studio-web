@@ -8,6 +8,7 @@ import SectionTransformation from '../components/SectionTransformation.astro';
 import BannerBreak from '../components/BannerBreak.astro';
 import SectionPricing from '../components/SectionPricing.astro';
 import SectionFaq from '../components/SectionFaq.astro';
+import SectionForm from '../components/SectionForm.astro';
 import SectionTeam from '../components/SectionTeam.astro';
 import SectionCta from '../components/SectionCta.astro';
 import Footer from '../components/Footer.astro';
@@ -93,6 +94,7 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
     <SectionTransformation beforeAfter={beforeAfter} whatsappUrl={whatsappUrl} />
     <BannerBreak whatsappUrl={whatsappUrl} />
     <SectionPricing whatsappUrl={whatsappUrl} included={included} />
+    <SectionForm whatsappUrl={whatsappUrl} />
     <SectionFaq faqs={faqs} whatsappUrl={whatsappUrl} />
     <SectionTeam founder={founder} />
     <SectionCta whatsappUrl={whatsappUrl} />
@@ -264,4 +266,85 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
       el.style.setProperty('--my', `${e.clientY - rect.top}px`);
     });
   });
+
+  // ============ UTM params: read from URL and append to WhatsApp links ============
+  const params = new URLSearchParams(window.location.search);
+  const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+  const utmParts = utmKeys.map(k => params.get(k) ? `${k}=${params.get(k)}` : '').filter(Boolean);
+
+  if (utmParts.length > 0) {
+    const utmSuffix = encodeURIComponent(`\n[${utmParts.join('&')}]`);
+    document.querySelectorAll<HTMLAnchorElement>('[data-wa-cta]').forEach(a => {
+      const url = new URL(a.href);
+      const currentText = url.searchParams.get('text') || '';
+      url.searchParams.set('text', currentText + decodeURIComponent(utmSuffix));
+      a.href = url.toString();
+    });
+  }
+
+  // ============ WhatsApp click tracking: Meta Pixel + GA4 ============
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest('[data-wa-cta]');
+    if (!link) return;
+
+    const section = link.closest('section')?.id || link.closest('nav')?.tagName || 'unknown';
+
+    // Meta Pixel
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', { content_name: 'whatsapp_click', content_category: section });
+    }
+    // GA4
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: section });
+    }
+  });
+
+  // ============ Lead form submit ============
+  const leadForm = document.getElementById('lead-form') as HTMLFormElement | null;
+  const formFeedback = document.getElementById('form-feedback');
+
+  leadForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = leadForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    const data = new FormData(leadForm);
+    const name = data.get('name') as string;
+    const email = data.get('email') as string;
+    const phone = data.get('phone') as string;
+
+    // Basic validation
+    if (!name?.trim() || !email?.trim()) {
+      showFeedback('Por favor completa nombre y email.', false);
+      btn.disabled = false;
+      btn.textContent = 'Quiero mi llamada gratuita';
+      return;
+    }
+
+    // Fire tracking events
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', { content_name: 'form_submit' });
+    }
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'generate_lead', { event_category: 'form', event_label: 'lead_form' });
+    }
+
+    // Build WhatsApp message with lead info
+    const utmTag = utmParts.length > 0 ? `\n[${utmParts.join('&')}]` : '';
+    const msg = `Hola, soy ${name.trim()}. Quiero agendar una llamada.\nEmail: ${email.trim()}${phone ? `\nTel: ${phone.trim()}` : ''}${utmTag}`;
+    const waUrl = `https://wa.me/56977066965?text=${encodeURIComponent(msg)}`;
+
+    showFeedback('Redirigiendo a WhatsApp...', true);
+    setTimeout(() => window.open(waUrl, '_blank'), 400);
+
+    btn.disabled = false;
+    btn.textContent = 'Quiero mi llamada gratuita';
+  });
+
+  function showFeedback(msg: string, success: boolean) {
+    if (!formFeedback) return;
+    formFeedback.textContent = msg;
+    formFeedback.className = `text-sm text-center mt-2 ${success ? 'text-green-400' : 'text-red-400'}`;
+  }
 </script>
