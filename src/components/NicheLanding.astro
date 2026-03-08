@@ -1,0 +1,368 @@
+---
+interface ChatMessage {
+  sender: 'client' | 'ai';
+  text: string;
+  time: string;
+}
+
+interface Props {
+  niche: string;
+  nicheSlug: string;
+  heroTitle: string;
+  heroHighlight: string;
+  heroDescription: string;
+  painTitle: string;
+  painDescription: string;
+  painPoints: string[];
+  chatBusiness: string;
+  chatMessages: ChatMessage[];
+  chatResult: { priority: string; name: string; detail: string };
+  benefits: { title: string; description: string }[];
+  faqs: { question: string; answer: string }[];
+  whatsappUrl: string;
+  schemaType?: string;
+}
+
+const {
+  niche,
+  nicheSlug,
+  heroTitle,
+  heroHighlight,
+  heroDescription,
+  painTitle,
+  painDescription,
+  painPoints,
+  chatBusiness,
+  chatMessages,
+  chatResult,
+  benefits,
+  faqs,
+  whatsappUrl,
+  schemaType = "ProfessionalService",
+} = Astro.props;
+---
+
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10">
+    <div class="flex justify-between items-center h-20">
+      <a href="/" class="flex items-center">
+        <img src="/logo-white.svg" alt="Lelemon" class="h-14 sm:h-16 transition-all duration-300" id="navbar-logo" />
+      </a>
+      <a href={whatsappUrl} target="_blank" data-wa-cta class="text-sm font-medium text-white/70 hover:text-yellow-400 transition-colors tracking-wide" id="navbar-cta">
+        Agendar llamada &rarr;
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero -->
+  <section id="hero" class="relative min-h-[85vh] bg-neutral-950 text-white overflow-hidden flex items-center pt-24 pb-20 sm:pt-20 sm:pb-28">
+    <div class="absolute inset-0 grid-pattern opacity-[0.04]"></div>
+    <div class="absolute top-0 right-0 w-[60%] h-[70%] bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.12)_0%,_transparent_70%)]"></div>
+    <div class="absolute top-0 right-[20%] w-px h-full bg-gradient-to-b from-yellow-400/30 via-yellow-400/10 to-transparent skew-x-[-20deg]"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 sm:px-10 w-full">
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-8 hero-fade" style="--i:0">
+          <div class="w-12 h-px bg-yellow-400"></div>
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-yellow-400/80">Lelemon para {niche}</span>
+        </div>
+
+        <h1 class="hero-fade" style="--i:1">
+          <span class="block text-[clamp(2rem,6vw,4.5rem)] font-black leading-[0.95] tracking-tight">
+            {heroTitle}
+          </span>
+          <span class="block text-[clamp(2rem,6vw,4.5rem)] font-black leading-[0.95] tracking-tight mt-2">
+            <span class="text-yellow-400">{heroHighlight}</span>
+          </span>
+        </h1>
+
+        <p class="mt-10 text-lg sm:text-xl text-neutral-500 max-w-xl leading-relaxed hero-fade" style="--i:2">
+          {heroDescription}
+        </p>
+
+        <div class="mt-12 flex flex-col sm:flex-row gap-5 hero-fade" style="--i:3">
+          <a href={whatsappUrl} target="_blank" data-wa-cta class="group inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Agendar llamada gratuita
+          </a>
+          <a href="/" class="inline-flex items-center gap-3 text-neutral-500 hover:text-yellow-400 font-medium px-8 py-4 border border-neutral-800 hover:border-yellow-400/30 transition-all text-sm uppercase tracking-wider">
+            Ver todos los servicios
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Section -->
+  <section id="problema" class="relative bg-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div class="flex items-center gap-3 mb-6 scroll-reveal">
+            <div class="w-8 h-px bg-neutral-300"></div>
+            <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">El problema</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[0.95] tracking-tight scroll-reveal" style="--d:50ms">
+            {painTitle}
+          </h2>
+          <p class="mt-6 text-lg text-neutral-600 leading-relaxed scroll-reveal" style="--d:100ms">
+            {painDescription}
+          </p>
+        </div>
+        <div class="scroll-reveal" style="--d:150ms">
+          <ul class="space-y-4">
+            {painPoints.map((point, i) => (
+              <li class="flex items-start gap-4 p-5 bg-neutral-50 border border-neutral-100">
+                <span class="text-red-400 text-lg mt-0.5 shrink-0">✕</span>
+                <span class="text-neutral-700 leading-relaxed">{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution / What you get -->
+  <section id="solucion" class="relative bg-neutral-950 text-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto relative">
+      <div class="flex items-center gap-3 mb-6 scroll-reveal">
+        <div class="w-8 h-px bg-yellow-400"></div>
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">La solución</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-[0.95] tracking-tight mb-16 scroll-reveal" style="--d:50ms">
+        Lo que incluye<br/><span class="text-yellow-400">tu paquete.</span>
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-0 scroll-reveal" style="--d:150ms">
+        {benefits.map((b, i) => (
+          <div class="group relative p-8 sm:p-10 border border-neutral-800 transition-all duration-500 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-yellow-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            <span class="text-6xl font-black text-neutral-800 group-hover:text-yellow-400/20 transition-colors duration-500 leading-none">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="text-xl font-bold text-white mt-6 mb-4">{b.title}</h3>
+            <p class="text-neutral-500 leading-relaxed text-sm">{b.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat Demo -->
+  <section id="demo" class="relative bg-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div class="flex items-center gap-3 mb-6 scroll-reveal">
+            <div class="w-8 h-px bg-neutral-300"></div>
+            <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Así se ve en la vida real</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-black text-neutral-950 leading-[0.95] tracking-tight scroll-reveal" style="--d:50ms">
+            Son las 10 de la noche.<br/>Te llega un cliente.
+          </h2>
+          <p class="mt-6 text-lg text-neutral-600 leading-relaxed scroll-reveal" style="--d:100ms">
+            El asistente responde, califica y agenda. Tú ves el resumen en la mañana.
+          </p>
+        </div>
+
+        <div class="scroll-reveal" style="--d:150ms" id="chat-demo">
+          <!-- Phone mockup -->
+          <div class="bg-neutral-100 rounded-3xl p-4 max-w-sm mx-auto">
+            <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+              <!-- Chat header -->
+              <div class="bg-[#075E54] text-white px-4 py-3 flex items-center gap-3">
+                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-xs font-bold">🏢</div>
+                <div>
+                  <p class="font-semibold text-sm">{chatBusiness}</p>
+                  <p class="text-[10px] text-white/70">en línea</p>
+                </div>
+              </div>
+              <!-- Messages -->
+              <div class="p-4 space-y-3 bg-[#ECE5DD] min-h-[280px]">
+                {chatMessages.map((msg) => (
+                  <div class={`chat-msg flex ${msg.sender === 'client' ? 'justify-end' : 'justify-start'}`}>
+                    <div class={`max-w-[80%] px-3 py-2 rounded-lg text-sm ${msg.sender === 'client' ? 'bg-[#DCF8C6]' : 'bg-white'}`}>
+                      <p class="text-neutral-800">{msg.text}</p>
+                      <div class="flex items-center justify-end gap-1 mt-1">
+                        <span class="text-[10px] text-neutral-500">{msg.time}</span>
+                        {msg.sender === 'ai' && <span class="text-[9px] text-blue-500 font-bold">IA</span>}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <!-- Result card -->
+          <div class="mt-6 max-w-sm mx-auto">
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 mb-3">Tu panel a la mañana siguiente</p>
+            <div class="bg-white border border-neutral-200 p-5 rounded-lg">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="w-2 h-2 bg-red-400 rounded-full"></span>
+                <span class="text-xs font-bold text-red-500 uppercase">{chatResult.priority}</span>
+              </div>
+              <p class="font-bold text-neutral-950">{chatResult.name}</p>
+              <p class="text-sm text-neutral-500 mt-1">{chatResult.detail}</p>
+              <p class="text-xs text-neutral-400 mt-3 italic">Lead calificado. Reunión agendada. Tú estabas durmiendo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing CTA -->
+  <section id="pricing" class="relative bg-yellow-400 py-16 px-6 sm:px-10 overflow-hidden">
+    <div class="absolute inset-0 diagonal-lines-dark opacity-[0.06]"></div>
+    <div class="max-w-7xl mx-auto relative">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div>
+          <p class="text-3xl sm:text-4xl font-black text-neutral-950 leading-tight">
+            Desde $249 USD/mes. Primer mes gratis.
+          </p>
+          <p class="text-neutral-800/70 mt-2">Sin contrato. Sin permanencia. Cancelas cuando quieras.</p>
+        </div>
+        <a href={whatsappUrl} target="_blank" data-wa-cta class="shrink-0 inline-flex items-center gap-3 bg-neutral-950 hover:bg-neutral-800 text-white font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Agendar llamada
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="relative bg-neutral-950 text-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
+    <div class="max-w-4xl mx-auto relative">
+      <div class="flex items-center gap-3 mb-6 scroll-reveal">
+        <div class="w-8 h-px bg-yellow-400"></div>
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">FAQ</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-black tracking-tight mb-12 scroll-reveal" style="--d:50ms">
+        Preguntas frecuentes
+      </h2>
+      <div class="divide-y divide-neutral-800">
+        {faqs.map((item, i) => (
+          <details class="group scroll-reveal" style={`--d:${i * 50}ms`}>
+            <summary class="flex items-center justify-between py-6 cursor-pointer select-none">
+              <span class="font-bold text-white pr-8 text-lg group-hover:text-yellow-400 transition-colors">{item.question}</span>
+              <div class="w-8 h-8 border border-neutral-700 flex items-center justify-center shrink-0 group-open:bg-yellow-400 group-open:border-yellow-400 transition-all">
+                <svg class="w-4 h-4 text-neutral-500 group-open:text-neutral-950 transition-all duration-200 group-open:rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              </div>
+            </summary>
+            <div class="pb-6 text-neutral-400 leading-relaxed pr-4 sm:pr-16">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section id="cta-final" class="relative bg-neutral-950 text-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden border-t border-neutral-800">
+    <div class="relative max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-5xl font-black leading-[0.95] tracking-tight scroll-reveal">
+        ¿Empezamos?
+      </h2>
+      <p class="mt-6 text-lg text-neutral-500 max-w-xl mx-auto leading-relaxed scroll-reveal" style="--d:50ms">
+        30 minutos. Sin compromiso. Te mostramos cómo funciona para tu negocio.
+      </p>
+      <div class="mt-10 scroll-reveal" style="--d:100ms">
+        <a href={whatsappUrl} target="_blank" data-wa-cta class="group inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-10 py-5 transition-all text-sm uppercase tracking-wider">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Agendar llamada gratuita
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer id="footer" class="bg-neutral-950 border-t border-neutral-900 py-12 px-6 sm:px-10">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+    <img src="/logo-white.svg" alt="Lelemon" class="h-14 sm:h-16" />
+    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10 text-sm text-neutral-600">
+      <a href="https://lelemon.cl" class="hover:text-neutral-400 transition-colors">www.lelemon.cl</a>
+      <a href="mailto:contacto@lelemon.cl" class="hover:text-neutral-400 transition-colors">contacto@lelemon.cl</a>
+      <a href="https://wa.me/56977066965" data-wa-cta class="hover:text-neutral-400 transition-colors">+56 9 7706 6965</a>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto mt-10 pt-8 border-t border-neutral-900 flex flex-col md:flex-row items-center justify-between gap-4">
+    <p class="text-xs text-neutral-700">&copy; 2026 Lelemon. Todos los derechos reservados.</p>
+    <div class="flex items-center gap-8 text-xs text-neutral-700">
+      <a href="/privacy" class="hover:text-neutral-400 transition-colors">Privacidad</a>
+      <a href="/terms" class="hover:text-neutral-400 transition-colors">Términos</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .hero-fade {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: hero-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--i) * 150ms + 300ms);
+  }
+  @keyframes hero-enter {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .chat-msg {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+  .chat-msg.chat-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary { list-style: none; }
+</style>
+
+<script>
+  // Scroll reveal
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.scroll-reveal').forEach(el => revealObs.observe(el));
+
+  // Chat animation
+  const chatDemo = document.getElementById('chat-demo');
+  const chatMsgs = chatDemo?.querySelectorAll('.chat-msg') || [];
+  const chatObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      chatMsgs.forEach((msg, i) => { setTimeout(() => msg.classList.add('chat-visible'), i * 500); });
+      chatObs.unobserve(e.target);
+    });
+  }, { threshold: 0.3 });
+  if (chatDemo) chatObs.observe(chatDemo);
+
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  const navLogo = document.getElementById('navbar-logo') as HTMLImageElement;
+  const hero = document.getElementById('hero');
+  const heroH = hero?.offsetHeight || 600;
+  function onScroll() {
+    const scrolled = window.scrollY > heroH - 100;
+    navbar?.classList.toggle('navbar-scrolled', scrolled);
+    if (navLogo) navLogo.src = scrolled ? '/logo.svg' : '/logo-white.svg';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // WhatsApp tracking
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest('[data-wa-cta]');
+    if (!link) return;
+    const section = link.closest('section')?.id || link.closest('nav')?.tagName || 'unknown';
+    if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: 'whatsapp_click', content_category: section });
+    if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: section });
+  });
+</script>

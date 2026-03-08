@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NicheLanding from '../components/NicheLanding.astro';
+
+const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20soy%20contador%20y%20quiero%20saber%20de%20Lelemon";
+
+const chatMessages = [
+  { sender: 'client' as const, text: 'Hola tengo una EIRL y necesito hacer la declaración de renta, cuanto cobran?', time: '21:30' },
+  { sender: 'ai' as const, text: 'Hola! Para cotizarte bien: ¿facturas con boleta o factura? ¿Más o menos cuánto facturas al mes?', time: '21:30' },
+  { sender: 'client' as const, text: 'Factura, como 12-15 millones mensuales', time: '21:31' },
+  { sender: 'ai' as const, text: 'Perfecto. Para tu caso el servicio incluye declaración de renta + contabilidad mensual. ¿Te acomoda una reunión mañana a las 11 o a las 17 para ver los detalles?', time: '21:31' },
+  { sender: 'client' as const, text: 'Mañana a las 11', time: '21:32' },
+  { sender: 'ai' as const, text: 'Listo, agendado con el contador para mañana a las 11. Trae tu clave del SII y los últimos 3 meses de facturas. Te mando recordatorio en la mañana', time: '21:32' },
+];
+
+const painPoints = [
+  "En abril te caen 50 clientes de renta al mismo tiempo y no das abasto. De mayo a diciembre, silencio",
+  "Clientes te escriben a las 11pm preguntando por el F29 y tú contestas mañana — si te acuerdas",
+  "Alguien busca 'contador tributario Santiago' en Google y no apareces. El que sí aparece se lleva al cliente",
+  "Gastas horas respondiendo siempre lo mismo: precios, qué documentos traer, plazos del SII",
+  "Tu cartera crece solo por referidos. Si dejan de llegar, no tienes cómo conseguir clientes nuevos",
+];
+
+const benefits = [
+  {
+    title: "Una web que trabaja para ti todo el año, no solo en abril",
+    description: "Cuando alguien googlea 'contador en Santiago' o 'cuánto cuesta la declaración de renta', apareces tú. Con tus servicios claros, precios y un WhatsApp que funciona a cualquier hora.",
+  },
+  {
+    title: "Un asistente que filtra, cotiza y agenda sin que muevas un dedo",
+    description: "¿EIRL o SpA? ¿Boleta o factura? ¿Cuánto factura? El asistente hace las preguntas correctas, te clasifica al cliente y agenda la reunión. Tú llegas preparado con todo el contexto.",
+  },
+  {
+    title: "Campañas que traen clientes todo el año — no solo en operación renta",
+    description: "Google Ads para quienes buscan contador + Meta Ads para empresas que necesitan contabilidad. Flujo constante, no solo el caos de abril. Sabes exactamente cuánto cuesta cada cliente nuevo.",
+  },
+];
+
+const faqs = [
+  { question: "¿El asistente puede responder dudas tributarias?", answer: "No. Recoge información, identifica qué servicio necesita el cliente y agenda la reunión. Nunca da asesoría tributaria ni interpreta normativa del SII. Siempre deriva al profesional." },
+  { question: "¿Sirve para oficinas con varios contadores?", answer: "Sí. El asistente puede derivar por tipo de servicio — renta, IVA, constitución de empresa, auditoría — y agendar con el profesional correcto." },
+  { question: "¿Me sirve solo para la operación renta?", answer: "Todo el año. La web posiciona tus servicios siempre. Las campañas se pueden ajustar por temporada: en marzo-abril escalamos automáticamente." },
+  { question: "¿Cuánto se demora en estar listo?", answer: "El asistente en 3-5 días. La web en 1-2 semanas. Las campañas arrancan cuando la web esté lista." },
+  { question: "¿Cuánto sale?", answer: "Desde $249 USD/mes + $149 de setup una vez. Primer mes gratis. Sin contrato, cancelas cuando quieras. Publicidad se paga directo a Google o Meta." },
+];
+---
+
+<Layout
+  title="Deja de depender de abril para tener clientes | Lelemon para Contadores"
+  description="Asistente IA que filtra consultas contables por WhatsApp 24/7, web que te posiciona en Google y campañas que traen clientes todo el año. Para contadores en Chile. Primer mes gratis."
+  canonicalUrl="https://lelemon.cl/para-contadores/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Lelemon para Contadores",
+    "description": "Agencia digital para estudios contables y contadores en Chile. Web profesional, asistente inteligente en WhatsApp y campañas que traen clientes todo el año.",
+    "provider": {
+      "@type": "ProfessionalService",
+      "name": "Lelemon",
+      "url": "https://lelemon.cl"
+    },
+    "areaServed": { "@type": "Country", "name": "Chile" },
+    "audience": { "@type": "Audience", "audienceType": "Contadores y estudios contables en Chile" }
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+    }))
+  })} />
+
+  <NicheLanding
+    niche="Contadores"
+    nicheSlug="contadores"
+    heroTitle="Tu negocio no puede depender"
+    heroHighlight="solo de abril."
+    heroDescription="En operación renta no das abasto. El resto del año esperas que te recomienden. Eso no es un negocio, es una ruleta. Te armamos un flujo constante de clientes todo el año."
+    painTitle="En abril es un caos. El resto del año, silencio."
+    painDescription="Cada abril trabajas 14 horas al día y rechazas clientes. De mayo a marzo rezas para que alguien te recomiende. No tiene sentido."
+    painPoints={painPoints}
+    chatBusiness="Estudio Contable Rojas & Asoc."
+    chatMessages={chatMessages}
+    chatResult={{ priority: "Cliente potencial", name: "Por confirmar", detail: "EIRL · Factura $12-15M/mes · Renta + contabilidad · Reunión mañana 11am" }}
+    benefits={benefits}
+    faqs={faqs}
+    whatsappUrl={whatsappUrl}
+  />
+</Layout>

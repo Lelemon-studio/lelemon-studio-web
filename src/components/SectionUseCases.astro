@@ -1,0 +1,81 @@
+---
+interface Props {
+  whatsappUrl: string;
+}
+const { whatsappUrl } = Astro.props;
+
+const cases = [
+  {
+    slug: "dentistas",
+    label: "Dentistas",
+    headline: "Cada llamada que no contestas es plata que se fue con otro.",
+    detail: "Asistente que agenda pacientes mientras atiendes",
+    span: "lg:col-span-7",
+  },
+  {
+    slug: "abogados",
+    label: "Abogados",
+    headline: "El que responde primero se queda con el caso.",
+    detail: "Califica casos y agenda consultas 24/7",
+    span: "lg:col-span-5",
+  },
+  {
+    slug: "contadores",
+    label: "Contadores",
+    headline: "Tu negocio no puede depender solo de abril.",
+    detail: "Flujo de clientes constante todo el año",
+    span: "lg:col-span-5",
+  },
+  {
+    slug: "clinicas",
+    label: "Clínicas",
+    headline: "5 especialistas. La mitad con huecos en la agenda.",
+    detail: "Llena agendas por especialidad de forma inteligente",
+    span: "lg:col-span-7",
+  },
+];
+---
+
+<section id="casos-de-uso" class="relative bg-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-3 mb-6 scroll-reveal">
+      <div class="w-8 h-px bg-neutral-300"></div>
+      <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Casos de uso</span>
+    </div>
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 tracking-tight mb-4 scroll-reveal" style="--d:50ms">
+      ¿En qué rubro estás?
+    </h2>
+    <p class="text-lg text-neutral-500 mb-12 max-w-xl scroll-reveal" style="--d:100ms">
+      Mismo paquete. Personalizado para tu negocio.
+    </p>
+
+    <div class="grid lg:grid-cols-12 gap-4 scroll-reveal" style="--d:150ms">
+      {cases.map((c) => (
+        <a
+          href={`/para-${c.slug}`}
+          class:list={[
+            "group relative overflow-hidden bg-neutral-950 p-8 sm:p-10 transition-all duration-500 hover:scale-[1.02]",
+            c.span === "lg:col-span-7" ? "lg:col-span-7" : "lg:col-span-5",
+          ]}
+        >
+          <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-yellow-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(250,204,21,0.08)_0%,_transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+          <div class="relative">
+            <span class="inline-block text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80 mb-4 border border-yellow-400/20 bg-yellow-400/5 px-3 py-1">
+              {c.label}
+            </span>
+            <h3 class="text-xl sm:text-2xl font-black text-white leading-tight mb-3 group-hover:text-yellow-400 transition-colors duration-300">
+              {c.headline}
+            </h3>
+            <p class="text-sm text-neutral-500 mb-6">{c.detail}</p>
+            <span class="inline-flex items-center gap-2 text-sm font-bold text-neutral-500 group-hover:text-yellow-400 transition-colors uppercase tracking-wider">
+              Ver caso de uso
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

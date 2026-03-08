@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NicheLanding from '../components/NicheLanding.astro';
+
+const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20tengo%20una%20consulta%20dental%20y%20quiero%20saber%20de%20Lelemon";
+
+const chatMessages = [
+  { sender: 'client' as const, text: 'Hola se me partió una muela y me duele caleta, atienden mañana?', time: '23:14' },
+  { sender: 'ai' as const, text: 'Hola! Sí, tenemos hora mañana 9:30 y 12:00. Como es urgencia te reservamos prioridad. ¿Cuál te sirve?', time: '23:14' },
+  { sender: 'client' as const, text: '9:30 porfa', time: '23:15' },
+  { sender: 'ai' as const, text: '¿Es primera vez? Necesito tu nombre y RUT para agendar', time: '23:15' },
+  { sender: 'client' as const, text: 'Sí primera vez, Rodrigo Sepúlveda 17.234.567-8', time: '23:16' },
+  { sender: 'ai' as const, text: 'Listo Rodrigo, agendado mañana 9:30 como urgencia. Llega 10 min antes. Te mando la ubicación y un recordatorio en la mañana', time: '23:16' },
+];
+
+const painPoints = [
+  "Estás con las manos en la boca de un paciente y suena el teléfono — ese era un implante de $800.000 que se fue con otro",
+  "Tu secretaria atiende teléfono, cobra, agenda y responde WhatsApp al mismo tiempo. Se le pasan pacientes todos los días",
+  "Pusiste $200 lucas en Instagram. Tuviste 3.000 likes. ¿Cuántos pacientes nuevos? Ni idea",
+  "Alguien buscó 'dentista urgencia' a las 11pm. Tú viste el mensaje a las 8am. Ya fue a otro consultorio",
+  "Tu agenda tiene huecos porque la mitad no llega y nadie mandó recordatorio",
+];
+
+const benefits = [
+  {
+    title: "Una web que trae pacientes, no solo se ve bonita",
+    description: "Cuando alguien googlea 'dentista en Providencia' o 'cuánto cuesta un implante', apareces tú. Con tus tratamientos, fotos reales y un botón de WhatsApp que funciona a cualquier hora.",
+  },
+  {
+    title: "Un asistente que no se enferma, no pide vacaciones y responde a las 3am",
+    description: "Contesta consultas, agenda horas, manda recordatorios y filtra por urgencia. Llegas en la mañana y ya tienes la agenda armada con nombre, RUT y motivo de consulta.",
+  },
+  {
+    title: "Publicidad que llena la agenda, no el ego",
+    description: "Nada de 'alcance' ni 'impresiones'. Medimos cuántos pacientes nuevos llegaron, cuánto costó cada uno y qué tratamiento necesitan. Si no rinde, ajustamos. Si rinde, escalamos.",
+  },
+];
+
+const faqs = [
+  { question: "¿Los pacientes cachan que es un bot?", answer: "No. Habla natural, con la info de tu consulta: tratamientos, horarios, precios, dirección. Y si alguien necesita hablar contigo directo, te avisa y te pasa la conversación." },
+  { question: "¿Y si llega una urgencia de verdad?", answer: "El asistente detecta urgencias (dolor agudo, trauma, sangrado) y las marca prioridad alta. Te llega notificación al tiro para que decidas si atiendes fuera de horario." },
+  { question: "¿Puedo ver todo lo que responde?", answer: "Sí. Panel completo con cada conversación. Ves quién escribió, qué necesita, si agendó. Te puedes meter a cualquier chat y tomar el control." },
+  { question: "¿Cuánto se demora en estar listo?", answer: "El asistente se activa en 3-5 días. La web en 1-2 semanas. Las campañas arrancan apenas la web esté arriba." },
+  { question: "¿Cuánto sale?", answer: "Desde $249 USD/mes + $149 de setup una vez. Primer mes gratis. Sin contrato — si no te sirve, cancelas y listo. La plata de publicidad va directo a Google o Meta, tú decides cuánto." },
+];
+---
+
+<Layout
+  title="Deja de perder pacientes por no contestar | Lelemon para Dentistas"
+  description="Asistente IA en WhatsApp que agenda pacientes 24/7, web que sale en Google y campañas que llenan tu agenda. Para dentistas en Chile. Primer mes gratis."
+  canonicalUrl="https://lelemon.cl/para-dentistas/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Lelemon para Dentistas",
+    "description": "Agencia digital para consultorios dentales en Chile. Web profesional, asistente inteligente en WhatsApp y campañas que traen pacientes nuevos.",
+    "provider": {
+      "@type": "ProfessionalService",
+      "name": "Lelemon",
+      "url": "https://lelemon.cl"
+    },
+    "areaServed": { "@type": "Country", "name": "Chile" },
+    "audience": { "@type": "Audience", "audienceType": "Dentistas y consultorios dentales en Chile" }
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+    }))
+  })} />
+
+  <NicheLanding
+    niche="Dentistas"
+    nicheSlug="dentistas"
+    heroTitle="Cada llamada que no contestas"
+    heroHighlight="es plata que se fue con otro."
+    heroDescription="Mientras atiendes pacientes, un asistente contesta WhatsApp, agenda horas y manda recordatorios. Tú haces lo tuyo. Nosotros llenamos tu agenda."
+    painTitle="Estás quemando plata sin darte cuenta."
+    painDescription="Cada vez que suena el teléfono y no puedes contestar, alguien que iba a pagar $500.000 por un tratamiento se fue con el dentista de al lado. Y ni te enteraste."
+    painPoints={painPoints}
+    chatBusiness="Clínica Dental Sonríe"
+    chatMessages={chatMessages}
+    chatResult={{ priority: "Urgencia", name: "Rodrigo Sepúlveda", detail: "Muela fracturada · Primera visita · Mañana 9:30am" }}
+    benefits={benefits}
+    faqs={faqs}
+    whatsappUrl={whatsappUrl}
+  />
+</Layout>

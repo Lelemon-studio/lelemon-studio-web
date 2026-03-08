@@ -10,6 +10,7 @@ import SectionPricing from '../components/SectionPricing.astro';
 import SectionFaq from '../components/SectionFaq.astro';
 import SectionForm from '../components/SectionForm.astro';
 import SectionTeam from '../components/SectionTeam.astro';
+import SectionUseCases from '../components/SectionUseCases.astro';
 import SectionCta from '../components/SectionCta.astro';
 import Footer from '../components/Footer.astro';
 
@@ -45,6 +46,7 @@ const faqs = [
   { question: "¿Las campañas de publicidad están incluidas?", answer: "Nosotros configuramos, optimizamos y gestionamos las campañas. Los creativos (imágenes, videos) los pone el cliente. Si necesitas trabajo de agencia creativa, eso se cotiza por separado. El presupuesto de ads se paga directo a Meta o Google, y tú decides cuánto invertir." },
   { question: "¿Puedo cancelar cuando quiera?", answer: "Sí. Sin contrato, sin permanencia mínima, sin multas. Si un mes decides que no lo necesitas, cancelas y listo." },
   { question: "¿Y si no me sirve?", answer: "El primer mes es gratis. Si no ves resultados, no pagas. Sin contratos, sin multas, sin letra chica." },
+  { question: "¿Cuántos clientes nuevos voy a recibir?", answer: "Depende de tu rubro, tu zona y cuánto inviertas en publicidad. Lo que sí te garantizamos: vas a responder el 100% de las consultas, 24/7, en menos de 1 minuto. Eso solo ya cambia todo." },
 ];
 
 const founder = {
@@ -58,7 +60,7 @@ const founder = {
 const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
 ---
 
-<Layout title="Web + CRM + Marketing para tu negocio | Agencia Digital Chile">
+<Layout title="Lelemon — Deja de perder clientes | Web + CRM + Marketing en Chile">
   <!-- JSON-LD: ProfessionalService + LocalBusiness -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -68,7 +70,7 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
     "url": "https://lelemon.cl",
     "logo": "https://lelemon.cl/logo.svg",
     "image": "https://lelemon.cl/og.png",
-    "email": "info@lelemon.dev",
+    "email": "contacto@lelemon.cl",
     "telephone": "+56977066965",
     "address": {
       "@type": "PostalAddress",
@@ -129,6 +131,7 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
     <SectionProblem />
     <SectionSolution whatsappUrl={whatsappUrl} />
     <SectionTransformation beforeAfter={beforeAfter} whatsappUrl={whatsappUrl} />
+    <SectionUseCases whatsappUrl={whatsappUrl} />
     <BannerBreak whatsappUrl={whatsappUrl} />
     <SectionPricing whatsappUrl={whatsappUrl} included={included} />
     <SectionForm whatsappUrl={whatsappUrl} />
