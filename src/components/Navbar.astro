@@ -15,7 +15,7 @@ const links = [
 const isGlass = variant === 'glass';
 ---
 
-<nav class:list={["fixed left-0 right-0 z-50 transition-all duration-500", { "navbar-glass": isGlass }]} id="navbar" data-variant={variant} style="top: var(--banner-height, 0px)">
+<nav class:list={["fixed top-0 left-0 right-0 z-50 transition-all duration-500", { "navbar-glass": isGlass }]} id="navbar" data-variant={variant}>
   <div class="max-w-7xl mx-auto px-6 sm:px-10">
     <div class="flex justify-between items-center h-20">
       <a href="/" class="flex items-center">
@@ -105,14 +105,6 @@ const isGlass = variant === 'glass';
 <script>
   const navbar = document.getElementById('navbar');
   const variant = navbar?.dataset.variant;
-  const topBanner = document.getElementById('top-banner');
-
-  // Banner height management
-  function updateBannerOffset() {
-    const bannerH = topBanner && !topBanner.classList.contains('banner-hidden') ? topBanner.offsetHeight : 0;
-    document.documentElement.style.setProperty('--banner-height', bannerH + 'px');
-  }
-  updateBannerOffset();
 
   // Only do scroll-based transitions for dark variant
   if (variant === 'dark') {
@@ -124,16 +116,6 @@ const isGlass = variant === 'glass';
       const past = window.scrollY > heroH - 100;
       navbar?.classList.toggle('navbar-scrolled', past);
       if (navLogo) navLogo.src = past ? '/logo.svg' : '/logo-white.svg';
-
-      // Hide banner on scroll
-      if (topBanner) {
-        if (window.scrollY > 100) {
-          topBanner.classList.add('banner-hidden');
-        } else {
-          topBanner.classList.remove('banner-hidden');
-        }
-        updateBannerOffset();
-      }
     }
     window.addEventListener('scroll', updateNavbar, { passive: true });
     updateNavbar();
