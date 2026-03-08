@@ -1,48 +1,143 @@
 ---
 interface Props {
   whatsappUrl: string;
+  variant?: 'dark' | 'glass';
 }
-const { whatsappUrl } = Astro.props;
+const { whatsappUrl, variant = 'dark' } = Astro.props;
+
+const links = [
+  { label: "Solución", href: "/#como-funciona" },
+  { label: "Soluciones", href: "/#casos-de-uso" },
+  { label: "Precios", href: "/#pricing" },
+  { label: "FAQ", href: "/#faq" },
+];
+
+const isGlass = variant === 'glass';
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
+<nav class:list={["fixed top-0 left-0 right-0 z-50 transition-all duration-500", { "navbar-glass": isGlass }]} id="navbar" data-variant={variant}>
   <div class="max-w-7xl mx-auto px-6 sm:px-10">
     <div class="flex justify-between items-center h-20">
       <a href="/" class="flex items-center">
-        <img src="/logo-white.svg" alt="Lelemon" class="h-14 sm:h-16 transition-all duration-300" id="navbar-logo" />
+        <img src={isGlass ? "/logo.svg" : "/logo-white.svg"} alt="Lelemon" class="h-14 sm:h-16 transition-all duration-300" id="navbar-logo" />
       </a>
-      <a href={whatsappUrl} target="_blank" data-wa-cta class="text-sm font-medium text-white/70 hover:text-yellow-400 transition-colors tracking-wide" id="navbar-cta">
-        Agendar llamada &rarr;
-      </a>
+
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-8">
+        {links.map((link) => (
+          <a href={link.href} class:list={["nav-link text-sm font-medium transition-colors tracking-wide", isGlass ? "text-neutral-500 hover:text-neutral-900" : "text-white/60 hover:text-white"]}>
+            {link.label}
+          </a>
+        ))}
+        <a href={whatsappUrl} target="_blank" data-wa-cta class="text-sm font-bold bg-yellow-400 text-neutral-950 px-5 py-2 hover:bg-yellow-300 transition-colors" id="navbar-cta">
+          Agendar llamada
+        </a>
+      </div>
+
+      <!-- Mobile -->
+      <div class="flex md:hidden items-center gap-3">
+        <a href={whatsappUrl} target="_blank" data-wa-cta class="text-xs font-bold bg-yellow-400 text-neutral-950 px-4 py-2 hover:bg-yellow-300 transition-colors" id="navbar-cta-mobile">
+          Agendar llamada
+        </a>
+        <button id="menu-toggle" class:list={["transition-colors p-1", isGlass ? "text-neutral-600 hover:text-neutral-900" : "text-white/70 hover:text-white"]} aria-label="Abrir menú">
+          <svg class="w-6 h-6" id="menu-icon-open" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg class="w-6 h-6 hidden" id="menu-icon-close" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t mobile-menu-bg">
+    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-4">
+      {links.map((link) => (
+        <a href={link.href} class="mobile-nav-link text-base font-medium text-neutral-600 hover:text-yellow-600 transition-colors py-2">
+          {link.label}
+        </a>
+      ))}
     </div>
   </div>
 </nav>
 
 <style>
-  .navbar-scrolled {
-    background: rgba(255,255,255,0.95);
+  /* Glass variant — always visible on light backgrounds */
+  .navbar-glass {
+    background: rgba(255,255,255,0.7);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(0,0,0,0.06);
   }
-  .navbar-scrolled #navbar-cta {
+  .navbar-glass .mobile-menu-bg {
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-color: rgba(0,0,0,0.06);
+  }
+
+  /* Dark variant — starts transparent, becomes glass on scroll */
+  .navbar-scrolled {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .navbar-scrolled .nav-link {
+    color: rgba(24,24,27,0.5);
+  }
+  .navbar-scrolled .nav-link:hover {
     color: #18181B;
   }
-  .navbar-scrolled #navbar-cta:hover {
+  .navbar-scrolled #menu-toggle {
+    color: #18181B;
+  }
+  .navbar-scrolled .mobile-menu-bg {
+    background: rgba(255,255,255,0.9);
+    border-color: rgba(0,0,0,0.06);
+  }
+  .navbar-scrolled .mobile-nav-link {
+    color: rgba(24,24,27,0.6);
+  }
+  .navbar-scrolled .mobile-nav-link:hover {
     color: #CA8A04;
   }
 </style>
 
 <script>
   const navbar = document.getElementById('navbar');
-  const navLogo = document.getElementById('navbar-logo') as HTMLImageElement;
-  const heroEl = document.getElementById('hero');
-  const heroH = heroEl?.offsetHeight || 600;
+  const variant = navbar?.dataset.variant;
 
-  function updateNavbar() {
-    const past = window.scrollY > heroH - 100;
-    navbar?.classList.toggle('navbar-scrolled', past);
-    if (navLogo) navLogo.src = past ? '/logo.svg' : '/logo-white.svg';
+  // Only do scroll-based transitions for dark variant
+  if (variant === 'dark') {
+    const navLogo = document.getElementById('navbar-logo') as HTMLImageElement;
+    const heroEl = document.getElementById('hero');
+    const heroH = heroEl?.offsetHeight || 600;
+
+    function updateNavbar() {
+      const past = window.scrollY > heroH - 100;
+      navbar?.classList.toggle('navbar-scrolled', past);
+      if (navLogo) navLogo.src = past ? '/logo.svg' : '/logo-white.svg';
+    }
+    window.addEventListener('scroll', updateNavbar, { passive: true });
+    updateNavbar();
   }
-  window.addEventListener('scroll', updateNavbar, { passive: true });
-  updateNavbar();
+
+  // Mobile menu toggle
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    iconOpen?.classList.toggle('hidden', open);
+    iconClose?.classList.toggle('hidden', !open);
+  });
+
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    });
+  });
 </script>

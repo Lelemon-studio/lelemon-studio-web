@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NichePageLight from '../components/NichePageLight.astro';
+
+const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20quiero%20saber%20de%20Lelemon";
+
+const chatMessages = [
+  { sender: 'client' as const, text: 'Hola, dónde va mi pedido #4521?', time: '15:40' },
+  { sender: 'ai' as const, text: 'Hola! Tu pedido #4521 está en camino con Starken, código de seguimiento ST-884521. Llega estimado el miércoles 12 📦', time: '15:40' },
+  { sender: 'client' as const, text: 'Necesito cambiar la dirección de entrega', time: '15:41' },
+  { sender: 'ai' as const, text: 'Tu pedido ya fue despachado, así que no puedo cambiar la dirección directamente. Pero ya notifiqué al courier para que se comuniquen contigo y coordinen la entrega 👍', time: '15:41' },
+];
+---
+
+<Layout
+  title="Soporte automático 24/7 por WhatsApp | Lelemon"
+  description="Asistente IA que resuelve dudas, da instrucciones y escala casos complejos. Disponible 24/7 por WhatsApp."
+  canonicalUrl="https://lelemon.cl/para-soporte/"
+>
+  <NichePageLight
+    niche="Soporte"
+    nicheSlug="soporte"
+    emoji="🛟"
+    headline="Responde todo. Siempre."
+    subtitle="Tu asistente resuelve dudas frecuentes, da instrucciones, informa estado de pedidos y escala a humano solo cuando es necesario."
+    highlights={[
+      "Resuelve el 80% de consultas sin intervención humana",
+      "Escala casos complejos automáticamente a tu equipo",
+      "Disponible 24/7 — domingos, feriados, madrugada",
+    ]}
+    chatBusiness="TechStore Chile"
+    chatEmoji="🛟"
+    chatMessages={chatMessages}
+    whatsappUrl={whatsappUrl}
+  />
+</Layout>

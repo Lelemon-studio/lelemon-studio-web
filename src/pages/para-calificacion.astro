@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NichePageLight from '../components/NichePageLight.astro';
+
+const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20quiero%20saber%20de%20Lelemon";
+
+const chatMessages = [
+  { sender: 'client' as const, text: 'Hola, me despidieron hace 3 días sin aviso previo', time: '10:22' },
+  { sender: 'ai' as const, text: 'Lamento escuchar eso. Para evaluar tu caso, ¿tenías contrato indefinido o a plazo fijo?', time: '10:22' },
+  { sender: 'client' as const, text: 'Indefinido, y no me pagaron nada todavía', time: '10:23' },
+  { sender: 'ai' as const, text: 'Tienes plazo legal para reclamar. Tu caso tiene mérito. ¿Te agendo una consulta mañana a las 10 con el abogado para revisar los detalles?', time: '10:23' },
+];
+---
+
+<Layout
+  title="Califica leads automáticamente | Lelemon"
+  description="Asistente IA que hace las preguntas correctas, evalúa viabilidad y solo te pasa leads que valen la pena."
+  canonicalUrl="https://lelemon.cl/para-calificacion/"
+>
+  <NichePageLight
+    niche="Calificación"
+    nicheSlug="calificación"
+    emoji="✅"
+    headline="Filtra leads antes de hablar."
+    subtitle="Tu asistente hace las preguntas correctas, evalúa si el lead es viable y solo te pasa los que valen la pena. Tu tiempo para lo que importa."
+    highlights={[
+      "Hace las preguntas correctas automáticamente",
+      "Evalúa viabilidad antes de pasarte el lead",
+      "Tu tiempo solo para oportunidades reales",
+    ]}
+    chatBusiness="Estudio Legal Martínez"
+    chatEmoji="✅"
+    chatMessages={chatMessages}
+    whatsappUrl={whatsappUrl}
+  />
+</Layout>

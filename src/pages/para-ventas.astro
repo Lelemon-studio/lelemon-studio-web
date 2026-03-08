@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NichePageLight from '../components/NichePageLight.astro';
+
+const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20quiero%20saber%20de%20Lelemon";
+
+const chatMessages = [
+  { sender: 'client' as const, text: 'Hola, tienen la polera negra en talla M?', time: '20:32' },
+  { sender: 'ai' as const, text: 'Hola! Sí, la polera negra está disponible en M y L. Además tiene 20% de descuento, queda en $14.990 🔥', time: '20:32' },
+  { sender: 'client' as const, text: 'Buena! La quiero en M', time: '20:33' },
+  { sender: 'ai' as const, text: 'Perfecto! Aquí tienes tu link de pago 👉 pay.link/moda-bella/14990. Apenas confirmes el pago te envío los datos de despacho.', time: '20:33' },
+];
+---
+
+<Layout
+  title="Vende por WhatsApp en automático | Lelemon"
+  description="Asistente IA que responde consultas, muestra productos, aplica descuentos y envía links de pago por WhatsApp."
+  canonicalUrl="https://lelemon.cl/para-ventas/"
+>
+  <NichePageLight
+    niche="Ventas"
+    nicheSlug="ventas"
+    emoji="💰"
+    headline="Vende mientras duermes."
+    subtitle="Tu asistente responde consultas de productos, informa precios, aplica descuentos activos y envía link de pago. Todo por WhatsApp."
+    highlights={[
+      "Responde consultas de precio y stock al instante",
+      "Envía link de pago directo por WhatsApp",
+      "Aplica descuentos y promociones activas automáticamente",
+    ]}
+    chatBusiness="Tienda Moda Bella"
+    chatEmoji="👜"
+    chatMessages={chatMessages}
+    whatsappUrl={whatsappUrl}
+  />
+</Layout>

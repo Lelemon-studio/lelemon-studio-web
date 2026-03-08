@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NichePageLight from '../components/NichePageLight.astro';
+
+const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20quiero%20saber%20de%20Lelemon";
+
+const chatMessages = [
+  { sender: 'client' as const, text: 'Hola, necesito una hora para mañana, ¿tienen disponibilidad?', time: '23:14' },
+  { sender: 'ai' as const, text: 'Hola! Sí, mañana tenemos disponible a las 9:30 y a las 12:00. ¿Cuál te acomoda?', time: '23:14' },
+  { sender: 'client' as const, text: '9:30 porfa', time: '23:15' },
+  { sender: 'ai' as const, text: 'Perfecto, agendado mañana a las 9:30. Te enviaré un recordatorio en la mañana para que no se te olvide 😊', time: '23:15' },
+];
+---
+
+<Layout
+  title="Automatiza tu agenda 24/7 | Lelemon"
+  description="Asistente IA que agenda citas por WhatsApp 24/7, confirma, reagenda y manda recordatorios automáticos."
+  canonicalUrl="https://lelemon.cl/para-agendamiento/"
+>
+  <NichePageLight
+    niche="Agendamiento"
+    nicheSlug="agendamiento"
+    emoji="📅"
+    headline="Agenda citas sin mover un dedo."
+    subtitle="Tu asistente revisa disponibilidad, propone horarios, confirma la cita y manda recordatorio. Funciona a las 3am, los domingos, en feriados."
+    highlights={[
+      "Revisa disponibilidad y propone horarios en tiempo real",
+      "Confirma, reagenda y manda recordatorios automáticos",
+      "Funciona 24/7 sin intervención humana",
+    ]}
+    chatBusiness="Centro Médico Salud+"
+    chatEmoji="📅"
+    chatMessages={chatMessages}
+    whatsappUrl={whatsappUrl}
+  />
+</Layout>

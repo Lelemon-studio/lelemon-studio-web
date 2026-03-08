@@ -4,78 +4,142 @@ interface Props {
 }
 const { whatsappUrl } = Astro.props;
 
-const cases = [
+const verticales = [
   {
-    slug: "dentistas",
-    label: "Dentistas",
-    headline: "Cada llamada que no contestas es plata que se fue con otro.",
-    detail: "Asistente que agenda pacientes mientras atiendes",
-    span: "lg:col-span-7",
+    icon: '📅',
+    titulo: 'Agendamiento',
+    headline: 'Agenda citas sin mover un dedo.',
+    href: '/para-agendamiento/',
   },
   {
-    slug: "abogados",
-    label: "Abogados",
-    headline: "El que responde primero se queda con el caso.",
-    detail: "Califica casos y agenda consultas 24/7",
-    span: "lg:col-span-5",
+    icon: '💰',
+    titulo: 'Ventas',
+    headline: 'Vende mientras duermes.',
+    href: '/para-ventas/',
   },
   {
-    slug: "contadores",
-    label: "Contadores",
-    headline: "Tu negocio no puede depender solo de abril.",
-    detail: "Flujo de clientes constante todo el año",
-    span: "lg:col-span-5",
+    icon: '🛟',
+    titulo: 'Soporte',
+    headline: 'Responde todo. Siempre.',
+    href: '/para-soporte/',
   },
   {
-    slug: "clinicas",
-    label: "Clínicas",
-    headline: "5 especialistas. La mitad con huecos en la agenda.",
-    detail: "Llena agendas por especialidad de forma inteligente",
-    span: "lg:col-span-7",
+    icon: '✅',
+    titulo: 'Calificación',
+    headline: 'Filtra leads antes de hablar.',
+    href: '/para-calificacion/',
   },
 ];
 ---
 
 <section id="casos-de-uso" class="relative bg-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
   <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
     <div class="flex items-center gap-3 mb-6 scroll-reveal">
-      <div class="w-8 h-px bg-neutral-300"></div>
+      <div class="w-8 h-px bg-neutral-950"></div>
       <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Casos de uso</span>
     </div>
     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 tracking-tight mb-4 scroll-reveal" style="--d:50ms">
-      ¿En qué rubro estás?
+      ¿Qué necesitas automatizar?
     </h2>
-    <p class="text-lg text-neutral-500 mb-12 max-w-xl scroll-reveal" style="--d:100ms">
-      Mismo paquete. Personalizado para tu negocio.
+    <p class="text-lg text-neutral-500 mb-14 max-w-xl scroll-reveal" style="--d:100ms">
+      Tu asistente hace de todo. Esto es solo el comienzo.
     </p>
 
-    <div class="grid lg:grid-cols-12 gap-4 scroll-reveal" style="--d:150ms">
-      {cases.map((c) => (
-        <a
-          href={`/para-${c.slug}`}
-          class:list={[
-            "group relative overflow-hidden bg-neutral-950 p-8 sm:p-10 transition-all duration-500 hover:scale-[1.02]",
-            c.span === "lg:col-span-7" ? "lg:col-span-7" : "lg:col-span-5",
-          ]}
-        >
-          <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-yellow-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(250,204,21,0.08)_0%,_transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-          <div class="relative">
-            <span class="inline-block text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80 mb-4 border border-yellow-400/20 bg-yellow-400/5 px-3 py-1">
-              {c.label}
-            </span>
-            <h3 class="text-xl sm:text-2xl font-black text-white leading-tight mb-3 group-hover:text-yellow-400 transition-colors duration-300">
-              {c.headline}
-            </h3>
-            <p class="text-sm text-neutral-500 mb-6">{c.detail}</p>
-            <span class="inline-flex items-center gap-2 text-sm font-bold text-neutral-500 group-hover:text-yellow-400 transition-colors uppercase tracking-wider">
-              Ver caso de uso
-              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-            </span>
-          </div>
+    <!-- Bento 2x2 -->
+    <div class="bento scroll-reveal" style="--d:150ms">
+      {verticales.map((v) => (
+        <a href={v.href} class="bento-cell group">
+          <span class="text-4xl mb-5 block">{v.icon}</span>
+          <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-yellow-400 mb-3 block">{v.titulo}</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white leading-tight mb-auto">{v.headline}</h3>
+          <span class="bento-cta">
+            Ver más
+            <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </span>
         </a>
       ))}
     </div>
+
+    <!-- CTA -->
+    <div class="mt-14 text-center scroll-reveal" style="--d:300ms">
+      <a href={whatsappUrl} target="_blank" data-wa-cta class="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
+        Quiero automatizar mi negocio
+      </a>
+    </div>
+
   </div>
 </section>
+
+<style>
+  .bento {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .bento {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .bento-cell {
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  @media (min-width: 1024px) {
+    .bento-cell {
+      padding: 3rem;
+      min-height: 260px;
+    }
+  }
+
+  .bento-cell:hover {
+    background: rgba(23, 23, 23, 0.9);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* Bordes internos */
+  @media (min-width: 768px) {
+    .bento-cell:nth-child(odd) {
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .bento-cell:nth-child(-n+2) {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .bento-cell + .bento-cell {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+  }
+
+  .bento-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #0a0a0a;
+    background: #FACC15;
+    padding: 0.625rem 1.25rem;
+    margin-top: 1.5rem;
+    transition: all 0.2s;
+    align-self: flex-start;
+  }
+
+  .group:hover .bento-cta {
+    background: #FDE047;
+  }
+</style>
