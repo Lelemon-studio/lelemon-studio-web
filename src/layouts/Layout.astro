@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title,
-  description = "Lelemon — Agencia digital en Chile. Web profesional, asistente IA en WhatsApp que califica leads 24/7 y campañas que traen clientes. Un paquete, un precio. Desde $250 USD/mes.",
+  description = "Creamos tu web, activamos un asistente IA en WhatsApp y gestionamos Meta Ads para que respondas más rápido y generes más clientes. Evaluación gratis.",
   ogImage = "/og.png",
   canonicalUrl = "https://lelemon.cl/",
 } = Astro.props;
@@ -92,6 +92,36 @@ const GA4_MEASUREMENT_ID = "G-4WFRN3WMMJ";
   </head>
   <body class="bg-gray-50 text-gray-900 font-sans antialiased">
     <slot />
+
+    <!-- Meta Pixel conversion events on CTAs -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Track Lead on all WhatsApp CTA clicks
+        document.querySelectorAll('[data-wa-cta]').forEach(function(el) {
+          el.addEventListener('click', function() {
+            if (typeof fbq === 'function') {
+              fbq('track', 'Lead', { content_name: 'WhatsApp CTA' });
+            }
+            if (typeof gtag === 'function') {
+              gtag('event', 'generate_lead', { event_category: 'CTA', event_label: 'WhatsApp' });
+            }
+          });
+        });
+
+        // Track Schedule on pricing CTA click
+        var scheduleCta = document.getElementById('pricing-cta');
+        if (scheduleCta) {
+          scheduleCta.addEventListener('click', function() {
+            if (typeof fbq === 'function') {
+              fbq('track', 'Schedule', { content_name: 'Pricing CTA' });
+            }
+            if (typeof gtag === 'function') {
+              gtag('event', 'schedule', { event_category: 'CTA', event_label: 'Pricing' });
+            }
+          });
+        }
+      });
+    </script>
   </body>
 </html>
 

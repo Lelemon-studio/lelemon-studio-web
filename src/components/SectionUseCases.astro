@@ -8,26 +8,30 @@ const verticales = [
   {
     icon: '📅',
     titulo: 'Agendamiento',
-    headline: 'Agenda citas sin mover un dedo.',
+    headline: 'Automatiza tu agenda por WhatsApp 24/7',
     href: '/para-agendamiento/',
+    cta: 'Ver agendamiento automático',
   },
   {
     icon: '💰',
     titulo: 'Ventas',
-    headline: 'Vende mientras duermes.',
+    headline: 'Vende por WhatsApp con IA que nunca duerme',
     href: '/para-ventas/',
+    cta: 'Ver ventas automáticas',
   },
   {
     icon: '🛟',
     titulo: 'Soporte',
-    headline: 'Responde todo. Siempre.',
+    headline: 'Atención al cliente 24/7 sin contratar más gente',
     href: '/para-soporte/',
+    cta: 'Ver soporte automático',
   },
   {
     icon: '✅',
     titulo: 'Calificación',
-    headline: 'Filtra leads antes de hablar.',
+    headline: 'Filtra leads y habla solo con los que valen la pena',
     href: '/para-calificacion/',
+    cta: 'Ver calificación de leads',
   },
 ];
 ---
@@ -41,7 +45,7 @@ const verticales = [
       <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Casos de uso</span>
     </div>
     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 tracking-tight mb-4 scroll-reveal" style="--d:50ms">
-      ¿Qué necesitas automatizar?
+      Automatiza agendamiento, ventas, soporte y calificación de leads
     </h2>
     <p class="text-lg text-neutral-500 mb-14 max-w-xl scroll-reveal" style="--d:100ms">
       Tu asistente hace de todo. Esto es solo el comienzo.
@@ -55,7 +59,7 @@ const verticales = [
           <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-yellow-400 mb-3 block">{v.titulo}</span>
           <h3 class="text-xl sm:text-2xl font-black text-white leading-tight mb-auto">{v.headline}</h3>
           <span class="bento-cta">
-            Ver más
+            {v.cta}
             <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
           </span>
         </a>

@@ -10,24 +10,62 @@ const chatMessages = [
   { sender: 'client' as const, text: 'Indefinido, y no me pagaron nada todavía', time: '10:23' },
   { sender: 'ai' as const, text: 'Tienes plazo legal para reclamar. Tu caso tiene mérito. ¿Te agendo una consulta mañana a las 10 con el abogado para revisar los detalles?', time: '10:23' },
 ];
+
+const steps = [
+  { number: '01', title: 'El lead escribe por WhatsApp', description: 'Viene de tu web, de Meta Ads o te escribe directo. El asistente lo recibe, saluda y empieza a hacer preguntas clave.' },
+  { number: '02', title: 'Hace las preguntas correctas', description: 'Preguntas diseñadas para tu negocio: qué necesita, cuándo, presupuesto, urgencia. Califica sin ser invasivo.' },
+  { number: '03', title: 'Te pasa solo los que valen la pena', description: 'Si el lead califica, te lo notifica con toda la info. Si no califica, lo descarta educadamente o lo redirige.' },
+];
+
+const benefits = [
+  { icon: '🎯', title: 'Solo leads calificados', description: 'Dejas de perder tiempo con curiosos. El asistente filtra y te pasa solo los que tienen potencial real de convertir.' },
+  { icon: '⏱️', title: 'Tu tiempo para lo que importa', description: 'En vez de hacer 20 preguntas por chat, el asistente las hace por ti. Tú entras cuando ya sabes que vale la pena.' },
+  { icon: '📋', title: 'Info completa antes de hablar', description: 'Cuando te llega el lead, ya tienes: nombre, qué necesita, urgencia, presupuesto. Llegas preparado a la conversación.' },
+  { icon: '🔄', title: 'Calificación consistente', description: 'Las mismas preguntas, en el mismo orden, sin olvidar nada. No depende del humor o la carga de trabajo de alguien.' },
+  { icon: '📊', title: 'Datos para mejorar', description: 'Ves cuántos leads llegan, cuántos califican, de qué fuente vienen. Datos para optimizar tu inversión en marketing.' },
+  { icon: '🚀', title: 'Respuesta instantánea', description: 'El lead llega caliente de un anuncio. Si esperas 2 horas para responder, ya se enfrió. El asistente responde en segundos.' },
+];
+
+const idealFor = [
+  'Estudios de abogados que necesitan evaluar mérito de casos antes de agendar',
+  'Agencias inmobiliarias que reciben consultas de arriendo y venta',
+  'Consultoras y agencias que califican clientes por presupuesto y necesidad',
+  'Clínicas de cirugía estética que evalúan candidatos a procedimientos',
+  'Empresas de seguros con cotizaciones que requieren datos previos',
+  'Academias y centros de formación que califican interesados',
+  'Constructoras e inmobiliarias con proyectos que requieren pre-aprobación',
+  'Cualquier negocio en Chile que pierde tiempo hablando con leads que no califican',
+];
+
+const faqs = [
+  { question: '¿Qué preguntas hace el asistente?', answer: 'Las que tú definas. Trabajamos contigo para diseñar el flujo de preguntas ideal para tu negocio: qué necesita, cuándo, presupuesto, zona, urgencia, etc.' },
+  { question: '¿Cómo sé cuándo un lead califica?', answer: 'Definimos juntos los criterios de calificación. Cuando un lead los cumple, recibes una notificación con toda la información recopilada.' },
+  { question: '¿Qué pasa con los que no califican?', answer: 'El asistente los descarta educadamente, puede redirigirlos a otro recurso o guardarlos para una campaña futura. Nada se pierde.' },
+  { question: '¿Puedo cambiar las preguntas después?', answer: 'Sí. Si cambias de servicio, de precio o de criterio, actualizamos el flujo de calificación y el asistente se adapta inmediatamente.' },
+  { question: '¿Funciona para B2B?', answer: 'Sí. La calificación de leads B2B es uno de los usos más efectivos: tamaño de empresa, presupuesto, timeline de decisión, tomador de decisión. Todo automatizado.' },
+];
 ---
 
 <Layout
-  title="Califica leads automáticamente | Lelemon"
-  description="Asistente IA que hace las preguntas correctas, evalúa viabilidad y solo te pasa leads que valen la pena."
+  title="Calificación automática de leads por WhatsApp | Lelemon"
+  description="Asistente IA que hace las preguntas correctas, evalúa viabilidad y solo te pasa leads que valen la pena. Ahorra tiempo y cierra más ventas."
   canonicalUrl="https://lelemon.cl/para-calificacion/"
 >
   <NichePageLight
     niche="Calificación"
-    nicheSlug="calificación"
+    nicheSlug="calificacion"
     emoji="✅"
-    headline="Filtra leads antes de hablar."
-    subtitle="Tu asistente hace las preguntas correctas, evalúa si el lead es viable y solo te pasa los que valen la pena. Tu tiempo para lo que importa."
+    headline="Califica leads automáticamente antes de hablar con ellos"
+    subtitle="Tu asistente hace las preguntas correctas, evalúa si el lead es viable y solo te pasa los que valen la pena. Tu tiempo para oportunidades reales."
     highlights={[
       "Hace las preguntas correctas automáticamente",
       "Evalúa viabilidad antes de pasarte el lead",
       "Tu tiempo solo para oportunidades reales",
     ]}
+    steps={steps}
+    benefits={benefits}
+    idealFor={idealFor}
+    faqs={faqs}
     chatBusiness="Estudio Legal Martínez"
     chatEmoji="✅"
     chatMessages={chatMessages}
