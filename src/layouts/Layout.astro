@@ -8,15 +8,16 @@ interface Props {
 
 const {
   title,
-  description = "Te armamos una web profesional, conectamos un asistente inteligente en WhatsApp y traemos clientes con campañas. Un paquete. Un precio. Listo.",
+  description = "Agencia digital en Chile. Te armamos una web profesional, conectamos un asistente IA en WhatsApp que califica leads 24/7 y traemos clientes con campañas. Desde $249 USD/mes.",
   ogImage = "/og.png",
-  canonicalUrl = "https://lelemon.cl",
+  canonicalUrl = "https://lelemon.cl/",
 } = Astro.props;
 
 const siteName = "Lelemon";
 const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+const siteUrl = "https://lelemon.cl";
 
-// ── Analytics IDs (reemplazar con los reales) ──
+// ── Analytics IDs ──
 const META_PIXEL_ID = "718883684421503";
 const GA4_MEASUREMENT_ID = "G-4WFRN3WMMJ";
 ---
@@ -39,7 +40,7 @@ const GA4_MEASUREMENT_ID = "G-4WFRN3WMMJ";
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${canonicalUrl}${ogImage}`} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="es_CL" />
 
@@ -47,11 +48,12 @@ const GA4_MEASUREMENT_ID = "G-4WFRN3WMMJ";
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${canonicalUrl}${ogImage}`} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
