@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import TopBanner from '../components/TopBanner.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import SectionProblem from '../components/SectionProblem.astro';
@@ -49,7 +50,7 @@ const founder = {
 const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
 ---
 
-<Layout title="Lelemon — Deja de perder clientes | Web + CRM + Marketing en Chile">
+<Layout title="Lelemon — Deja de quemar plata en tu negocio | Web + IA + Marketing en Chile">
   <!-- JSON-LD: ProfessionalService + LocalBusiness -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -113,6 +114,7 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
   <!-- Grain texture overlay -->
   <div class="grain-overlay" aria-hidden="true"></div>
 
+  <TopBanner whatsappUrl={whatsappUrl} />
   <Navbar whatsappUrl={whatsappUrl} />
 
   <main>
