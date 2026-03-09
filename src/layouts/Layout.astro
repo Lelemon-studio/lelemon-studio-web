@@ -20,6 +20,9 @@ const siteUrl = "https://lelemon.cl";
 // ── Analytics IDs ──
 const META_PIXEL_ID = "1631046424566981";
 const GA4_MEASUREMENT_ID = "G-4WFRN3WMMJ";
+
+// ── Lead Form Config ──
+import { TURNSTILE_SITE_KEY } from '../config';
 ---
 
 <!doctype html>
@@ -62,6 +65,11 @@ const GA4_MEASUREMENT_ID = "G-4WFRN3WMMJ";
 
     <!-- Theme color -->
     <meta name="theme-color" content="#0a0a0a" />
+
+    <!-- Cloudflare Turnstile -->
+    {TURNSTILE_SITE_KEY && (
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    )}
 
     <!-- Meta Pixel -->
     <script is:inline define:vars={{ META_PIXEL_ID }}>

@@ -1,8 +1,21 @@
 ---
+import {
+  API_URL,
+  TURNSTILE_SITE_KEY,
+  LEAD_FORM_ID as DEFAULT_FORM_ID,
+  LEAD_FORM_API_KEY as DEFAULT_API_KEY,
+} from '../config';
+
 interface Props {
   whatsappUrl: string;
+  formId?: string;
+  apiKey?: string;
 }
-const { whatsappUrl } = Astro.props;
+const { whatsappUrl, formId, apiKey } = Astro.props;
+
+const FORM_ID = formId || DEFAULT_FORM_ID;
+const FORM_API_KEY = apiKey || DEFAULT_API_KEY;
+const FORM_API_URL = API_URL;
 ---
 
 <section id="contacto" class="relative bg-neutral-950 text-white py-20 lg:py-32 px-6 sm:px-10 overflow-hidden">
@@ -75,15 +88,162 @@ const { whatsappUrl } = Astro.props;
             <input type="checkbox" id="lead-consent" name="consent" required class="mt-1 w-4 h-4 accent-yellow-400 bg-neutral-900 border-neutral-700" />
             <label for="lead-consent" class="text-xs text-neutral-500 leading-relaxed">Acepto que Lelemon me contacte para agendar una llamada. No spam.</label>
           </div>
+
+          <!-- Cloudflare Turnstile (invisible) -->
+          <div id="turnstile-container"></div>
+
           <button
             type="submit"
+            id="lead-submit"
             class="w-full bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold py-4 px-8 text-sm uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Quiero mi llamada gratuita
+            Quiero mi evaluación gratuita
           </button>
           <p id="form-feedback" class="text-sm text-center hidden"></p>
         </form>
+
+        <!-- Success state (hidden by default) -->
+        <div id="form-success" class="hidden text-center py-12">
+          <div class="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-3">¡Recibimos tus datos!</h3>
+          <p class="text-neutral-400 max-w-sm mx-auto">Te contactaremos en menos de 24 horas para agendar tu evaluación gratuita.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script is:inline define:vars={{ TURNSTILE_SITE_KEY, FORM_API_URL, FORM_ID, FORM_API_KEY }}>
+  (function() {
+    var form = document.getElementById('lead-form');
+    var submitBtn = document.getElementById('lead-submit');
+    var feedback = document.getElementById('form-feedback');
+    var successEl = document.getElementById('form-success');
+    var turnstileToken = '';
+    var turnstileWidgetId = null;
+
+    function initTurnstile() {
+      if (!TURNSTILE_SITE_KEY || typeof turnstile === 'undefined') return;
+      turnstileWidgetId = turnstile.render('#turnstile-container', {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: function(token) { turnstileToken = token; },
+        'expired-callback': function() { turnstileToken = ''; },
+        'error-callback': function() { turnstileToken = ''; },
+        size: 'invisible',
+      });
+    }
+
+    // Turnstile script loads async — retry until available
+    if (TURNSTILE_SITE_KEY) {
+      if (typeof turnstile !== 'undefined') {
+        initTurnstile();
+      } else {
+        var check = setInterval(function() {
+          if (typeof turnstile !== 'undefined') {
+            clearInterval(check);
+            initTurnstile();
+          }
+        }, 500);
+        setTimeout(function() { clearInterval(check); }, 10000);
+      }
+    }
+
+    function showFeedback(msg, isError) {
+      feedback.textContent = msg;
+      feedback.className = 'text-sm text-center mt-2 ' + (isError ? 'text-red-400' : 'text-green-400');
+    }
+
+    function setLoading(loading) {
+      submitBtn.disabled = loading;
+      submitBtn.textContent = loading ? 'Enviando...' : 'Quiero mi evaluación gratuita';
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      feedback.className = 'text-sm text-center hidden';
+
+      var name = document.getElementById('lead-name').value.trim();
+      var email = document.getElementById('lead-email').value.trim();
+      var phone = document.getElementById('lead-phone').value.trim();
+      var consent = document.getElementById('lead-consent').checked;
+
+      if (!name) { showFeedback('Ingresa tu nombre', true); return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFeedback('Ingresa un email válido', true); return;
+      }
+      if (!consent) { showFeedback('Debes aceptar ser contactado', true); return; }
+      if (!FORM_API_URL || !FORM_ID || !FORM_API_KEY) {
+        showFeedback('Formulario no configurado', true); return;
+      }
+
+      // If Turnstile is configured but no token yet, trigger challenge
+      if (TURNSTILE_SITE_KEY && !turnstileToken && typeof turnstile !== 'undefined') {
+        turnstile.execute('#turnstile-container');
+        var attempts = 0;
+        var wait = setInterval(function() {
+          attempts++;
+          if (turnstileToken || attempts > 20) {
+            clearInterval(wait);
+            if (turnstileToken) {
+              submitLead(name, email, phone);
+            } else {
+              showFeedback('Error de verificación. Intenta de nuevo.', true);
+            }
+          }
+        }, 250);
+        return;
+      }
+
+      submitLead(name, email, phone);
+    });
+
+    function submitLead(name, email, phone) {
+      setLoading(true);
+
+      fetch(FORM_API_URL + '/public/forms/' + FORM_ID + '/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': FORM_API_KEY,
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone || undefined,
+          turnstileToken: turnstileToken || 'no-turnstile',
+        }),
+      })
+      .then(function(res) {
+        if (!res.ok) {
+          return res.json().then(function(data) {
+            throw new Error(data.message || 'Error al enviar');
+          });
+        }
+        return res.json();
+      })
+      .then(function() {
+        form.classList.add('hidden');
+        successEl.classList.remove('hidden');
+
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', { content_name: 'Landing Form' });
+        }
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', { event_category: 'Form', event_label: 'Landing' });
+        }
+      })
+      .catch(function(err) {
+        showFeedback(err.message || 'Error al enviar. Intenta de nuevo.', true);
+        if (typeof turnstile !== 'undefined' && turnstileWidgetId !== null) {
+          turnstile.reset(turnstileWidgetId);
+          turnstileToken = '';
+        }
+      })
+      .finally(function() {
+        setLoading(false);
+      });
+    }
+  })();
+</script>
