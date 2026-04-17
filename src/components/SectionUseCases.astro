@@ -7,31 +7,31 @@ const { whatsappUrl } = Astro.props;
 const verticales = [
   {
     icon: '📅',
-    titulo: 'Agendamiento',
-    headline: 'Automatiza tu agenda por WhatsApp 24/7',
+    titulo: 'Agenda',
+    headline: 'Tu agenda se llena sola. Tú apareces a atender.',
     href: '/para-agendamiento/',
-    cta: 'Ver agendamiento automático',
+    cta: 'Cómo agenda',
   },
   {
     icon: '💰',
     titulo: 'Ventas',
-    headline: 'Vende con un asistente IA que nunca duerme',
+    headline: 'Responde, cotiza y envía el link de pago por ti.',
     href: '/para-ventas/',
-    cta: 'Ver ventas automáticas',
+    cta: 'Cómo vende',
   },
   {
     icon: '🛟',
     titulo: 'Soporte',
-    headline: 'Atención al cliente 24/7 sin contratar más gente',
+    headline: 'Resuelve las dudas que se repiten 100 veces al día.',
     href: '/para-soporte/',
-    cta: 'Ver soporte automático',
+    cta: 'Cómo atiende',
   },
   {
     icon: '✅',
     titulo: 'Calificación',
-    headline: 'Filtra leads y habla solo con los que valen la pena',
+    headline: 'Separa al que ya quiere comprar del que anda mirando.',
     href: '/para-calificacion/',
-    cta: 'Ver calificación de leads',
+    cta: 'Cómo filtra',
   },
 ];
 ---
@@ -45,10 +45,10 @@ const verticales = [
       <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Casos de uso</span>
     </div>
     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 tracking-tight mb-4 scroll-reveal" style="--d:50ms">
-      Automatiza agendamiento, ventas, soporte y calificación de leads
+      El mismo asistente, metido en cada parte de tu negocio.
     </h2>
     <p class="text-lg text-neutral-500 mb-14 max-w-xl scroll-reveal" style="--d:100ms">
-      Tu asistente hace de todo. Esto es solo el comienzo.
+      Agenda citas, cotiza productos, responde dudas o filtra clientes. Se adapta al flujo de tu negocio, no al revés.
     </p>
 
     <!-- Bento 2x2 -->
@@ -69,7 +69,7 @@ const verticales = [
     <!-- CTA -->
     <div class="mt-14 text-center scroll-reveal" style="--d:300ms">
       <a href={whatsappUrl} target="_blank" data-wa-cta class="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
-        Quiero automatizar mi negocio
+        Quiero esto para mi negocio
       </a>
     </div>
 
