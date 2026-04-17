@@ -11,7 +11,7 @@ const { whatsappUrl, included } = Astro.props;
   <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent"></div>
 
   <div class="absolute top-1/2 -translate-y-1/2 -right-[10%] text-[20vw] font-black text-neutral-900 leading-none select-none pointer-events-none tracking-tighter" aria-hidden="true">
-    Desde $250
+    Desde $299
   </div>
 
   <div class="max-w-7xl mx-auto relative">
@@ -19,22 +19,24 @@ const { whatsappUrl, included } = Astro.props;
       <div>
         <div class="flex items-center gap-3 mb-6 scroll-reveal">
           <div class="w-8 h-px bg-yellow-400"></div>
-          <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">Inversión</span>
+          <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">Precio transparente</span>
         </div>
         <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight scroll-reveal" style="--d:50ms">
           ¿Cuánto<br/>cuesta?
         </h2>
         <div class="mt-10 scroll-reveal" style="--d:100ms">
           <div class="flex items-baseline gap-3">
-            <span class="text-lg text-neutral-500 font-medium mr-1">Desde</span><span class="text-5xl sm:text-7xl lg:text-8xl font-black text-gradient-lemon">$250</span>
+            <span class="text-5xl sm:text-7xl lg:text-8xl font-black text-gradient-lemon">$299</span>
             <span class="text-neutral-600 text-lg font-medium">USD/mes</span>
           </div>
-          <p class="text-neutral-600 mt-3 text-sm">+ $150 USD de setup <span class="text-neutral-500">(una vez)</span></p>
+          <p class="text-yellow-400 mt-3 text-sm font-bold">los primeros 3 meses.</p>
+          <p class="text-neutral-500 mt-1 text-sm">Luego $499 USD/mes.</p>
+          <p class="text-neutral-600 mt-3 text-sm">+ $400 USD de setup <span class="text-neutral-500">(una vez)</span></p>
         </div>
         <div class="mt-8 flex items-center gap-4 scroll-reveal" style="--d:150ms">
           <div class="w-px h-12 bg-yellow-400/30"></div>
           <div>
-            <p class="text-yellow-400 font-bold">Primer mes gratis.</p>
+            <p class="text-yellow-400 font-bold">Ahorras $600 USD en los primeros 3 meses.</p>
             <p class="text-neutral-600 text-sm">Sin contrato. Cancelas cuando quieras.</p>
           </div>
         </div>
@@ -59,7 +61,7 @@ const { whatsappUrl, included } = Astro.props;
         </div>
 
         <div class="mt-6 p-6 border border-neutral-800 scroll-reveal" style="--d:200ms">
-          <p class="text-sm text-neutral-500 leading-relaxed">El presupuesto de publicidad se paga directo a Meta, no a nosotros. Recomendamos desde $150 USD/mes pero tú decides cuánto.</p>
+          <p class="text-sm text-neutral-500 leading-relaxed">El presupuesto publicitario se paga directo en Instagram y Facebook, no a nosotros. Recomendamos partir desde $200 USD/mes, pero tú decides cuánto.</p>
         </div>
         <div class="mt-10 scroll-reveal" style="--d:250ms">
           <a href={whatsappUrl} target="_blank" data-wa-cta id="pricing-cta" class="group inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">

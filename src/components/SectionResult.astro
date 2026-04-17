@@ -1,0 +1,50 @@
+---
+interface Props {
+  whatsappUrl: string;
+}
+const { whatsappUrl } = Astro.props;
+---
+
+<section class="relative bg-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden border-t border-neutral-100">
+  <div class="absolute top-1/2 -translate-y-1/2 -left-[5%] text-[18vw] font-black text-neutral-950/[0.03] leading-none select-none pointer-events-none tracking-tighter" aria-hidden="true">
+    +60%
+  </div>
+
+  <div class="max-w-7xl mx-auto relative">
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5">
+        <div class="flex items-center gap-3 mb-6 scroll-reveal">
+          <div class="w-8 h-px bg-yellow-500"></div>
+          <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-600">El resultado</span>
+        </div>
+        <div class="scroll-reveal" style="--d:100ms">
+          <div class="flex items-baseline gap-2">
+            <span class="text-[5rem] sm:text-[7rem] lg:text-[10rem] font-black leading-none text-neutral-950 counter-num" data-target="60">0</span>
+            <span class="text-3xl sm:text-4xl lg:text-5xl font-black text-yellow-500">%</span>
+          </div>
+          <p class="text-sm text-neutral-500 uppercase tracking-wider mt-4">
+            de las pymes que se digitalizaron <br/>aumentó sus ventas.
+          </p>
+          <p class="text-xs text-neutral-400 mt-2">Fuente: Telefónica Chile, 2025</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6 lg:col-start-7">
+        <div class="space-y-6">
+          <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-950 leading-[0.95] tracking-tight scroll-reveal">
+            No te vendemos software. Te dejamos funcionando el sistema.
+          </h2>
+          <p class="text-lg text-neutral-600 leading-relaxed scroll-reveal" style="--d:50ms">
+            Lo mismo que ya les funcionó a las que se movieron a tiempo. Web, asistente en WhatsApp, anuncios corriendo. Todo operando desde el día uno.
+          </p>
+          <div class="pt-4 scroll-reveal" style="--d:100ms">
+            <a href={whatsappUrl} target="_blank" data-wa-cta class="inline-flex items-center gap-2 text-sm font-bold text-neutral-950 hover:text-yellow-600 transition-colors">
+              Quiero lo mismo para mi negocio
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

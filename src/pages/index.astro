@@ -10,6 +10,7 @@ import SectionFaq from '../components/SectionFaq.astro';
 import SectionForm from '../components/SectionForm.astro';
 import SectionTeam from '../components/SectionTeam.astro';
 import SectionUseCases from '../components/SectionUseCases.astro';
+import SectionResult from '../components/SectionResult.astro';
 import SectionCta from '../components/SectionCta.astro';
 import Footer from '../components/Footer.astro';
 
@@ -17,10 +18,10 @@ const rubros = ["Agendamiento", "Ventas", "Soporte", "Calificación", "Recordato
 
 const included = [
   "Tu web profesional con dominio, correos, hosting y SSL incluidos",
-  "Asistente IA en WhatsApp con número dedicado — responde, agenda y vende 24/7",
-  "Calificación automática: solo te llegan leads que valen la pena",
-  "Panel de control donde ves cada conversación, cada lead, cada oportunidad",
-  "Campañas en Meta Ads — las armamos, lanzamos, optimizamos y gestionamos por ti",
+  "Asistente con IA en WhatsApp con número dedicado — responde, agenda y califica 24/7",
+  "Calificación automática: los clientes calientes te llegan a ti, del resto se hace cargo el asistente",
+  "Panel donde ves cada conversación, cada cliente, cada oportunidad",
+  "Anuncios en Instagram y Facebook — los armamos, lanzamos, optimizamos y gestionamos por ti",
   "Reportes claros cada mes: sabes exactamente qué funciona y qué no",
   "Soporte directo cuando lo necesites, sin tickets ni esperas",
 ];
@@ -32,9 +33,9 @@ const faqs = [
   { question: "¿Qué pasa con el WhatsApp?", answer: "Nosotros te entregamos un número dedicado para tu negocio. Es tuyo, seguro, y separado de tu WhatsApp personal. El asistente responde ahí y tú puedes meterte a cualquier conversación cuando quieras." },
   { question: "¿Puedo ver las conversaciones de mis clientes?", answer: "Sí. Tienes acceso completo al panel. Ves cada conversación, quién escribió, qué necesita y en qué estado está. Puedes entrar a cualquier chat y tomar el control en cualquier momento." },
   { question: "¿Necesito saber de tecnología?", answer: "Cero. Nosotros configuramos todo. Tú solo necesitas tu teléfono y 20 minutos para contarnos sobre tu negocio. El resto lo hacemos nosotros." },
-  { question: "¿Las campañas de publicidad están incluidas?", answer: "Nosotros configuramos, optimizamos y gestionamos las campañas. Los creativos (imágenes, videos) los pone el cliente. Si necesitas trabajo de agencia creativa, eso se cotiza por separado. El presupuesto de ads se paga directo a Meta, y tú decides cuánto invertir." },
+  { question: "¿Las campañas de publicidad están incluidas?", answer: "Nosotros configuramos, optimizamos y gestionamos las campañas en Instagram y Facebook. Los creativos (imágenes, videos) los pone el cliente. Si necesitas trabajo de agencia creativa, eso se cotiza por separado. El presupuesto publicitario se paga directo en Instagram y Facebook, y tú decides cuánto invertir." },
   { question: "¿Puedo cancelar cuando quiera?", answer: "Sí. Sin contrato, sin permanencia mínima, sin multas. Si un mes decides que no lo necesitas, cancelas y listo." },
-  { question: "¿Y si no me sirve?", answer: "El primer mes es gratis. Si no ves resultados, no pagas. Sin contratos, sin multas, sin letra chica." },
+  { question: "¿Y si no me sirve?", answer: "Los primeros 3 meses pagas $299 USD/mes (en vez de $499). Sin contrato ni permanencia. Si no te sirve, cancelas cuando quieras. Sin letra chica." },
   { question: "¿Cuántos clientes nuevos voy a recibir?", answer: "Depende de tu rubro, tu zona y cuánto inviertas en publicidad. Lo que sí te garantizamos: vas a responder el 100% de las consultas, 24/7, en menos de 1 minuto. Eso solo ya cambia todo." },
 ];
 
@@ -49,13 +50,13 @@ const founder = {
 const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
 ---
 
-<Layout title="Web, CRM Inteligente y Meta Ads para Pymes en Chile | Lelemon" description="Creamos tu web, te damos un CRM con asistente IA que responde en WhatsApp, Instagram y Messenger 24/7, y gestionamos Meta Ads. Evaluación gratis.">
+<Layout title="Marketing operado con IA para pymes en Chile | Lelemon" description="Armamos tu web, ponemos un asistente con IA en tu WhatsApp y gestionamos tus anuncios en Instagram y Facebook. Tu negocio atrae y atiende clientes 24/7. Desde $299 USD/mes.">
   <!-- JSON-LD: ProfessionalService + LocalBusiness -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Lelemon",
-    "description": "Creamos tu web, te damos un CRM con asistente IA que responde en WhatsApp, Instagram y Messenger 24/7, y gestionamos Meta Ads para pymes en Chile.",
+    "description": "Marketing operado con IA para pymes en Chile. Armamos tu web, ponemos un asistente con IA en tu WhatsApp y gestionamos tus anuncios en Instagram y Facebook.",
     "url": "https://lelemon.cl",
     "logo": "https://lelemon.cl/logo.svg",
     "image": "https://lelemon.cl/og.png",
@@ -76,7 +77,7 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
       "@type": "Country",
       "name": "Chile"
     },
-    "priceRange": "Desde $250 USD/mes",
+    "priceRange": "Desde $299 USD/mes",
     "sameAs": [
       "https://www.linkedin.com/in/kmilo93sd"
     ],
@@ -89,8 +90,8 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
     "offers": {
       "@type": "Offer",
       "name": "Paquete Lelemon",
-      "description": "Web + CRM + Asistente WhatsApp + Campañas de marketing",
-      "price": "450",
+      "description": "Web + Asistente con IA + Anuncios gestionados + CRM + Reportes mensuales",
+      "price": "499",
       "priceCurrency": "USD",
       "priceValidUntil": "2026-12-31"
     }
@@ -120,6 +121,7 @@ const whatsappUrl = "https://wa.me/56977066965?text=Hola,%20me%20interesa%20sabe
     <SectionProblem />
     <SectionSolution whatsappUrl={whatsappUrl} />
     <SectionUseCases whatsappUrl={whatsappUrl} />
+    <SectionResult whatsappUrl={whatsappUrl} />
     <BannerBreak whatsappUrl={whatsappUrl} />
     <SectionPricing whatsappUrl={whatsappUrl} included={included} />
     <SectionForm whatsappUrl={whatsappUrl} />
