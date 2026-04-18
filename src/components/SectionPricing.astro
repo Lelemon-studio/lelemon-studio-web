@@ -30,22 +30,36 @@ const { whatsappUrl, included } = Astro.props;
 
         <!-- Pricing table -->
         <div class="mt-10 border border-neutral-800 bg-neutral-900/30 scroll-reveal" style="--d:100ms">
-          <!-- Row: primeros 3 meses (destacado) -->
+          <!-- Row: implementación + primer mes (destacado) -->
           <div class="px-6 py-6 bg-yellow-400/[0.04] border-b border-neutral-800">
             <div class="flex items-start justify-between gap-4">
               <div>
-                <p class="text-yellow-400 text-[11px] font-bold uppercase tracking-[0.2em]">Primeros 3 meses</p>
+                <p class="text-yellow-400 text-[11px] font-bold uppercase tracking-[0.2em]">Implementación + primer mes</p>
+                <p class="text-neutral-500 text-xs mt-1.5">Una vez · Incluye setup y primer mes operando</p>
+              </div>
+              <div class="text-right">
+                <span class="text-4xl sm:text-5xl font-black text-gradient-lemon leading-none">$600</span>
+                <span class="block text-neutral-500 text-xs mt-1">USD</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row: mes 2 y 3 -->
+          <div class="px-6 py-5 border-b border-neutral-800">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-white text-[11px] font-bold uppercase tracking-[0.2em]">Mes 2 y 3</p>
                 <p class="text-neutral-500 text-xs mt-1.5">40% de descuento</p>
               </div>
               <div class="text-right">
-                <span class="text-4xl sm:text-5xl font-black text-gradient-lemon leading-none">$299</span>
+                <span class="text-2xl sm:text-3xl font-black text-white leading-none">$299</span>
                 <span class="block text-neutral-500 text-xs mt-1">USD/mes</span>
               </div>
             </div>
           </div>
 
           <!-- Row: desde mes 4 -->
-          <div class="px-6 py-5 border-b border-neutral-800">
+          <div class="px-6 py-5">
             <div class="flex items-start justify-between gap-4">
               <div>
                 <p class="text-white text-[11px] font-bold uppercase tracking-[0.2em]">Desde el mes 4</p>
@@ -57,33 +71,19 @@ const { whatsappUrl, included } = Astro.props;
               </div>
             </div>
           </div>
-
-          <!-- Row: setup -->
-          <div class="px-6 py-5">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <p class="text-white text-[11px] font-bold uppercase tracking-[0.2em]">Setup</p>
-                <p class="text-neutral-500 text-xs mt-1.5">Una sola vez</p>
-              </div>
-              <div class="text-right">
-                <span class="text-2xl sm:text-3xl font-black text-white leading-none">$400</span>
-                <span class="block text-neutral-500 text-xs mt-1">USD</span>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <!-- Summary: al firmar + ahorro -->
+        <!-- Summary: al firmar + total 3 meses -->
         <div class="mt-6 grid grid-cols-2 gap-3 scroll-reveal" style="--d:150ms">
           <div class="border border-yellow-400/30 bg-yellow-400/[0.05] p-5">
             <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-yellow-400/80 mb-2">Al firmar pagas</p>
-            <p class="text-2xl sm:text-3xl font-black text-white">$699 <span class="text-xs text-neutral-500 font-medium">USD</span></p>
-            <p class="text-[11px] text-neutral-500 mt-1.5">Setup + primer mes</p>
+            <p class="text-2xl sm:text-3xl font-black text-white">$600 <span class="text-xs text-neutral-500 font-medium">USD</span></p>
+            <p class="text-[11px] text-neutral-500 mt-1.5">Implementación + mes 1</p>
           </div>
           <div class="border border-neutral-800 bg-neutral-900/30 p-5">
-            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 mb-2">Ahorro 3 meses</p>
-            <p class="text-2xl sm:text-3xl font-black text-green-400">$600 <span class="text-xs text-neutral-500 font-medium">USD</span></p>
-            <p class="text-[11px] text-neutral-500 mt-1.5">vs. precio regular</p>
+            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 mb-2">Total 3 primeros meses</p>
+            <p class="text-2xl sm:text-3xl font-black text-green-400">$1.198 <span class="text-xs text-neutral-500 font-medium">USD</span></p>
+            <p class="text-[11px] text-neutral-500 mt-1.5">Luego $499/mes</p>
           </div>
         </div>
 
