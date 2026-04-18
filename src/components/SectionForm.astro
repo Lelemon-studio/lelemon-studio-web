@@ -96,6 +96,16 @@ const FORM_API_URL = API_URL;
             />
           </div>
           <div>
+            <label for="lead-website" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">Sitio web o Instagram <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
+            <input
+              type="text"
+              id="lead-website"
+              name="website"
+              placeholder="minegocio.cl · @minegocio"
+              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+            />
+          </div>
+          <div>
             <label for="lead-help" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">¿En qué te podemos apoyar? <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
             <textarea
               id="lead-help"
@@ -189,6 +199,7 @@ const FORM_API_URL = API_URL;
       var email = document.getElementById('lead-email').value.trim();
       var phone = document.getElementById('lead-phone').value.trim();
       var business = document.getElementById('lead-business').value.trim();
+      var website = document.getElementById('lead-website').value.trim();
       var help = document.getElementById('lead-help').value.trim();
       var consent = document.getElementById('lead-consent').checked;
 
@@ -211,7 +222,7 @@ const FORM_API_URL = API_URL;
           if (turnstileToken || attempts > 20) {
             clearInterval(wait);
             if (turnstileToken) {
-              submitLead(name, email, phone, business, help);
+              submitLead(name, email, phone, business, website, help);
             } else {
               showFeedback('Error de verificación. Intenta de nuevo.', true);
             }
@@ -220,16 +231,17 @@ const FORM_API_URL = API_URL;
         return;
       }
 
-      submitLead(name, email, phone, business, help);
+      submitLead(name, email, phone, business, website, help);
     });
 
-    function submitLead(name, email, phone, business, help) {
+    function submitLead(name, email, phone, business, website, help) {
       setLoading(true);
 
-      // Combine business + help into phone field so we don't lose context
+      // Combine business + website + help into phone field so we don't lose context
       // (backend schema only accepts name/email/phone/turnstileToken)
       var phoneWithContext = phone || '';
       if (business) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Negocio: ' + business;
+      if (website) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Web/IG: ' + website;
       if (help) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Ayuda: ' + help;
 
       fetch(FORM_API_URL + '/public/forms/' + FORM_ID + '/leads', {
