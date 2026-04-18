@@ -16,6 +16,18 @@ const { whatsappUrl, formId, apiKey } = Astro.props;
 const FORM_ID = formId || DEFAULT_FORM_ID;
 const FORM_API_KEY = apiKey || DEFAULT_API_KEY;
 const FORM_API_URL = API_URL;
+
+const COUNTRIES = [
+  { code: "+56",  name: "Chile",        flag: "🇨🇱" },
+  { code: "+52",  name: "México",       flag: "🇲🇽" },
+  { code: "+54",  name: "Argentina",    flag: "🇦🇷" },
+  { code: "+57",  name: "Colombia",     flag: "🇨🇴" },
+  { code: "+51",  name: "Perú",         flag: "🇵🇪" },
+  { code: "+598", name: "Uruguay",      flag: "🇺🇾" },
+  { code: "+593", name: "Ecuador",      flag: "🇪🇨" },
+  { code: "+34",  name: "España",       flag: "🇪🇸" },
+  { code: "+1",   name: "USA/Canadá",   flag: "🇺🇸" },
+];
 ---
 
 <section id="contacto" class="relative bg-neutral-950 text-white py-20 lg:py-32 px-6 sm:px-10 overflow-hidden">
@@ -48,9 +60,9 @@ const FORM_API_URL = API_URL;
       </div>
 
       <div class="scroll-reveal" style="--d:100ms">
-        <form id="lead-form" class="space-y-6" novalidate>
+        <form id="lead-form" class="space-y-5" novalidate>
           <div>
-            <label for="lead-name" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">Nombre</label>
+            <label for="lead-name" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Nombre<span class="text-yellow-400 ml-1">*</span></label>
             <input
               type="text"
               id="lead-name"
@@ -58,11 +70,12 @@ const FORM_API_URL = API_URL;
               required
               autocomplete="name"
               placeholder="Tu nombre"
-              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+              class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
             />
+            <p id="err-name" class="hidden text-xs text-red-400 mt-1.5"></p>
           </div>
           <div>
-            <label for="lead-email" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">Email</label>
+            <label for="lead-email" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Email<span class="text-yellow-400 ml-1">*</span></label>
             <input
               type="email"
               id="lead-email"
@@ -70,49 +83,70 @@ const FORM_API_URL = API_URL;
               required
               autocomplete="email"
               placeholder="tu@correo.com"
-              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+              class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
             />
+            <p id="err-email" class="hidden text-xs text-red-400 mt-1.5"></p>
           </div>
           <div>
-            <label for="lead-phone" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">Teléfono</label>
-            <input
-              type="tel"
-              id="lead-phone"
-              name="phone"
-              autocomplete="tel"
-              placeholder="+56 9 XXXX XXXX"
-              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-            />
+            <label for="lead-phone" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Teléfono</label>
+            <div class="flex gap-2">
+              <select
+                id="lead-country"
+                name="country"
+                class="bg-neutral-900 border border-neutral-800 text-white px-3 py-4 text-sm focus:border-yellow-400 focus:outline-none transition-colors shrink-0 w-[110px]"
+                aria-label="Código de país"
+              >
+                {COUNTRIES.map((c) => (
+                  <option value={c.code} selected={c.code === "+56"}>{c.flag} {c.code}</option>
+                ))}
+              </select>
+              <input
+                type="tel"
+                id="lead-phone"
+                name="phone"
+                autocomplete="tel"
+                inputmode="numeric"
+                placeholder="9 1234 5678"
+                class="lead-input flex-1 bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+              />
+            </div>
+            <p id="err-phone" class="hidden text-xs text-red-400 mt-1.5"></p>
           </div>
           <div>
-            <label for="lead-business" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">¿A qué se dedica tu negocio?</label>
+            <label for="lead-business" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">¿A qué se dedica tu negocio?<span class="text-yellow-400 ml-1">*</span></label>
             <input
               type="text"
               id="lead-business"
               name="business"
               required
               placeholder="Clínica dental, abogados, tienda de ropa..."
-              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+              class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
             />
+            <p id="err-business" class="hidden text-xs text-red-400 mt-1.5"></p>
           </div>
           <div>
-            <label for="lead-website" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">Sitio web o Instagram <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
+            <label for="lead-website" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Sitio web o Instagram <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
             <input
               type="text"
               id="lead-website"
               name="website"
               placeholder="minegocio.cl · @minegocio"
-              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+              class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
             />
+            <p id="err-website" class="hidden text-xs text-red-400 mt-1.5"></p>
           </div>
           <div>
-            <label for="lead-help" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">¿En qué te podemos apoyar? <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
+            <div class="flex items-baseline justify-between mb-2">
+              <label for="lead-help" class="block text-xs font-bold text-neutral-400 uppercase tracking-wider">¿En qué te podemos apoyar? <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
+              <span id="help-counter" class="text-[11px] text-neutral-600">0/250</span>
+            </div>
             <textarea
               id="lead-help"
               name="help"
               rows="3"
+              maxlength="250"
               placeholder="Cuéntanos brevemente qué necesitas o qué problema quieres resolver."
-              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors resize-none"
+              class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors resize-none"
             ></textarea>
           </div>
           <div class="flex items-start gap-3">
@@ -120,7 +154,6 @@ const FORM_API_URL = API_URL;
             <label for="lead-consent" class="text-xs text-neutral-500 leading-relaxed">Acepto que Lelemon me contacte para agendar una llamada. No spam.</label>
           </div>
 
-          <!-- Cloudflare Turnstile (invisible) -->
           <div id="turnstile-container"></div>
 
           <button
@@ -133,7 +166,6 @@ const FORM_API_URL = API_URL;
           <p id="form-feedback" class="text-sm text-center hidden"></p>
         </form>
 
-        <!-- Success state (hidden by default) -->
         <div id="form-success" class="hidden text-center py-12">
           <div class="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -146,15 +178,100 @@ const FORM_API_URL = API_URL;
   </div>
 </section>
 
+<style>
+  .lead-input.has-error {
+    border-color: #f87171 !important;
+  }
+</style>
+
 <script is:inline define:vars={{ TURNSTILE_SITE_KEY, FORM_API_URL, FORM_ID, FORM_API_KEY }}>
   (function() {
     var form = document.getElementById('lead-form');
     var submitBtn = document.getElementById('lead-submit');
     var feedback = document.getElementById('form-feedback');
     var successEl = document.getElementById('form-success');
+    var helpCounter = document.getElementById('help-counter');
     var turnstileToken = '';
     var turnstileWidgetId = null;
 
+    // Validators
+    function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+    function isValidPhone(v) {
+      var digits = v.replace(/\D/g, '');
+      return digits.length >= 7 && digits.length <= 14;
+    }
+    function isValidWebsite(v) {
+      if (!v) return true;
+      return /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(v) || /^@[\w.]+$/.test(v);
+    }
+
+    function fid(id) { return document.getElementById('lead-' + id); }
+    function errEl(id) { return document.getElementById('err-' + id); }
+
+    function showError(id, msg) {
+      var input = fid(id);
+      var err = errEl(id);
+      if (input) input.classList.add('has-error');
+      if (err) { err.textContent = msg; err.classList.remove('hidden'); }
+    }
+    function clearError(id) {
+      var input = fid(id);
+      var err = errEl(id);
+      if (input) input.classList.remove('has-error');
+      if (err) err.classList.add('hidden');
+    }
+
+    function validateField(id) {
+      var val = (fid(id).value || '').trim();
+      if (id === 'name') {
+        if (val.length < 2) { showError(id, 'Ingresa al menos 2 caracteres.'); return false; }
+      } else if (id === 'email') {
+        if (!val) { showError(id, 'Email requerido.'); return false; }
+        if (!isValidEmail(val)) { showError(id, 'Email no válido (ej: tu@correo.com).'); return false; }
+      } else if (id === 'phone') {
+        if (val && !isValidPhone(val)) { showError(id, 'Ingresa un teléfono válido (7-14 dígitos).'); return false; }
+      } else if (id === 'business') {
+        if (val.length < 2) { showError(id, 'Cuéntanos a qué se dedica tu negocio.'); return false; }
+      } else if (id === 'website') {
+        if (val && !isValidWebsite(val)) { showError(id, 'Ingresa un sitio (minegocio.cl) o handle (@minegocio).'); return false; }
+      }
+      clearError(id);
+      return true;
+    }
+
+    function validateAll() {
+      var ok = true;
+      ['name','email','phone','business','website'].forEach(function(id) {
+        if (!validateField(id)) ok = false;
+      });
+      return ok;
+    }
+
+    ['name','email','phone','business','website'].forEach(function(id) {
+      var el = fid(id);
+      if (!el) return;
+      el.addEventListener('blur', function() { validateField(id); });
+      el.addEventListener('input', function() {
+        if (el.classList.contains('has-error')) clearError(id);
+      });
+    });
+
+    var phoneEl = fid('phone');
+    if (phoneEl) {
+      phoneEl.addEventListener('input', function(e) {
+        var cleaned = e.target.value.replace(/[^\d\s]/g, '');
+        if (cleaned !== e.target.value) e.target.value = cleaned;
+      });
+    }
+
+    var helpEl = fid('help');
+    if (helpEl && helpCounter) {
+      helpEl.addEventListener('input', function() {
+        helpCounter.textContent = helpEl.value.length + '/250';
+      });
+    }
+
+    // Turnstile
     function initTurnstile() {
       if (!TURNSTILE_SITE_KEY || typeof turnstile === 'undefined') return;
       turnstileWidgetId = turnstile.render('#turnstile-container', {
@@ -165,17 +282,12 @@ const FORM_API_URL = API_URL;
         size: 'invisible',
       });
     }
-
-    // Turnstile script loads async — retry until available
     if (TURNSTILE_SITE_KEY) {
       if (typeof turnstile !== 'undefined') {
         initTurnstile();
       } else {
         var check = setInterval(function() {
-          if (typeof turnstile !== 'undefined') {
-            clearInterval(check);
-            initTurnstile();
-          }
+          if (typeof turnstile !== 'undefined') { clearInterval(check); initTurnstile(); }
         }, 500);
         setTimeout(function() { clearInterval(check); }, 10000);
       }
@@ -185,7 +297,6 @@ const FORM_API_URL = API_URL;
       feedback.textContent = msg;
       feedback.className = 'text-sm text-center mt-2 ' + (isError ? 'text-red-400' : 'text-green-400');
     }
-
     function setLoading(loading) {
       submitBtn.disabled = loading;
       submitBtn.textContent = loading ? 'Enviando...' : 'Quiero mi evaluación gratuita';
@@ -195,25 +306,28 @@ const FORM_API_URL = API_URL;
       e.preventDefault();
       feedback.className = 'text-sm text-center hidden';
 
-      var name = document.getElementById('lead-name').value.trim();
-      var email = document.getElementById('lead-email').value.trim();
-      var phone = document.getElementById('lead-phone').value.trim();
-      var business = document.getElementById('lead-business').value.trim();
-      var website = document.getElementById('lead-website').value.trim();
-      var help = document.getElementById('lead-help').value.trim();
-      var consent = document.getElementById('lead-consent').checked;
-
-      if (!name) { showFeedback('Ingresa tu nombre', true); return; }
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showFeedback('Ingresa un email válido', true); return;
+      if (!validateAll()) {
+        showFeedback('Revisa los campos marcados.', true);
+        return;
       }
-      if (!business) { showFeedback('Cuéntanos a qué se dedica tu negocio', true); return; }
-      if (!consent) { showFeedback('Debes aceptar ser contactado', true); return; }
+      if (!document.getElementById('lead-consent').checked) {
+        showFeedback('Debes aceptar ser contactado.', true);
+        return;
+      }
       if (!FORM_API_URL || !FORM_ID || !FORM_API_KEY) {
-        showFeedback('Formulario no configurado', true); return;
+        showFeedback('Formulario no configurado.', true);
+        return;
       }
 
-      // If Turnstile is configured but no token yet, trigger challenge
+      var name = fid('name').value.trim();
+      var email = fid('email').value.trim();
+      var countryCode = document.getElementById('lead-country').value;
+      var phoneRaw = fid('phone').value.trim();
+      var phone = phoneRaw ? countryCode + ' ' + phoneRaw : '';
+      var business = fid('business').value.trim();
+      var website = fid('website').value.trim();
+      var help = fid('help').value.trim();
+
       if (TURNSTILE_SITE_KEY && !turnstileToken && typeof turnstile !== 'undefined') {
         turnstile.execute('#turnstile-container');
         var attempts = 0;
@@ -221,11 +335,8 @@ const FORM_API_URL = API_URL;
           attempts++;
           if (turnstileToken || attempts > 20) {
             clearInterval(wait);
-            if (turnstileToken) {
-              submitLead(name, email, phone, business, website, help);
-            } else {
-              showFeedback('Error de verificación. Intenta de nuevo.', true);
-            }
+            if (turnstileToken) submitLead(name, email, phone, business, website, help);
+            else showFeedback('Error de verificación. Intenta de nuevo.', true);
           }
         }, 250);
         return;
@@ -237,8 +348,6 @@ const FORM_API_URL = API_URL;
     function submitLead(name, email, phone, business, website, help) {
       setLoading(true);
 
-      // Backend acepta: name (max 255), email, phone (max 50), turnstileToken
-      // Concatenamos business/website/help al NAME (max 255 alcanza)
       var nameWithContext = name;
       if (business) nameWithContext += ' | ' + business;
       if (website) nameWithContext += ' | ' + website;
@@ -260,9 +369,7 @@ const FORM_API_URL = API_URL;
       })
       .then(function(res) {
         if (!res.ok) {
-          return res.json().then(function(data) {
-            throw new Error(data.message || 'Error al enviar');
-          });
+          return res.json().then(function(data) { throw new Error(data.message || 'Error al enviar'); });
         }
         return res.json();
       })
@@ -270,12 +377,8 @@ const FORM_API_URL = API_URL;
         form.classList.add('hidden');
         successEl.classList.remove('hidden');
 
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', { content_name: 'Landing Form' });
-        }
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', { event_category: 'Form', event_label: 'Landing' });
-        }
+        if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Landing Form' });
+        if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'Form', event_label: 'Landing' });
       })
       .catch(function(err) {
         showFeedback(err.message || 'Error al enviar. Intenta de nuevo.', true);
@@ -284,9 +387,7 @@ const FORM_API_URL = API_URL;
           turnstileToken = '';
         }
       })
-      .finally(function() {
-        setLoading(false);
-      });
+      .finally(function() { setLoading(false); });
     }
   })();
 </script>
