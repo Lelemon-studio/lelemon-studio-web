@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title,
-  description = "Marketing operado con IA para pymes en Chile. Armamos tu web, ponemos un asistente con IA en tu WhatsApp y gestionamos tus anuncios en Instagram y Facebook. Desde $299 USD/mes.",
+  description = "Digitaliza tu negocio para que venda solo. Armamos tu web, ponemos un asistente con IA en tu WhatsApp y gestionamos tus anuncios en Instagram y Facebook.",
   ogImage = "/og.png",
   canonicalUrl = "https://lelemon.cl/",
 } = Astro.props;
@@ -58,7 +58,7 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:alt" content="Lelemon — Marketing operado con IA para pymes en Chile" />
+    <meta property="og:image:alt" content="Lelemon — Digitaliza tu negocio para que venda solo" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="es_CL" />
 
@@ -67,7 +67,7 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
-    <meta name="twitter:image:alt" content="Lelemon — Marketing operado con IA para pymes en Chile" />
+    <meta name="twitter:image:alt" content="Lelemon — Digitaliza tu negocio para que venda solo" />
 
     <!-- Preload del OG para compartir rapido en redes -->
     <link rel="preload" as="image" href={ogImage} fetchpriority="high" />
