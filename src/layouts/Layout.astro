@@ -26,6 +26,9 @@ const GA4_MEASUREMENT_ID = "G-4WFRN3WMMJ";
 
 // ── Lead Form Config ──
 import { TURNSTILE_SITE_KEY } from '../config';
+import LeadModal from '../components/LeadModal.astro';
+
+const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
 ---
 
 <!doctype html>
@@ -123,6 +126,9 @@ import { TURNSTILE_SITE_KEY } from '../config';
   </head>
   <body class="bg-gray-50 text-gray-900 font-sans antialiased">
     <slot />
+
+    <!-- Lead Modal global (se abre con data-open-lead-modal) -->
+    <LeadModal whatsappUrl={whatsappUrl} />
 
     <!-- Meta Pixel conversion events on CTAs -->
     <script is:inline>
