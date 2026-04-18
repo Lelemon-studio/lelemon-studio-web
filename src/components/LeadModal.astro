@@ -14,153 +14,218 @@ const { whatsappUrl } = Astro.props;
 
 <div
   id="lead-modal"
-  class="hidden fixed inset-0 z-[100] items-center justify-center p-4 sm:p-6"
+  class="hidden fixed inset-0 z-[100] items-end sm:items-center justify-center"
   aria-hidden="true"
   aria-modal="true"
   role="dialog"
 >
   <!-- Overlay -->
-  <div id="lead-modal-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm" data-close-lead-modal></div>
+  <div id="lead-modal-overlay" class="absolute inset-0 bg-black/75 backdrop-blur-sm" data-close-lead-modal></div>
 
   <!-- Modal card -->
-  <div class="relative w-full max-w-lg bg-neutral-950 border border-neutral-800 shadow-2xl overflow-y-auto max-h-[90vh]">
+  <div class="lead-modal-card relative w-full sm:w-auto sm:max-w-[560px] bg-neutral-950 border border-neutral-800 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)] flex flex-col max-h-[95vh] sm:max-h-[90vh] sm:rounded-none rounded-t-2xl overflow-hidden">
     <!-- Close -->
     <button
       type="button"
       data-close-lead-modal
       aria-label="Cerrar"
-      class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-neutral-500 hover:text-white transition-colors z-10"
+      class="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-800/50 rounded-full transition-all z-20"
     >
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
 
+    <!-- Mobile drag indicator -->
+    <div class="sm:hidden flex justify-center pt-2.5 pb-1">
+      <div class="w-10 h-1 bg-neutral-700 rounded-full"></div>
+    </div>
+
     <!-- Header -->
-    <div class="p-6 sm:p-8 border-b border-neutral-800">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-8 h-px bg-yellow-400"></div>
-        <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">Hablemos</span>
+    <div class="px-5 pt-4 pb-5 sm:px-7 sm:pt-7 sm:pb-6 border-b border-neutral-800/70 shrink-0">
+      <div class="flex items-center gap-2.5 mb-3">
+        <div class="w-6 h-px bg-yellow-400"></div>
+        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-yellow-400/80">Hablemos</span>
       </div>
-      <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+      <h3 class="text-xl sm:text-2xl font-black text-white leading-tight pr-8">
         Cuéntanos de tu negocio.
       </h3>
-      <p class="mt-2 text-sm text-neutral-400">
-        20 minutos. Evaluamos si podemos ayudarte. Sin compromiso.
+      <p class="mt-2 text-xs sm:text-sm text-neutral-400 leading-relaxed">
+        20 min. Evaluamos si podemos ayudarte. Sin compromiso.
       </p>
     </div>
 
-    <!-- Form -->
-    <form id="modal-lead-form" class="p-6 sm:p-8 space-y-5" novalidate>
-      <div>
-        <label for="modal-lead-name" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Nombre</label>
-        <input
-          type="text"
-          id="modal-lead-name"
-          name="name"
-          required
-          autocomplete="name"
-          placeholder="Tu nombre"
-          class="w-full bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-        />
-      </div>
-      <div>
-        <label for="modal-lead-email" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Email</label>
-        <input
-          type="email"
-          id="modal-lead-email"
-          name="email"
-          required
-          autocomplete="email"
-          placeholder="tu@correo.com"
-          class="w-full bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-        />
-      </div>
-      <div>
-        <label for="modal-lead-phone" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Teléfono</label>
-        <input
-          type="tel"
-          id="modal-lead-phone"
-          name="phone"
-          autocomplete="tel"
-          placeholder="+56 9 XXXX XXXX"
-          class="w-full bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-        />
-      </div>
-      <div>
-        <label for="modal-lead-business" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">¿A qué se dedica tu negocio?</label>
-        <input
-          type="text"
-          id="modal-lead-business"
-          name="business"
-          required
-          placeholder="Clínica dental, abogados, tienda..."
-          class="w-full bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-        />
-      </div>
-      <div>
-        <label for="modal-lead-website" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Sitio web o Instagram <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
-        <input
-          type="text"
-          id="modal-lead-website"
-          name="website"
-          placeholder="minegocio.cl · @minegocio"
-          class="w-full bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-        />
-      </div>
-      <div>
-        <label for="modal-lead-help" class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">¿En qué te podemos apoyar? <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
-        <textarea
-          id="modal-lead-help"
-          name="help"
-          rows="2"
-          placeholder="Cuéntanos brevemente qué necesitas."
-          class="w-full bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors resize-none"
-        ></textarea>
-      </div>
-      <div class="flex items-start gap-3">
-        <input type="checkbox" id="modal-lead-consent" name="consent" required class="mt-1 w-4 h-4 accent-yellow-400 bg-neutral-900 border-neutral-700" />
-        <label for="modal-lead-consent" class="text-xs text-neutral-500 leading-relaxed">Acepto que Lelemon me contacte para agendar una llamada. No spam.</label>
-      </div>
+    <!-- Form (scrollable si excede) -->
+    <div class="flex-1 overflow-y-auto overscroll-contain lead-modal-scroll">
+      <form id="modal-lead-form" class="px-5 py-5 sm:px-7 sm:py-6 space-y-4" novalidate>
 
-      <!-- Cloudflare Turnstile (invisible) -->
-      <div id="modal-turnstile-container"></div>
+        <!-- Grid 2 cols desde sm: nombre + email -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="modal-lead-name" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Nombre</label>
+            <input
+              type="text"
+              id="modal-lead-name"
+              name="name"
+              required
+              autocomplete="name"
+              placeholder="Tu nombre"
+              class="w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+            />
+          </div>
+          <div>
+            <label for="modal-lead-email" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Email</label>
+            <input
+              type="email"
+              id="modal-lead-email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="tu@correo.com"
+              class="w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+            />
+          </div>
+        </div>
 
-      <button
-        type="submit"
-        id="modal-lead-submit"
-        class="w-full bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold py-3.5 px-6 text-sm uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        Quiero mi evaluación gratuita
-      </button>
-      <p id="modal-form-feedback" class="text-sm text-center hidden"></p>
+        <!-- Grid 2 cols: teléfono + negocio -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="modal-lead-phone" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Teléfono</label>
+            <input
+              type="tel"
+              id="modal-lead-phone"
+              name="phone"
+              autocomplete="tel"
+              placeholder="+56 9 XXXX XXXX"
+              class="w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+            />
+          </div>
+          <div>
+            <label for="modal-lead-business" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Rubro<span class="text-yellow-400 ml-1">*</span></label>
+            <input
+              type="text"
+              id="modal-lead-business"
+              name="business"
+              required
+              placeholder="Clínica, abogado, tienda..."
+              class="w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+            />
+          </div>
+        </div>
 
-      <!-- WhatsApp fallback -->
-      <div class="pt-3 text-center border-t border-neutral-800">
-        <p class="text-xs text-neutral-500 mb-2">¿Prefieres WhatsApp?</p>
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          data-wa-cta
-          class="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-yellow-400 transition-colors"
+        <!-- Website / IG full width -->
+        <div>
+          <label for="modal-lead-website" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">
+            Sitio web o Instagram
+            <span class="text-neutral-600 font-normal normal-case ml-1">(opcional)</span>
+          </label>
+          <input
+            type="text"
+            id="modal-lead-website"
+            name="website"
+            placeholder="minegocio.cl · @minegocio"
+            class="w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+          />
+        </div>
+
+        <!-- Textarea -->
+        <div>
+          <label for="modal-lead-help" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">
+            ¿En qué te podemos apoyar?
+            <span class="text-neutral-600 font-normal normal-case ml-1">(opcional)</span>
+          </label>
+          <textarea
+            id="modal-lead-help"
+            name="help"
+            rows="2"
+            placeholder="Cuéntanos brevemente qué necesitas."
+            class="w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors resize-none"
+          ></textarea>
+        </div>
+
+        <!-- Consent + submit agrupados -->
+        <div class="flex items-start gap-2.5 pt-1">
+          <input type="checkbox" id="modal-lead-consent" name="consent" required class="mt-0.5 w-4 h-4 accent-yellow-400 bg-neutral-900 border-neutral-700 shrink-0" />
+          <label for="modal-lead-consent" class="text-[11px] text-neutral-500 leading-snug">Acepto que Lelemon me contacte para agendar una llamada. No spam.</label>
+        </div>
+
+        <!-- Turnstile invisible -->
+        <div id="modal-turnstile-container"></div>
+
+        <button
+          type="submit"
+          id="modal-lead-submit"
+          class="w-full bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold py-3.5 px-6 text-sm uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Escríbenos directo
-        </a>
-      </div>
-    </form>
+          <span>Quiero mi evaluación</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </button>
+        <p id="modal-form-feedback" class="text-xs text-center hidden"></p>
 
-    <!-- Success state (hidden by default) -->
-    <div id="modal-form-success" class="hidden text-center p-10">
-      <div class="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-6">
-        <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        <!-- WhatsApp fallback -->
+        <div class="pt-3 text-center border-t border-neutral-800/60">
+          <p class="text-[11px] text-neutral-600 mb-1.5">¿Prefieres WhatsApp?</p>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            data-wa-cta
+            class="inline-flex items-center gap-2 text-xs font-semibold text-neutral-400 hover:text-yellow-400 transition-colors"
+          >
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Escríbenos directo
+          </a>
+        </div>
+      </form>
+
+      <!-- Success state -->
+      <div id="modal-form-success" class="hidden text-center px-5 py-12 sm:px-7 sm:py-16">
+        <div class="w-14 h-14 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-5">
+          <svg class="w-7 h-7 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold text-white mb-2">¡Recibimos tus datos!</h3>
+        <p class="text-neutral-400 max-w-xs mx-auto text-sm leading-relaxed">Te contactamos en menos de 24 horas para agendar tu evaluación.</p>
+        <button type="button" data-close-lead-modal class="mt-6 inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 text-xs font-bold uppercase tracking-wider">
+          Cerrar
+        </button>
       </div>
-      <h3 class="text-xl font-bold text-white mb-3">¡Recibimos tus datos!</h3>
-      <p class="text-neutral-400 max-w-sm mx-auto text-sm">Te contactamos en menos de 24 horas para agendar tu evaluación.</p>
-      <button type="button" data-close-lead-modal class="mt-8 text-yellow-400 hover:text-yellow-300 text-sm font-bold uppercase tracking-wider">
-        Cerrar
-      </button>
     </div>
   </div>
 </div>
+
+<style>
+  #lead-modal {
+    animation: modalFadeIn 0.2s ease-out;
+  }
+  .lead-modal-card {
+    animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes modalSlideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Scroll estilizado dentro del modal */
+  .lead-modal-scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+  .lead-modal-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .lead-modal-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 999px;
+  }
+  .lead-modal-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Body lock cuando modal abierto */
+  body.modal-open {
+    overflow: hidden;
+  }
+</style>
 
 <script is:inline define:vars={{ TURNSTILE_SITE_KEY, FORM_API_URL: API_URL, FORM_ID: LEAD_FORM_ID, FORM_API_KEY: LEAD_FORM_API_KEY }}>
   (function() {
@@ -177,29 +242,26 @@ const { whatsappUrl } = Astro.props;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
 
-      // Tracking
       if (typeof fbq === 'function') fbq('track', 'ViewContent', { content_name: 'Lead Modal' });
       if (typeof gtag === 'function') gtag('event', 'modal_open', { event_category: 'Form', event_label: 'Lead Modal' });
 
-      // Init turnstile lazy
       if (!turnstileInitialized && TURNSTILE_SITE_KEY && typeof turnstile !== 'undefined') {
         initTurnstile();
       }
 
-      // Focus primer input
       setTimeout(function() {
         var nameInput = document.getElementById('modal-lead-name');
         if (nameInput) nameInput.focus();
-      }, 50);
+      }, 100);
     }
 
     function closeModal() {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
     }
 
     function initTurnstile() {
@@ -214,7 +276,6 @@ const { whatsappUrl } = Astro.props;
       turnstileInitialized = true;
     }
 
-    // Wire opening
     document.querySelectorAll('[data-open-lead-modal]').forEach(function(el) {
       el.addEventListener('click', function(e) {
         e.preventDefault();
@@ -222,7 +283,6 @@ const { whatsappUrl } = Astro.props;
       });
     });
 
-    // Wire closing
     document.querySelectorAll('[data-close-lead-modal]').forEach(function(el) {
       el.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -230,7 +290,6 @@ const { whatsappUrl } = Astro.props;
       });
     });
 
-    // ESC to close
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
         closeModal();
@@ -239,17 +298,19 @@ const { whatsappUrl } = Astro.props;
 
     function showFeedback(msg, isError) {
       feedback.textContent = msg;
-      feedback.className = 'text-sm text-center mt-2 ' + (isError ? 'text-red-400' : 'text-green-400');
+      feedback.className = 'text-xs text-center mt-2 ' + (isError ? 'text-red-400' : 'text-green-400');
     }
 
     function setLoading(loading) {
       submitBtn.disabled = loading;
-      submitBtn.textContent = loading ? 'Enviando...' : 'Quiero mi evaluación gratuita';
+      submitBtn.innerHTML = loading
+        ? '<span>Enviando...</span>'
+        : '<span>Quiero mi evaluación</span><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>';
     }
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      feedback.className = 'text-sm text-center hidden';
+      feedback.className = 'text-xs text-center hidden';
 
       var name = document.getElementById('modal-lead-name').value.trim();
       var email = document.getElementById('modal-lead-email').value.trim();
@@ -292,7 +353,6 @@ const { whatsappUrl } = Astro.props;
     function submitLead(name, email, phone, business, website, help) {
       setLoading(true);
 
-      // Concat business/website/help al phone (backend acepta name/email/phone/turnstile)
       var phoneWithContext = phone || '';
       if (business) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Negocio: ' + business;
       if (website) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Web/IG: ' + website;
