@@ -30,10 +30,10 @@ const FORM_API_URL = API_URL;
           <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">Contacto</span>
         </div>
         <h2 class="text-4xl sm:text-5xl font-black leading-[0.95] tracking-tight scroll-reveal" style="--d:50ms">
-          Agenda una evaluación gratis<br/>para tu negocio
+          Cuéntanos<br/>de tu negocio.
         </h2>
         <p class="mt-6 text-neutral-500 leading-relaxed max-w-md scroll-reveal" style="--d:100ms">
-          Te mostramos cómo funciona para tu negocio. Si no te convence, no pasa nada. Te contactamos en menos de 24 horas.
+          20 minutos. Evaluamos tu negocio y te decimos si podemos ayudarte. Sin compromiso, te respondemos en menos de 24 horas.
         </p>
         <div class="mt-8 flex items-center gap-4 scroll-reveal" style="--d:150ms">
           <div class="w-px h-12 bg-yellow-400/30"></div>
@@ -83,6 +83,27 @@ const FORM_API_URL = API_URL;
               placeholder="+56 9 XXXX XXXX"
               class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
             />
+          </div>
+          <div>
+            <label for="lead-business" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">¿A qué se dedica tu negocio?</label>
+            <input
+              type="text"
+              id="lead-business"
+              name="business"
+              required
+              placeholder="Clínica dental, abogados, tienda de ropa..."
+              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+            />
+          </div>
+          <div>
+            <label for="lead-help" class="block text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">¿En qué te podemos apoyar? <span class="text-neutral-600 font-normal normal-case">(opcional)</span></label>
+            <textarea
+              id="lead-help"
+              name="help"
+              rows="3"
+              placeholder="Cuéntanos brevemente qué necesitas o qué problema quieres resolver."
+              class="w-full bg-neutral-900 border border-neutral-800 text-white px-5 py-4 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors resize-none"
+            ></textarea>
           </div>
           <div class="flex items-start gap-3">
             <input type="checkbox" id="lead-consent" name="consent" required class="mt-1 w-4 h-4 accent-yellow-400 bg-neutral-900 border-neutral-700" />
@@ -167,12 +188,15 @@ const FORM_API_URL = API_URL;
       var name = document.getElementById('lead-name').value.trim();
       var email = document.getElementById('lead-email').value.trim();
       var phone = document.getElementById('lead-phone').value.trim();
+      var business = document.getElementById('lead-business').value.trim();
+      var help = document.getElementById('lead-help').value.trim();
       var consent = document.getElementById('lead-consent').checked;
 
       if (!name) { showFeedback('Ingresa tu nombre', true); return; }
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showFeedback('Ingresa un email válido', true); return;
       }
+      if (!business) { showFeedback('Cuéntanos a qué se dedica tu negocio', true); return; }
       if (!consent) { showFeedback('Debes aceptar ser contactado', true); return; }
       if (!FORM_API_URL || !FORM_ID || !FORM_API_KEY) {
         showFeedback('Formulario no configurado', true); return;
@@ -187,7 +211,7 @@ const FORM_API_URL = API_URL;
           if (turnstileToken || attempts > 20) {
             clearInterval(wait);
             if (turnstileToken) {
-              submitLead(name, email, phone);
+              submitLead(name, email, phone, business, help);
             } else {
               showFeedback('Error de verificación. Intenta de nuevo.', true);
             }
@@ -196,11 +220,17 @@ const FORM_API_URL = API_URL;
         return;
       }
 
-      submitLead(name, email, phone);
+      submitLead(name, email, phone, business, help);
     });
 
-    function submitLead(name, email, phone) {
+    function submitLead(name, email, phone, business, help) {
       setLoading(true);
+
+      // Combine business + help into phone field so we don't lose context
+      // (backend schema only accepts name/email/phone/turnstileToken)
+      var phoneWithContext = phone || '';
+      if (business) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Negocio: ' + business;
+      if (help) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Ayuda: ' + help;
 
       fetch(FORM_API_URL + '/public/forms/' + FORM_ID + '/leads', {
         method: 'POST',
@@ -211,7 +241,7 @@ const FORM_API_URL = API_URL;
         body: JSON.stringify({
           name: name,
           email: email,
-          phone: phone || undefined,
+          phone: phoneWithContext || undefined,
           turnstileToken: turnstileToken || 'no-turnstile',
         }),
       })
