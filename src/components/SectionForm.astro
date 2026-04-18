@@ -237,12 +237,13 @@ const FORM_API_URL = API_URL;
     function submitLead(name, email, phone, business, website, help) {
       setLoading(true);
 
-      // Combine business + website + help into phone field so we don't lose context
-      // (backend schema only accepts name/email/phone/turnstileToken)
-      var phoneWithContext = phone || '';
-      if (business) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Negocio: ' + business;
-      if (website) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Web/IG: ' + website;
-      if (help) phoneWithContext += (phoneWithContext ? ' | ' : '') + 'Ayuda: ' + help;
+      // Backend acepta: name (max 255), email, phone (max 50), turnstileToken
+      // Concatenamos business/website/help al NAME (max 255 alcanza)
+      var nameWithContext = name;
+      if (business) nameWithContext += ' | ' + business;
+      if (website) nameWithContext += ' | ' + website;
+      if (help) nameWithContext += ' | ' + help.substring(0, 150);
+      if (nameWithContext.length > 250) nameWithContext = nameWithContext.substring(0, 247) + '...';
 
       fetch(FORM_API_URL + '/public/forms/' + FORM_ID + '/leads', {
         method: 'POST',
@@ -251,9 +252,9 @@ const FORM_API_URL = API_URL;
           'x-api-key': FORM_API_KEY,
         },
         body: JSON.stringify({
-          name: name,
+          name: nameWithContext,
           email: email,
-          phone: phoneWithContext || undefined,
+          phone: phone || undefined,
           turnstileToken: turnstileToken || 'no-turnstile',
         }),
       })
