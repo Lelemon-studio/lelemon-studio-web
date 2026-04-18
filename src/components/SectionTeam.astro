@@ -1,10 +1,4 @@
 ---
-interface Testimonial {
-  quote: string;
-  author: string;
-  role: string;
-}
-
 interface Props {
   founder: {
     name: string;
@@ -13,45 +7,36 @@ interface Props {
     linkedin: string;
     badges: string[];
   };
-  testimonial?: Testimonial;
 }
-const { founder, testimonial } = Astro.props;
+const { founder } = Astro.props;
 ---
 
 <section id="team" class="relative bg-neutral-50 py-20 lg:py-32 px-6 sm:px-10 overflow-hidden">
   <div class="absolute top-0 left-0 right-0 h-px bg-neutral-200"></div>
 
   <div class="max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
-
-      <!-- Columna izq: Founder -->
-      <div class="scroll-reveal">
-        <div class="flex items-center gap-3 mb-6">
+    <div class="grid lg:grid-cols-12 gap-16 items-center">
+      <div class="lg:col-span-4 scroll-reveal">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-full h-full bg-yellow-400/10"></div>
+          <img src={founder.image} alt={founder.name} class="relative w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" />
+        </div>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <div class="flex items-center gap-3 mb-6 scroll-reveal">
           <div class="w-8 h-px bg-neutral-300"></div>
           <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Quién está detrás</span>
         </div>
+        <h3 class="text-3xl sm:text-4xl font-black text-neutral-950 scroll-reveal" style="--d:50ms">{founder.name}</h3>
+        <p class="text-yellow-600 text-sm font-bold uppercase tracking-wider mt-2 mb-8 scroll-reveal" style="--d:100ms">{founder.role}</p>
 
-        <div class="flex items-start gap-5 mb-6">
-          <div class="relative shrink-0">
-            <div class="absolute -top-2 -left-2 w-full h-full bg-yellow-400/10"></div>
-            <img src={founder.image} alt={founder.name} class="relative w-24 h-24 sm:w-28 sm:h-28 object-cover grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" />
-          </div>
-          <div class="pt-1">
-            <h3 class="text-2xl sm:text-3xl font-black text-neutral-950 leading-tight">{founder.name}</h3>
-            <p class="text-yellow-600 text-xs font-bold uppercase tracking-wider mt-1">{founder.role}</p>
-          </div>
+        <div class="text-lg text-neutral-600 leading-relaxed space-y-4 scroll-reveal" style="--d:150ms">
+          <p>Ingeniero de software. CTO de Venpu (SaaS B2B para automotoras). 10+ años armando productos digitales para empresas.</p>
+          <p>En Lelemon opero yo directamente. Tu contacto es conmigo, no con un account manager.</p>
+          <p class="text-neutral-950 font-bold">Si me escribes directo, contesto yo: <a href="https://wa.me/56977066965" target="_blank" data-wa-cta class="text-yellow-600 hover:text-yellow-500 transition-colors underline underline-offset-4">+56 9 7706 6965</a></p>
         </div>
 
-        <div class="text-base text-neutral-600 leading-relaxed space-y-3 max-w-lg">
-          <p>Ingeniero de software. CTO de Venpu (SaaS B2B para automotoras). 10+ años armando productos digitales que venden.</p>
-          <p>Armé Lelemon porque vi la misma brecha en decenas de negocios buenos: el profesional no era el problema — lo era que nadie les dejaba la parte digital operando completa.</p>
-          <p class="text-neutral-950 font-bold pt-2">
-            Si me escribes directo, contesto yo:
-            <a href="https://wa.me/56977066965" target="_blank" data-wa-cta class="text-yellow-600 hover:text-yellow-500 transition-colors underline underline-offset-4 whitespace-nowrap">+56 9 7706 6965</a>
-          </p>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-3 mt-8">
+        <div class="flex flex-wrap items-center gap-4 mt-8 scroll-reveal" style="--d:200ms">
           {founder.badges.map((b) => (
             <span class="text-xs text-neutral-500 bg-white border border-neutral-200 px-3 py-1.5 font-medium">{b}</span>
           ))}
@@ -61,38 +46,6 @@ const { founder, testimonial } = Astro.props;
           </a>
         </div>
       </div>
-
-      <!-- Columna der: Testimonio -->
-      {testimonial && (
-        <div class="scroll-reveal" style="--d:150ms">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-8 h-px bg-yellow-500"></div>
-            <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-600">Lo que dicen</span>
-          </div>
-
-          <div class="relative bg-white border border-neutral-200 p-8 lg:p-10 h-full flex flex-col justify-between shadow-sm">
-            <div>
-              <div class="flex items-center gap-0.5 text-yellow-400 text-lg mb-6" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <svg class="w-10 h-10 text-neutral-200 mb-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/></svg>
-
-              <p class="text-neutral-800 text-base lg:text-lg leading-relaxed">
-                {testimonial.quote}
-              </p>
-            </div>
-
-            <div class="mt-8 pt-6 border-t border-neutral-200 flex items-center gap-4">
-              <div class="w-12 h-12 bg-yellow-400/20 flex items-center justify-center text-xl font-bold text-yellow-700 shrink-0">
-                {testimonial.author.charAt(0)}
-              </div>
-              <div>
-                <p class="text-neutral-950 text-sm font-bold">{testimonial.author}</p>
-                <p class="text-neutral-500 text-xs mt-0.5">{testimonial.role}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
     </div>
   </div>
 </section>
