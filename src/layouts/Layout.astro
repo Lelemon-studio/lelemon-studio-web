@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title,
-  description = "Creamos tu web, te damos un CRM con asistente IA que responde en WhatsApp, Instagram y Messenger 24/7, y gestionamos Meta Ads. Evaluación gratis.",
+  description = "Marketing operado con IA para pymes en Chile. Armamos tu web, ponemos un asistente con IA en tu WhatsApp y gestionamos tus anuncios en Instagram y Facebook. Desde $299 USD/mes.",
   ogImage = "/og.png",
   canonicalUrl = "https://lelemon.cl/",
 } = Astro.props;
@@ -16,6 +16,9 @@ const {
 const siteName = "Lelemon";
 const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 const siteUrl = "https://lelemon.cl";
+
+// SEO: keywords naturales (no stuffing, orden por importancia)
+const keywords = "marketing digital chile, asistente IA whatsapp, agencia marketing pyme, CRM con IA, anuncios instagram facebook chile, automatización ventas whatsapp, agencia digital santiago, marketing operado chile";
 
 // ── Analytics IDs ──
 const META_PIXEL_ID = "1631046424566981";
@@ -34,9 +37,14 @@ import { TURNSTILE_SITE_KEY } from '../config';
     <!-- SEO -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
     <link rel="canonical" href={canonicalUrl} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="author" content="Lelemon" />
+    <meta name="publisher" content="Lelemon" />
+    <meta name="geo.region" content="CL" />
+    <meta name="geo.placename" content="Santiago, Chile" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -44,6 +52,10 @@ import { TURNSTILE_SITE_KEY } from '../config';
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Lelemon — Marketing operado con IA para pymes en Chile" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="es_CL" />
 
@@ -52,6 +64,10 @@ import { TURNSTILE_SITE_KEY } from '../config';
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+    <meta name="twitter:image:alt" content="Lelemon — Marketing operado con IA para pymes en Chile" />
+
+    <!-- Preload del OG para compartir rapido en redes -->
+    <link rel="preload" as="image" href={ogImage} fetchpriority="high" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -61,7 +77,14 @@ import { TURNSTILE_SITE_KEY } from '../config';
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- DNS prefetch de dominios criticos -->
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://challenges.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://api.lelemon.cl" />
 
     <!-- Theme color -->
     <meta name="theme-color" content="#0a0a0a" />
