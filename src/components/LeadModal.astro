@@ -94,13 +94,13 @@ const COUNTRIES = [
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
+          <div class="min-w-0">
             <label for="modal-lead-phone" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Teléfono</label>
             <div class="flex gap-2">
               <select
                 id="modal-lead-country"
                 name="country"
-                class="bg-neutral-900 border border-neutral-800 text-white px-2.5 py-2.5 text-sm focus:border-yellow-400 focus:outline-none transition-colors shrink-0 w-[100px]"
+                class="bg-neutral-900 border border-neutral-800 text-white px-2 py-2.5 text-sm focus:border-yellow-400 focus:outline-none transition-colors shrink-0 w-[88px]"
                 aria-label="Código de país"
               >
                 {COUNTRIES.map((c) => (
@@ -114,7 +114,7 @@ const COUNTRIES = [
                 autocomplete="tel"
                 inputmode="numeric"
                 placeholder="9 1234 5678"
-                class="lead-input flex-1 bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+                class="lead-input flex-1 min-w-0 bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
               />
             </div>
             <p id="modal-err-phone" class="hidden text-[11px] text-red-400 mt-1"></p>
@@ -351,10 +351,6 @@ const COUNTRIES = [
       if (typeof fbq === 'function') fbq('track', 'ViewContent', { content_name: 'Lead Modal' });
       if (typeof gtag === 'function') gtag('event', 'modal_open', { event_category: 'Form', event_label: 'Lead Modal' });
 
-      if (!turnstileInitialized && TURNSTILE_SITE_KEY && typeof turnstile !== 'undefined') {
-        initTurnstile();
-      }
-
       setTimeout(function() {
         var nameInput = fid('name');
         if (nameInput) nameInput.focus();
@@ -370,14 +366,44 @@ const COUNTRIES = [
 
     function initTurnstile() {
       if (!TURNSTILE_SITE_KEY || typeof turnstile === 'undefined') return;
-      turnstileWidgetId = turnstile.render('#modal-turnstile-container', {
-        sitekey: TURNSTILE_SITE_KEY,
-        callback: function(token) { turnstileToken = token; },
-        'expired-callback': function() { turnstileToken = ''; },
-        'error-callback': function() { turnstileToken = ''; },
-        size: 'invisible',
-      });
-      turnstileInitialized = true;
+      if (turnstileInitialized) return;
+      try {
+        turnstileWidgetId = turnstile.render('#modal-turnstile-container', {
+          sitekey: TURNSTILE_SITE_KEY,
+          callback: function(token) {
+            turnstileToken = token;
+            console.log('[Turnstile] ✓ token recibido');
+          },
+          'expired-callback': function() {
+            turnstileToken = '';
+            console.warn('[Turnstile] token expirado');
+          },
+          'error-callback': function(err) {
+            turnstileToken = '';
+            console.error('[Turnstile] error:', err);
+          },
+          size: 'invisible',
+        });
+        turnstileInitialized = true;
+        console.log('[Turnstile] widget inicializado, ID:', turnstileWidgetId);
+      } catch (e) {
+        console.error('[Turnstile] init falló:', e);
+      }
+    }
+
+    // Inicializar al cargar página (no al abrir modal) — más robusto
+    if (TURNSTILE_SITE_KEY) {
+      if (typeof turnstile !== 'undefined') {
+        initTurnstile();
+      } else {
+        var tsCheck = setInterval(function() {
+          if (typeof turnstile !== 'undefined') {
+            clearInterval(tsCheck);
+            initTurnstile();
+          }
+        }, 500);
+        setTimeout(function() { clearInterval(tsCheck); }, 15000);
+      }
     }
 
     document.querySelectorAll('[data-open-lead-modal]').forEach(function(el) {
@@ -430,15 +456,35 @@ const COUNTRIES = [
       var website = fid('website').value.trim();
       var help = fid('help').value.trim();
 
-      if (TURNSTILE_SITE_KEY && !turnstileToken && typeof turnstile !== 'undefined') {
-        turnstile.execute('#modal-turnstile-container');
+      if (TURNSTILE_SITE_KEY && typeof turnstile !== 'undefined') {
+        // Reset + execute para obtener un token FRESCO (evita expired tokens)
+        if (turnstileWidgetId !== null) {
+          try { turnstile.reset(turnstileWidgetId); } catch (e) {}
+        }
+        turnstileToken = '';
+        setLoading(true);
+        try {
+          turnstile.execute('#modal-turnstile-container');
+          console.log('[Turnstile] execute() llamado');
+        } catch (e) {
+          console.error('[Turnstile] execute falló:', e);
+          showFeedback('Error de verificación. Recarga e intenta de nuevo.', true);
+          setLoading(false);
+          return;
+        }
         var attempts = 0;
         var wait = setInterval(function() {
           attempts++;
-          if (turnstileToken || attempts > 20) {
+          if (turnstileToken || attempts > 40) {
             clearInterval(wait);
-            if (turnstileToken) submitLead(name, email, phone, business, website, help);
-            else showFeedback('Error de verificación. Intenta de nuevo.', true);
+            if (turnstileToken) {
+              console.log('[Turnstile] enviando con token (' + turnstileToken.length + ' chars)');
+              submitLead(name, email, phone, business, website, help);
+            } else {
+              console.error('[Turnstile] timeout sin token tras ' + attempts + ' intentos');
+              showFeedback('La verificación de seguridad tardó mucho. Intenta de nuevo.', true);
+              setLoading(false);
+            }
           }
         }, 250);
         return;
