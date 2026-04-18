@@ -154,7 +154,7 @@ const COUNTRIES = [
             <label for="lead-consent" class="text-xs text-neutral-500 leading-relaxed">Acepto que Lelemon me contacte para agendar una llamada. No spam.</label>
           </div>
 
-          <div id="turnstile-container"></div>
+          <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" data-size="flexible"></div>
 
           <button
             type="submit"
@@ -191,8 +191,11 @@ const COUNTRIES = [
     var feedback = document.getElementById('form-feedback');
     var successEl = document.getElementById('form-success');
     var helpCounter = document.getElementById('help-counter');
-    var turnstileToken = '';
-    var turnstileWidgetId = null;
+
+    function getTurnstileToken() {
+      var el = form.querySelector('[name="cf-turnstile-response"]');
+      return el ? el.value : '';
+    }
 
     // Validators
     function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
@@ -271,28 +274,6 @@ const COUNTRIES = [
       });
     }
 
-    // Turnstile
-    function initTurnstile() {
-      if (!TURNSTILE_SITE_KEY || typeof turnstile === 'undefined') return;
-      turnstileWidgetId = turnstile.render('#turnstile-container', {
-        sitekey: TURNSTILE_SITE_KEY,
-        callback: function(token) { turnstileToken = token; },
-        'expired-callback': function() { turnstileToken = ''; },
-        'error-callback': function() { turnstileToken = ''; },
-        size: 'invisible',
-      });
-    }
-    if (TURNSTILE_SITE_KEY) {
-      if (typeof turnstile !== 'undefined') {
-        initTurnstile();
-      } else {
-        var check = setInterval(function() {
-          if (typeof turnstile !== 'undefined') { clearInterval(check); initTurnstile(); }
-        }, 500);
-        setTimeout(function() { clearInterval(check); }, 10000);
-      }
-    }
-
     function showFeedback(msg, isError) {
       feedback.textContent = msg;
       feedback.className = 'text-sm text-center mt-2 ' + (isError ? 'text-red-400' : 'text-green-400');
@@ -328,24 +309,16 @@ const COUNTRIES = [
       var website = fid('website').value.trim();
       var help = fid('help').value.trim();
 
-      if (TURNSTILE_SITE_KEY && !turnstileToken && typeof turnstile !== 'undefined') {
-        turnstile.execute('#turnstile-container');
-        var attempts = 0;
-        var wait = setInterval(function() {
-          attempts++;
-          if (turnstileToken || attempts > 20) {
-            clearInterval(wait);
-            if (turnstileToken) submitLead(name, email, phone, business, website, help);
-            else showFeedback('Error de verificación. Intenta de nuevo.', true);
-          }
-        }, 250);
+      var turnstileToken = getTurnstileToken();
+      if (TURNSTILE_SITE_KEY && !turnstileToken) {
+        showFeedback('Completa la verificación de seguridad.', true);
         return;
       }
 
-      submitLead(name, email, phone, business, website, help);
+      submitLead(name, email, phone, business, website, help, turnstileToken);
     });
 
-    function submitLead(name, email, phone, business, website, help) {
+    function submitLead(name, email, phone, business, website, help, turnstileToken) {
       setLoading(true);
 
       var nameWithContext = name;
@@ -382,9 +355,8 @@ const COUNTRIES = [
       })
       .catch(function(err) {
         showFeedback(err.message || 'Error al enviar. Intenta de nuevo.', true);
-        if (typeof turnstile !== 'undefined' && turnstileWidgetId !== null) {
-          turnstile.reset(turnstileWidgetId);
-          turnstileToken = '';
+        if (typeof turnstile !== 'undefined') {
+          try { turnstile.reset(); } catch (e) {}
         }
       })
       .finally(function() { setLoading(false); });

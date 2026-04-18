@@ -171,7 +171,7 @@ const COUNTRIES = [
           <label for="modal-lead-consent" class="text-[11px] text-neutral-500 leading-snug">Acepto que Lelemon me contacte para agendar una llamada. No spam.</label>
         </div>
 
-        <div id="modal-turnstile-container"></div>
+        <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" data-size="flexible"></div>
 
         <button
           type="submit"
@@ -246,9 +246,6 @@ const COUNTRIES = [
     var feedback = document.getElementById('modal-form-feedback');
     var successEl = document.getElementById('modal-form-success');
     var helpCounter = document.getElementById('modal-help-counter');
-    var turnstileToken = '';
-    var turnstileWidgetId = null;
-    var turnstileInitialized = false;
 
     // ============ Validators ============
     function isValidEmail(v) {
@@ -364,46 +361,10 @@ const COUNTRIES = [
       document.body.classList.remove('modal-open');
     }
 
-    function initTurnstile() {
-      if (!TURNSTILE_SITE_KEY || typeof turnstile === 'undefined') return;
-      if (turnstileInitialized) return;
-      try {
-        turnstileWidgetId = turnstile.render('#modal-turnstile-container', {
-          sitekey: TURNSTILE_SITE_KEY,
-          callback: function(token) {
-            turnstileToken = token;
-            console.log('[Turnstile] ✓ token recibido');
-          },
-          'expired-callback': function() {
-            turnstileToken = '';
-            console.warn('[Turnstile] token expirado');
-          },
-          'error-callback': function(err) {
-            turnstileToken = '';
-            console.error('[Turnstile] error:', err);
-          },
-          size: 'invisible',
-        });
-        turnstileInitialized = true;
-        console.log('[Turnstile] widget inicializado, ID:', turnstileWidgetId);
-      } catch (e) {
-        console.error('[Turnstile] init falló:', e);
-      }
-    }
-
-    // Inicializar al cargar página (no al abrir modal) — más robusto
-    if (TURNSTILE_SITE_KEY) {
-      if (typeof turnstile !== 'undefined') {
-        initTurnstile();
-      } else {
-        var tsCheck = setInterval(function() {
-          if (typeof turnstile !== 'undefined') {
-            clearInterval(tsCheck);
-            initTurnstile();
-          }
-        }, 500);
-        setTimeout(function() { clearInterval(tsCheck); }, 15000);
-      }
+    // Leer token Turnstile del input que Cloudflare inyecta automáticamente
+    function getTurnstileToken() {
+      var el = form.querySelector('[name="cf-turnstile-response"]');
+      return el ? el.value : '';
     }
 
     document.querySelectorAll('[data-open-lead-modal]').forEach(function(el) {
@@ -456,44 +417,17 @@ const COUNTRIES = [
       var website = fid('website').value.trim();
       var help = fid('help').value.trim();
 
-      if (TURNSTILE_SITE_KEY && typeof turnstile !== 'undefined') {
-        // Reset + execute para obtener un token FRESCO (evita expired tokens)
-        if (turnstileWidgetId !== null) {
-          try { turnstile.reset(turnstileWidgetId); } catch (e) {}
-        }
-        turnstileToken = '';
-        setLoading(true);
-        try {
-          turnstile.execute('#modal-turnstile-container');
-          console.log('[Turnstile] execute() llamado');
-        } catch (e) {
-          console.error('[Turnstile] execute falló:', e);
-          showFeedback('Error de verificación. Recarga e intenta de nuevo.', true);
-          setLoading(false);
-          return;
-        }
-        var attempts = 0;
-        var wait = setInterval(function() {
-          attempts++;
-          if (turnstileToken || attempts > 40) {
-            clearInterval(wait);
-            if (turnstileToken) {
-              console.log('[Turnstile] enviando con token (' + turnstileToken.length + ' chars)');
-              submitLead(name, email, phone, business, website, help);
-            } else {
-              console.error('[Turnstile] timeout sin token tras ' + attempts + ' intentos');
-              showFeedback('La verificación de seguridad tardó mucho. Intenta de nuevo.', true);
-              setLoading(false);
-            }
-          }
-        }, 250);
+      // Turnstile: obtener token del input que Cloudflare genera
+      var turnstileToken = getTurnstileToken();
+      if (TURNSTILE_SITE_KEY && !turnstileToken) {
+        showFeedback('Completa la verificación de seguridad.', true);
         return;
       }
 
-      submitLead(name, email, phone, business, website, help);
+      submitLead(name, email, phone, business, website, help, turnstileToken);
     });
 
-    function submitLead(name, email, phone, business, website, help) {
+    function submitLead(name, email, phone, business, website, help, turnstileToken) {
       setLoading(true);
 
       // Backend acepta name (255), email, phone (50), turnstileToken
@@ -532,9 +466,8 @@ const COUNTRIES = [
       })
       .catch(function(err) {
         showFeedback(err.message || 'Error al enviar. Intenta de nuevo.', true);
-        if (typeof turnstile !== 'undefined' && turnstileWidgetId !== null) {
-          turnstile.reset(turnstileWidgetId);
-          turnstileToken = '';
+        if (typeof turnstile !== 'undefined') {
+          try { turnstile.reset(); } catch (e) {}
         }
       })
       .finally(function() { setLoading(false); });
