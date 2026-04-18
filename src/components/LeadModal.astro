@@ -430,13 +430,13 @@ const COUNTRIES = [
     function submitLead(name, email, phone, business, website, help, turnstileToken) {
       setLoading(true);
 
-      // Backend acepta name (255), email, phone (50), turnstileToken
-      // Contexto extra va al name
-      var nameWithContext = name;
-      if (business) nameWithContext += ' | ' + business;
-      if (website) nameWithContext += ' | ' + website;
-      if (help) nameWithContext += ' | ' + help.substring(0, 150);
-      if (nameWithContext.length > 250) nameWithContext = nameWithContext.substring(0, 247) + '...';
+      // Campos custom de ESTE sitio van en `data` (agnóstico en el backend).
+      // Usamos keys estándar que el dashboard ya sabe traducir a labels en español
+      // (FRIENDLY_FIELD_NAMES): business_type, website, message
+      var data = {};
+      if (business) data.business_type = business;
+      if (website) data.website = website;
+      if (help) data.message = help;
 
       fetch(FORM_API_URL + '/public/forms/' + FORM_ID + '/leads', {
         method: 'POST',
@@ -445,9 +445,10 @@ const COUNTRIES = [
           'x-api-key': FORM_API_KEY,
         },
         body: JSON.stringify({
-          name: nameWithContext,
+          name: name,
           email: email,
           phone: phone || undefined,
+          data: Object.keys(data).length > 0 ? data : undefined,
           turnstileToken: turnstileToken || 'no-turnstile',
         }),
       })
