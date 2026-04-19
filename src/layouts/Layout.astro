@@ -137,10 +137,10 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
         document.querySelectorAll('[data-wa-cta]').forEach(function(el) {
           el.addEventListener('click', function() {
             if (typeof fbq === 'function') {
-              fbq('track', 'Lead', { content_name: 'WhatsApp CTA' });
+              fbq('track', 'Contact', { content_name: 'WhatsApp CTA' });
             }
             if (typeof gtag === 'function') {
-              gtag('event', 'generate_lead', { event_category: 'CTA', event_label: 'WhatsApp' });
+              gtag('event', 'contact', { event_category: 'CTA', event_label: 'WhatsApp' });
             }
           });
         });

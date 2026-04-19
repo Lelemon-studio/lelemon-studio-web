@@ -339,7 +339,7 @@ import Footer from './Footer.astro';
     const link = (e.target as HTMLElement).closest('[data-wa-cta]');
     if (!link) return;
     const section = link.closest('section')?.id || 'unknown';
-    if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: 'whatsapp_click', content_category: section });
-    if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: section });
+    if (typeof window.fbq === 'function') window.fbq('track', 'Contact', { content_name: 'whatsapp_click', content_category: section });
+    if (typeof window.gtag === 'function') window.gtag('event', 'contact', { event_category: 'whatsapp', event_label: section });
   });
 </script>

@@ -336,11 +336,11 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
 
     // Meta Pixel
     if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', { content_name: 'whatsapp_click', content_category: section });
+      window.fbq('track', 'Contact', { content_name: 'whatsapp_click', content_category: section });
     }
     // GA4
     if (typeof window.gtag === 'function') {
-      window.gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: section });
+      window.gtag('event', 'contact', { event_category: 'whatsapp', event_label: section });
     }
   });
 
