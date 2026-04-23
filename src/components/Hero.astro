@@ -75,6 +75,42 @@ const { whatsappUrl, rubros } = Astro.props;
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
         </a>
       </div>
+
+      <!-- Social proof row -->
+      <div class="mt-10 sm:mt-12 hero-fade" style="--i:5">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-8">
+          <!-- Testimonio + rating -->
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 shrink-0 rounded-full bg-yellow-400/20 border border-yellow-400/30 flex items-center justify-center text-yellow-400 font-bold text-sm">N</div>
+            <div>
+              <div class="flex items-center gap-1 text-yellow-400 text-[11px] mb-0.5" aria-label="5 estrellas">
+                ★★★★★
+              </div>
+              <p class="text-sm text-neutral-300 leading-snug">
+                <span class="italic">"Cerré mis 3 primeros clientes el primer mes."</span>
+              </p>
+              <p class="text-[11px] text-neutral-500 mt-0.5">
+                Nicolás V. · Abogado ·
+                <a href="https://teayudamoslaboral.cl" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 underline decoration-neutral-700 underline-offset-2 hover:decoration-yellow-400 transition-colors">teayudamoslaboral.cl</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Divider + sites operando -->
+          <div class="hidden sm:block w-px h-10 bg-neutral-800"></div>
+
+          <div class="flex items-center gap-3">
+            <span class="text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-500 whitespace-nowrap">Ya operando con</span>
+            <div class="flex items-center gap-3 text-[11px] text-neutral-400">
+              <a href="https://teayudamoslaboral.cl" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors">laboral.cl</a>
+              <span class="text-neutral-700">·</span>
+              <a href="https://teayudamosfamilia.cl" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors">familia.cl</a>
+              <span class="text-neutral-700">·</span>
+              <span class="text-neutral-500">+ más</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
