@@ -25,7 +25,7 @@ const META_PIXEL_ID = "1631046424566981";
 const GA4_MEASUREMENT_ID = "G-4WFRN3WMMJ";
 
 // ── Lead Form Config ──
-import { TURNSTILE_SITE_KEY } from '../config';
+import { TURNSTILE_SITE_KEY, POSTHOG_KEY, POSTHOG_HOST } from '../config';
 import LeadModal from '../components/LeadModal.astro';
 
 const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
@@ -113,9 +113,10 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
     <!-- Lead Modal global (se abre con data-open-lead-modal) -->
     <LeadModal whatsappUrl={whatsappUrl} />
 
-    <!-- Deferred Meta Pixel + Turnstile lazy loader + CTA tracking
-         GA4 ya corre en Web Worker vía Partytown (zero main thread) -->
-    <script is:inline define:vars={{ META_PIXEL_ID }}>
+    <!-- Deferred Pixel + PostHog + Turnstile lazy loader + CTA tracking
+         GA4 corre en Web Worker vía Partytown (zero main thread).
+         PostHog se carga diferido para no golpear el LCP. -->
+    <script is:inline define:vars={{ META_PIXEL_ID, POSTHOG_KEY, POSTHOG_HOST }}>
       (function() {
         // Stub de gtag: dataLayer.push es forwardeado a Partytown worker
         window.dataLayer = window.dataLayer || [];
@@ -125,6 +126,9 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
         window.fbq = window.fbq || function() {
           (window.fbq.q = window.fbq.q || []).push([].slice.call(arguments));
         };
+
+        // Stub de PostHog: encola calls hasta que se cargue
+        window.posthog = window.posthog || [];
 
         function loadPixel() {
           if (window._pixelLoaded) return;
@@ -141,6 +145,17 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
           savedQueue.forEach(function(args) { window.fbq.apply(null, args); });
         }
 
+        function loadPostHog() {
+          if (window._posthogLoaded) return;
+          window._posthogLoaded = true;
+          !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+          window.posthog.init(POSTHOG_KEY, {
+            api_host: POSTHOG_HOST,
+            defaults: '2026-01-30',
+            person_profiles: 'identified_only',
+          });
+        }
+
         function loadTurnstile() {
           if (window.turnstile || window._turnstileLoading) return;
           window._turnstileLoading = true;
@@ -152,27 +167,33 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
         }
         window.loadTurnstile = loadTurnstile;
 
-        // Pixel al idle o fallback post-load
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadPixel, { timeout: 3000 });
-        } else {
-          window.addEventListener('load', function() { setTimeout(loadPixel, 1500); });
+        function loadAllAnalytics() {
+          loadPixel();
+          loadPostHog();
         }
 
-        // En primera interacción: cargar Pixel + Turnstile
+        // Al idle o fallback post-load
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadAllAnalytics, { timeout: 3000 });
+        } else {
+          window.addEventListener('load', function() { setTimeout(loadAllAnalytics, 1500); });
+        }
+
+        // En primera interacción: cargar todo (analytics + Turnstile)
         ['click','scroll','touchstart','keydown'].forEach(function(ev) {
           window.addEventListener(ev, function handler() {
-            loadPixel();
+            loadAllAnalytics();
             loadTurnstile();
           }, { once: true, passive: true });
         });
 
-        // CTA tracking (fbq encola hasta que Pixel cargue; gtag va directo al worker)
+        // CTA tracking — llegan a fbq, gtag y posthog (stub los encola si aún no cargaron)
         document.addEventListener('DOMContentLoaded', function() {
           document.querySelectorAll('[data-wa-cta]').forEach(function(el) {
             el.addEventListener('click', function() {
               window.fbq('track', 'Contact', { content_name: 'WhatsApp CTA' });
               window.gtag('event', 'contact', { event_category: 'CTA', event_label: 'WhatsApp' });
+              window.posthog.capture && window.posthog.capture('whatsapp_click', { source: 'CTA' });
             });
           });
 
@@ -181,6 +202,7 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
             scheduleCta.addEventListener('click', function() {
               window.fbq('track', 'Schedule', { content_name: 'Pricing CTA' });
               window.gtag('event', 'schedule', { event_category: 'CTA', event_label: 'Pricing' });
+              window.posthog.capture && window.posthog.capture('pricing_cta_click');
             });
           }
         });
