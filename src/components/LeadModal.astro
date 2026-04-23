@@ -345,6 +345,9 @@ const COUNTRIES = [
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
 
+      // Lazy-load Turnstile si aún no cargó (optimización LCP)
+      if (typeof window.loadTurnstile === 'function') window.loadTurnstile();
+
       if (typeof fbq === 'function') fbq('track', 'ViewContent', { content_name: 'Lead Modal' });
       if (typeof gtag === 'function') gtag('event', 'modal_open', { event_category: 'Form', event_label: 'Lead Modal' });
 

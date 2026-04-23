@@ -94,7 +94,108 @@ const { whatsappUrl } = Astro.props;
   </div>
 </section>
 
-<!-- ZONA 2: ASISTENTE — Fondo amarillo, disruptivo -->
+<!-- ZONA 2: CAMPAÑAS — Dark con gradiente -->
+<section class="relative bg-neutral-950 py-24 lg:py-32 px-6 sm:px-10 overflow-hidden">
+  <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
+  <div class="absolute top-0 right-[15%] w-[50%] h-[80%] bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.1)_0%,_transparent_60%)]"></div>
+  <!-- Giant decorative text -->
+  <div class="absolute bottom-[10%] -right-[5%] text-[16vw] font-black text-neutral-900 leading-none select-none pointer-events-none tracking-tighter" aria-hidden="true">
+    ADS
+  </div>
+
+  <div class="max-w-7xl mx-auto relative">
+    <div class="flex items-center gap-3 mb-6 scroll-reveal">
+      <div class="w-8 h-px bg-yellow-400"></div>
+      <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">02 — Campañas</span>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div class="scroll-reveal" style="--d:50ms">
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[0.95] tracking-tight">
+          Te traemos los clientes.<br/>
+          <span class="text-yellow-400">Tú cierras los que valgan.</span>
+        </h2>
+        <p class="mt-8 text-neutral-400 text-lg leading-relaxed max-w-md">
+          Estrategia, segmentación, lanzamiento y optimización de tus anuncios en Instagram y Facebook. Cada mes. Tú pones los creativos (fotos, videos) y recibes los leads ya respondidos, calificados y agendados.
+        </p>
+      </div>
+      <div class="scroll-reveal" style="--d:150ms">
+        <!-- Activity feed -->
+        <div class="max-w-md lg:ml-auto space-y-3" id="activity-feed">
+          <!-- Notification 1 -->
+          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm text-white font-semibold">Nuevo lead: María González</p>
+              <p class="text-xs text-neutral-400 mt-0.5">Consulta dental — Vino de campaña "Urgencias"</p>
+              <p class="text-[10px] text-neutral-600 mt-1.5">Hace 3 min</p>
+            </div>
+            <div class="w-2 h-2 bg-green-400 rounded-full shrink-0 mt-2 pulse-dot"></div>
+          </div>
+          <!-- Notification 2 -->
+          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm text-white font-semibold">CPA bajó 32% esta semana</p>
+              <p class="text-xs text-neutral-400 mt-0.5">Presupuesto reasignado a la audiencia que más convierte</p>
+              <p class="text-[10px] text-neutral-600 mt-1.5">Hace 1 hora</p>
+            </div>
+            <span class="text-xs font-bold text-yellow-400 shrink-0 mt-1">-32%</span>
+          </div>
+          <!-- Notification 3 -->
+          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm text-white font-semibold">5 leads hoy con "Consulta gratis"</p>
+              <p class="text-xs text-neutral-400 mt-0.5">Tu mejor día de la semana — CPA promedio: $4.200</p>
+              <p class="text-[10px] text-neutral-600 mt-1.5">Hace 2 horas</p>
+            </div>
+            <span class="text-xs font-bold text-blue-400 shrink-0 mt-1">5 nuevos</span>
+          </div>
+          <!-- Notification 4 -->
+          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm text-white font-semibold">Reporte semanal listo</p>
+              <p class="text-xs text-neutral-400 mt-0.5">23 leads · 12 clientes · ROAS 4.2x · Todo optimizado</p>
+              <p class="text-[10px] text-neutral-600 mt-1.5">Hace 5 horas</p>
+            </div>
+            <span class="text-xs font-bold text-green-400 shrink-0 mt-1">4.2x</span>
+          </div>
+          <!-- Notification 5 -->
+          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm text-white font-semibold">Campaña pausada automáticamente</p>
+              <p class="text-xs text-neutral-400 mt-0.5">"Mujeres 25-34" no rendía — presupuesto movido a lo que sí funciona</p>
+              <p class="text-[10px] text-neutral-600 mt-1.5">Ayer</p>
+            </div>
+            <span class="text-xs font-bold text-red-400 shrink-0 mt-1">Pausada</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center scroll-reveal" style="--d:300ms">
+      <button type="button" data-open-lead-modal class="inline-flex items-center gap-2 text-sm font-bold text-yellow-400 hover:text-yellow-300 transition-colors">
+        Quiero mis campañas
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ZONA 3: ASISTENTE — Fondo amarillo, disruptivo -->
 <section class="relative bg-yellow-400 py-24 lg:py-32 px-6 sm:px-10 overflow-hidden">
   <div class="absolute inset-0 diagonal-lines-dark opacity-[0.04]"></div>
   <!-- Giant decorative text -->
@@ -105,7 +206,7 @@ const { whatsappUrl } = Astro.props;
   <div class="max-w-7xl mx-auto relative">
     <div class="flex items-center gap-3 mb-6 scroll-reveal">
       <div class="w-8 h-px bg-neutral-950"></div>
-      <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-950/50">02 — Asistente IA</span>
+      <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-950/50">03 — Asistente IA</span>
     </div>
 
     <div class="scroll-reveal" style="--d:50ms">
@@ -238,103 +339,129 @@ const { whatsappUrl } = Astro.props;
   </div>
 </section>
 
-<!-- ZONA 3: CAMPAÑAS — Dark con gradiente -->
-<section class="relative bg-neutral-950 py-24 lg:py-32 px-6 sm:px-10 overflow-hidden">
-  <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
-  <div class="absolute top-0 right-[15%] w-[50%] h-[80%] bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.1)_0%,_transparent_60%)]"></div>
-  <!-- Giant decorative text -->
-  <div class="absolute bottom-[10%] -right-[5%] text-[16vw] font-black text-neutral-900 leading-none select-none pointer-events-none tracking-tighter" aria-hidden="true">
-    ADS
+<!-- ZONA 4: CRM — Cream background, ops/pro feel -->
+<section class="relative bg-[#FAFAF4] py-24 lg:py-32 px-6 sm:px-10 overflow-hidden">
+  <div class="absolute top-1/2 -translate-y-1/2 -left-[5%] text-[16vw] font-black text-neutral-950/[0.03] leading-none select-none pointer-events-none tracking-tighter" aria-hidden="true">
+    CRM
   </div>
 
   <div class="max-w-7xl mx-auto relative">
     <div class="flex items-center gap-3 mb-6 scroll-reveal">
-      <div class="w-8 h-px bg-yellow-400"></div>
-      <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">03 — Campañas</span>
+      <div class="w-8 h-px bg-neutral-950"></div>
+      <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">04 — Tu CRM</span>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
       <div class="scroll-reveal" style="--d:50ms">
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[0.95] tracking-tight">
-          Te traemos los clientes.<br/>
-          <span class="text-yellow-400">Tú cierras los que valgan.</span>
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-950 leading-[0.95] tracking-tight">
+          Los leads calientes,<br/>
+          <span class="relative inline-block">
+            <span class="relative z-10">ordenados y listos.</span>
+            <span class="absolute inset-x-0 bottom-1 h-3 bg-yellow-400/60 -z-0"></span>
+          </span>
         </h2>
-        <p class="mt-8 text-neutral-400 text-lg leading-relaxed max-w-md">
-          Estrategia, segmentación, lanzamiento y optimización de tus anuncios en Instagram y Facebook. Cada mes. Tú pones los creativos (fotos, videos) y recibes los leads ya respondidos, calificados y agendados.
+        <p class="mt-8 text-neutral-600 text-lg leading-relaxed max-w-md">
+          Un panel con cada conversación, cada cliente, cada oportunidad. Tu equipo entra, ve qué necesita cada uno y cierra lo que vale. Nada se pierde en WhatsApp.
         </p>
+
+        <div class="mt-8 grid grid-cols-3 gap-3 max-w-md">
+          <div class="border border-neutral-200 bg-white p-4">
+            <p class="text-2xl font-black text-neutral-950">12</p>
+            <p class="text-[10px] font-bold uppercase tracking-wider text-neutral-500 mt-1">Nuevos</p>
+          </div>
+          <div class="border border-neutral-200 bg-white p-4">
+            <p class="text-2xl font-black text-neutral-950">7</p>
+            <p class="text-[10px] font-bold uppercase tracking-wider text-neutral-500 mt-1">Calificados</p>
+          </div>
+          <div class="border border-green-300 bg-green-50 p-4">
+            <p class="text-2xl font-black text-green-700">3</p>
+            <p class="text-[10px] font-bold uppercase tracking-wider text-green-600 mt-1">Cerrados</p>
+          </div>
+        </div>
       </div>
+
       <div class="scroll-reveal" style="--d:150ms">
-        <!-- Activity feed -->
-        <div class="max-w-md lg:ml-auto space-y-3" id="activity-feed">
-          <!-- Notification 1 -->
-          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
-            <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        <!-- CRM dashboard mock -->
+        <div class="bg-white border border-neutral-200 shadow-2xl shadow-neutral-950/[0.08] overflow-hidden">
+          <!-- Header -->
+          <div class="px-5 py-3 border-b border-neutral-100 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 bg-yellow-400 rounded flex items-center justify-center text-sm">🍋</div>
+              <span class="text-xs font-bold text-neutral-800">Tu pipeline · Esta semana</span>
             </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm text-white font-semibold">Nuevo lead: María González</p>
-              <p class="text-xs text-neutral-400 mt-0.5">Consulta dental — Vino de campaña "Urgencias"</p>
-              <p class="text-[10px] text-neutral-600 mt-1.5">Hace 3 min</p>
+            <div class="flex items-center gap-1.5">
+              <div class="w-1.5 h-1.5 rounded-full bg-green-500 pulse-dot"></div>
+              <span class="text-[10px] text-neutral-500">En vivo</span>
             </div>
-            <div class="w-2 h-2 bg-green-400 rounded-full shrink-0 mt-2 pulse-dot"></div>
           </div>
-          <!-- Notification 2 -->
-          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
-            <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+
+          <!-- Lead list -->
+          <div class="divide-y divide-neutral-100">
+            <div class="flex items-center gap-3 px-5 py-3.5">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center text-sm font-bold text-neutral-950 shrink-0">MG</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-neutral-900 truncate">María González</p>
+                <p class="text-xs text-neutral-500 mt-0.5">Consulta dental · IG Ad</p>
+              </div>
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-green-700 bg-green-100 px-2 py-1 shrink-0">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                Calificado
+              </span>
             </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm text-white font-semibold">CPA bajó 32% esta semana</p>
-              <p class="text-xs text-neutral-400 mt-0.5">Presupuesto reasignado a la audiencia que más convierte</p>
-              <p class="text-[10px] text-neutral-600 mt-1.5">Hace 1 hora</p>
+
+            <div class="flex items-center gap-3 px-5 py-3.5">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-blue-500 flex items-center justify-center text-sm font-bold text-white shrink-0">RF</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-neutral-900 truncate">Rodrigo Ferrada</p>
+                <p class="text-xs text-neutral-500 mt-0.5">Cotización · WhatsApp</p>
+              </div>
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-100 px-2 py-1 shrink-0">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                Agendado
+              </span>
             </div>
-            <span class="text-xs font-bold text-yellow-400 shrink-0 mt-1">-32%</span>
+
+            <div class="flex items-center gap-3 px-5 py-3.5">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center text-sm font-bold text-white shrink-0">AS</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-neutral-900 truncate">Andrea Soto</p>
+                <p class="text-xs text-neutral-500 mt-0.5">Limpieza · Facebook Ad</p>
+              </div>
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-2 py-1 shrink-0">
+                <span class="w-1.5 h-1.5 rounded-full bg-neutral-500"></span>
+                Nuevo
+              </span>
+            </div>
+
+            <div class="flex items-center gap-3 px-5 py-3.5">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-sm font-bold text-white shrink-0">PD</div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-neutral-900 truncate">Patricio Díaz</p>
+                <p class="text-xs text-neutral-500 mt-0.5">Implante · Google Business</p>
+              </div>
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-white bg-green-600 px-2 py-1 shrink-0">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Cerrado
+              </span>
+            </div>
           </div>
-          <!-- Notification 3 -->
-          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
-            <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm text-white font-semibold">5 leads hoy con "Consulta gratis"</p>
-              <p class="text-xs text-neutral-400 mt-0.5">Tu mejor día de la semana — CPA promedio: $4.200</p>
-              <p class="text-[10px] text-neutral-600 mt-1.5">Hace 2 horas</p>
-            </div>
-            <span class="text-xs font-bold text-blue-400 shrink-0 mt-1">5 nuevos</span>
-          </div>
-          <!-- Notification 4 -->
-          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
-            <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm text-white font-semibold">Reporte semanal listo</p>
-              <p class="text-xs text-neutral-400 mt-0.5">23 leads · 12 clientes · ROAS 4.2x · Todo optimizado</p>
-              <p class="text-[10px] text-neutral-600 mt-1.5">Hace 5 horas</p>
-            </div>
-            <span class="text-xs font-bold text-green-400 shrink-0 mt-1">4.2x</span>
-          </div>
-          <!-- Notification 5 -->
-          <div class="feed-card glass-feed-card p-4 flex items-start gap-4">
-            <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm text-white font-semibold">Campaña pausada automáticamente</p>
-              <p class="text-xs text-neutral-400 mt-0.5">"Mujeres 25-34" no rendía — presupuesto movido a lo que sí funciona</p>
-              <p class="text-[10px] text-neutral-600 mt-1.5">Ayer</p>
-            </div>
-            <span class="text-xs font-bold text-red-400 shrink-0 mt-1">Pausada</span>
+
+          <!-- Footer -->
+          <div class="px-5 py-2.5 bg-neutral-50 border-t border-neutral-100 flex items-center justify-between text-[10px] text-neutral-500 font-medium">
+            <span>Ver todos</span>
+            <span>22 en total</span>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Big CTA — final del journey -->
     <div class="mt-16 text-center scroll-reveal" style="--d:300ms">
-      <button type="button" data-open-lead-modal class="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
+      <button type="button" data-open-lead-modal class="inline-flex items-center gap-3 bg-neutral-950 hover:bg-neutral-800 text-white font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
         Quiero esto para mi negocio
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
       </button>
+      <p class="text-xs text-neutral-500 mt-4">Todo el proceso de adquisición, operado por nosotros.</p>
     </div>
   </div>
 </section>

@@ -9,7 +9,6 @@ import SectionPricing from '../components/SectionPricing.astro';
 import SectionFaq from '../components/SectionFaq.astro';
 import SectionTeam from '../components/SectionTeam.astro';
 import SectionUseCases from '../components/SectionUseCases.astro';
-import SectionResult from '../components/SectionResult.astro';
 import SectionCta from '../components/SectionCta.astro';
 import Footer from '../components/Footer.astro';
 
@@ -49,7 +48,7 @@ const founder = {
 const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
 ---
 
-<Layout title="Optimiza tu negocio para que venda solo | Lelemon" description="Armamos tu web, ponemos un asistente con IA en tu WhatsApp y gestionamos tus anuncios en Instagram y Facebook. Tu negocio atiende clientes las 24 horas sin que tengas que estar encima.">
+<Layout title="Potencia tu captación de clientes | Lelemon" description="Armamos tu web, corremos tus anuncios en Instagram y Facebook, ponemos un asistente con IA en tu WhatsApp y ordenamos los leads en tu CRM. Todo el proceso de captación de clientes, operado por nosotros.">
   <!-- JSON-LD: WebSite -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -70,7 +69,7 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Lelemon",
-    "description": "Optimiza tu negocio para que venda solo. Armamos tu web, ponemos un asistente con IA en tu WhatsApp y gestionamos tus anuncios en Instagram y Facebook.",
+    "description": "Potencia tu captación de clientes. Armamos tu web, corremos tus anuncios en Instagram y Facebook, ponemos un asistente con IA en tu WhatsApp y ordenamos los leads en tu CRM.",
     "url": "https://lelemon.cl",
     "logo": "https://lelemon.cl/logo.svg",
     "image": "https://lelemon.cl/og.png",
@@ -135,7 +134,6 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
     <SectionProblem />
     <SectionSolution whatsappUrl={whatsappUrl} />
     <SectionUseCases whatsappUrl={whatsappUrl} />
-    <SectionResult whatsappUrl={whatsappUrl} />
     <BannerBreak whatsappUrl={whatsappUrl} />
     <SectionPricing whatsappUrl={whatsappUrl} included={included} />
     <SectionFaq faqs={faqs} whatsappUrl={whatsappUrl} />
@@ -149,16 +147,22 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
 </Layout>
 
 <style is:global>
-  /* ============ GRAIN TEXTURE ============ */
+  /* ============ GRAIN TEXTURE (desktop only — mobile lo oculta por performance) ============ */
   .grain-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9998;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 256px 256px;
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .grain-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
   }
 
   /* ============ GRID PATTERN ============ */
@@ -309,21 +313,6 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
       el.style.setProperty('--my', `${e.clientY - rect.top}px`);
     });
   });
-
-  // ============ UTM params: read from URL and append to WhatsApp links ============
-  const params = new URLSearchParams(window.location.search);
-  const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-  const utmParts = utmKeys.map(k => params.get(k) ? `${k}=${params.get(k)}` : '').filter(Boolean);
-
-  if (utmParts.length > 0) {
-    const utmSuffix = encodeURIComponent(`\n[${utmParts.join('&')}]`);
-    document.querySelectorAll<HTMLAnchorElement>('[data-wa-cta]').forEach(a => {
-      const url = new URL(a.href);
-      const currentText = url.searchParams.get('text') || '';
-      url.searchParams.set('text', currentText + decodeURIComponent(utmSuffix));
-      a.href = url.toString();
-    });
-  }
 
   // ============ WhatsApp click tracking: Meta Pixel + GA4 ============
   document.addEventListener('click', (e) => {
