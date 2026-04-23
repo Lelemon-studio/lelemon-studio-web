@@ -89,7 +89,16 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
     <!-- Theme color -->
     <meta name="theme-color" content="#0a0a0a" />
 
-    <!-- Analytics (Pixel + GA4) — deferred for LCP; noscript fallback below -->
+    <!-- GA4 via Partytown (runs in Web Worker — zero main thread) -->
+    <script type="text/partytown" is:inline define:vars={{ GA4_MEASUREMENT_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', GA4_MEASUREMENT_ID);
+    </script>
+    <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`}></script>
+
+    <!-- Meta Pixel fallback noscript (Pixel inicia via deferred loader al final del body) -->
     <noscript>
       <img height="1" width="1" style="display:none"
         src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`} />
@@ -101,19 +110,22 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
     <!-- Lead Modal global (se abre con data-open-lead-modal) -->
     <LeadModal whatsappUrl={whatsappUrl} />
 
-    <!-- Deferred analytics + Turnstile lazy loader (LCP optimization) -->
-    <script is:inline define:vars={{ META_PIXEL_ID, GA4_MEASUREMENT_ID }}>
+    <!-- Deferred Meta Pixel + Turnstile lazy loader + CTA tracking
+         GA4 ya corre en Web Worker vía Partytown (zero main thread) -->
+    <script is:inline define:vars={{ META_PIXEL_ID }}>
       (function() {
-        // Stubs para encolar calls tempranas (se reproducen cuando carguen los scripts reales)
-        window.fbq = window.fbq || function(){(window.fbq.q=window.fbq.q||[]).push([].slice.call(arguments))};
+        // Stub de gtag: dataLayer.push es forwardeado a Partytown worker
         window.dataLayer = window.dataLayer || [];
-        window.gtag = window.gtag || function(){window.dataLayer.push(arguments)};
+        window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
 
-        function loadAnalytics() {
-          if (window._analyticsLoaded) return;
-          window._analyticsLoaded = true;
+        // Stub de fbq: encola hasta que Pixel cargue
+        window.fbq = window.fbq || function() {
+          (window.fbq.q = window.fbq.q || []).push([].slice.call(arguments));
+        };
 
-          // Meta Pixel (replay queued events)
+        function loadPixel() {
+          if (window._pixelLoaded) return;
+          window._pixelLoaded = true;
           var savedQueue = (window.fbq && window.fbq.q) || [];
           delete window.fbq;
           !function(f,b,e,v,n,t,s) {
@@ -124,14 +136,6 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
           window.fbq('init', META_PIXEL_ID);
           window.fbq('track', 'PageView');
           savedQueue.forEach(function(args) { window.fbq.apply(null, args); });
-
-          // GA4
-          var ga4 = document.createElement('script');
-          ga4.async = true;
-          ga4.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_MEASUREMENT_ID;
-          document.head.appendChild(ga4);
-          window.gtag('js', new Date());
-          window.gtag('config', GA4_MEASUREMENT_ID);
         }
 
         function loadTurnstile() {
@@ -145,22 +149,22 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
         }
         window.loadTurnstile = loadTurnstile;
 
-        // Carga analytics al idle O con fallback timeout post-load
+        // Pixel al idle o fallback post-load
         if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadAnalytics, { timeout: 3000 });
+          requestIdleCallback(loadPixel, { timeout: 3000 });
         } else {
-          window.addEventListener('load', function() { setTimeout(loadAnalytics, 1500); });
+          window.addEventListener('load', function() { setTimeout(loadPixel, 1500); });
         }
 
-        // También en primera interacción (cubre analytics + Turnstile)
+        // En primera interacción: cargar Pixel + Turnstile
         ['click','scroll','touchstart','keydown'].forEach(function(ev) {
           window.addEventListener(ev, function handler() {
-            loadAnalytics();
+            loadPixel();
             loadTurnstile();
           }, { once: true, passive: true });
         });
 
-        // Event listeners para CTAs (trackean cuando fbq esté listo)
+        // CTA tracking (fbq encola hasta que Pixel cargue; gtag va directo al worker)
         document.addEventListener('DOMContentLoaded', function() {
           document.querySelectorAll('[data-wa-cta]').forEach(function(el) {
             el.addEventListener('click', function() {

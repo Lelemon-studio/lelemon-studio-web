@@ -6,16 +6,7 @@ interface Props {
 const { whatsappUrl, rubros } = Astro.props;
 ---
 
-<!-- Barra de urgencia -->
-<div class="fixed top-0 left-0 right-0 z-[60] bg-red-600 text-white text-center py-2 px-4" id="urgency-bar">
-  <p class="text-xs sm:text-sm font-bold uppercase tracking-wider">
-    <span class="inline-block w-2 h-2 bg-white rounded-full animate-pulse mr-2 align-middle"></span>
-    Implementación + primer mes por $590.000 CLP + IVA · Cupos abiertos este mes
-    <span class="inline-block w-2 h-2 bg-white rounded-full animate-pulse ml-2 align-middle"></span>
-  </p>
-</div>
-
-<section class="relative min-h-screen bg-neutral-950 text-white overflow-hidden flex items-center pt-32 pb-28 sm:pt-28 sm:pb-32" id="hero">
+<section class="relative min-h-[85vh] lg:min-h-screen bg-neutral-950 text-white overflow-hidden flex items-center pt-28 pb-20 sm:pt-28 sm:pb-32" id="hero">
   <!-- Grid pattern background -->
   <div class="absolute inset-0 grid-pattern opacity-[0.04]"></div>
   <!-- Gradient accent -->
@@ -24,27 +15,18 @@ const { whatsappUrl, rubros } = Astro.props;
   <div class="absolute top-0 right-[20%] w-px h-full bg-gradient-to-b from-yellow-400/30 via-yellow-400/10 to-transparent skew-x-[-20deg]"></div>
   <div class="absolute top-0 right-[21%] w-px h-[60%] bg-gradient-to-b from-yellow-400/15 to-transparent skew-x-[-20deg]"></div>
 
-  <!-- Large decorative stroke text -->
-  <div class="absolute top-[15%] -right-[5%] text-[18vw] font-black text-stroke-yellow leading-none select-none pointer-events-none opacity-[0.06] tracking-tighter" aria-hidden="true">
+  <!-- Large decorative stroke text — solo desktop, sutil -->
+  <div class="hidden lg:block absolute top-[15%] -right-[5%] text-[18vw] font-black text-stroke-yellow leading-none select-none pointer-events-none opacity-[0.04] tracking-tighter" aria-hidden="true">
     LEMON
   </div>
 
-  <!-- Floating lemons -->
-  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-    <div class="hero-lemon absolute top-[12%] right-[8%]" style="--dur:18s;--rot:25deg">
-      <span class="text-9xl opacity-15">🍋</span>
-    </div>
-    <div class="hero-lemon absolute top-[60%] left-[3%]" style="--dur:22s;--rot:-20deg">
+  <!-- Floating lemons — 2 sutiles en desktop, 0 en mobile -->
+  <div class="hidden lg:block absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div class="hero-lemon absolute top-[12%] right-[8%]" style="--dur:22s;--rot:25deg">
       <span class="text-8xl opacity-10">🍋</span>
     </div>
-    <div class="hero-lemon absolute top-[75%] right-[18%]" style="--dur:26s;--rot:40deg">
-      <span class="text-7xl opacity-10">🍋</span>
-    </div>
-    <div class="hero-lemon absolute top-[20%] left-[15%]" style="--dur:20s;--rot:15deg">
-      <span class="text-5xl opacity-15">🍋</span>
-    </div>
-    <div class="hero-lemon absolute top-[40%] right-[35%]" style="--dur:30s;--rot:-35deg">
-      <span class="text-4xl opacity-20">🍋</span>
+    <div class="hero-lemon absolute top-[65%] left-[6%]" style="--dur:26s;--rot:-20deg">
+      <span class="text-6xl opacity-10">🍋</span>
     </div>
   </div>
 
@@ -67,15 +49,15 @@ const { whatsappUrl, rubros } = Astro.props;
         </span>
       </h1>
 
-      <p class="mt-10 text-lg sm:text-xl text-neutral-500 max-w-xl leading-relaxed hero-fade" style="--i:2">
-        Armamos tu web, corremos tus anuncios en Instagram y Facebook, ponemos un asistente con IA en tu WhatsApp y ordenamos los leads en tu CRM. Todo el proceso de adquisición de clientes, cubierto.
-        <span class="block mt-4 text-sm text-neutral-600">
-          Tú apareces solo para cerrar.
+      <p class="mt-8 sm:mt-10 text-base sm:text-xl text-neutral-300 max-w-xl leading-relaxed hero-fade" style="--i:2">
+        Armamos tu web, corremos tus anuncios en Instagram y Facebook, ponemos un asistente con IA en tu WhatsApp y ordenamos los leads en tu CRM.
+        <span class="block mt-3 text-sm text-neutral-500">
+          Todo el proceso de adquisición, operado. Tú apareces solo para cerrar.
         </span>
       </p>
 
-      <!-- Marquee rubros -->
-      <div class="mt-10 overflow-hidden mask-fade hero-fade" style="--i:3">
+      <!-- Marquee rubros — solo desktop (evita truncation mobile + animation cost) -->
+      <div class="hidden sm:block mt-10 overflow-hidden mask-fade hero-fade" style="--i:3">
         <div class="marquee-track flex gap-4 w-max">
           {[...rubros, ...rubros, ...rubros].map((r) => (
             <span class="text-xs text-yellow-400/70 uppercase tracking-[0.15em] font-semibold whitespace-nowrap border border-yellow-400/20 bg-yellow-400/5 px-4 py-2">{r}</span>
@@ -83,14 +65,14 @@ const { whatsappUrl, rubros } = Astro.props;
         </div>
       </div>
 
-      <div class="mt-12 flex flex-col sm:flex-row gap-5 hero-fade" style="--i:4">
-        <button type="button" data-open-lead-modal class="group inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 hero-fade" style="--i:4">
+        <button type="button" data-open-lead-modal class="group inline-flex items-center justify-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
           <span>Cuéntame qué vendes</span>
           <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </button>
-        <a href={whatsappUrl} target="_blank" data-wa-cta class="inline-flex items-center gap-3 text-neutral-500 hover:text-yellow-400 font-medium px-8 py-4 border border-neutral-800 hover:border-yellow-400/30 transition-all text-sm uppercase tracking-wider">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Escríbenos por WhatsApp
+        <a href="#como-funciona" class="inline-flex items-center justify-center gap-2 text-neutral-400 hover:text-yellow-400 font-medium px-6 py-4 text-sm uppercase tracking-wider transition-colors">
+          Ver cómo funciona
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
         </a>
       </div>
     </div>
