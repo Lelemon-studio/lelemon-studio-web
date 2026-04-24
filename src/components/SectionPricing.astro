@@ -38,7 +38,7 @@ const { whatsappUrl, included } = Astro.props;
                 <p class="text-neutral-500 text-xs mt-1.5">Una vez · Incluye setup y primer mes operando</p>
               </div>
               <div class="text-right">
-                <span class="text-4xl sm:text-5xl font-black text-gradient-lemon leading-none">$590.000</span>
+                <span class="text-4xl sm:text-5xl font-black text-gradient-lemon leading-none">$400.000</span>
                 <span class="block text-neutral-500 text-xs mt-1">CLP + IVA</span>
               </div>
             </div>
@@ -49,7 +49,7 @@ const { whatsappUrl, included } = Astro.props;
             <div class="flex items-start justify-between gap-4">
               <div>
                 <p class="text-white text-[11px] font-bold uppercase tracking-[0.2em]">Mes 2 y 3</p>
-                <p class="text-neutral-500 text-xs mt-1.5">40% de descuento</p>
+                <p class="text-neutral-500 text-xs mt-1.5">Precio promocional</p>
               </div>
               <div class="text-right">
                 <span class="text-2xl sm:text-3xl font-black text-white leading-none">$295.000</span>
@@ -66,7 +66,7 @@ const { whatsappUrl, included } = Astro.props;
                 <p class="text-neutral-500 text-xs mt-1.5">Precio regular</p>
               </div>
               <div class="text-right">
-                <span class="text-2xl sm:text-3xl font-black text-white leading-none">$490.000</span>
+                <span class="text-2xl sm:text-3xl font-black text-white leading-none">$350.000</span>
                 <span class="block text-neutral-500 text-xs mt-1">CLP + IVA / mes</span>
               </div>
             </div>
@@ -77,13 +77,13 @@ const { whatsappUrl, included } = Astro.props;
         <div class="mt-6 grid grid-cols-2 gap-3 scroll-reveal" style="--d:150ms">
           <div class="border border-yellow-400/30 bg-yellow-400/[0.05] p-5">
             <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-yellow-400/80 mb-2">Al firmar pagas</p>
-            <p class="text-2xl sm:text-3xl font-black text-white">$590.000 <span class="text-xs text-neutral-500 font-medium">CLP + IVA</span></p>
+            <p class="text-2xl sm:text-3xl font-black text-white">$400.000 <span class="text-xs text-neutral-500 font-medium">CLP + IVA</span></p>
             <p class="text-[11px] text-neutral-500 mt-1.5">Implementación + mes 1</p>
           </div>
           <div class="border border-neutral-800 bg-neutral-900/30 p-5">
             <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 mb-2">Total 3 primeros meses</p>
-            <p class="text-2xl sm:text-3xl font-black text-green-400">$1.180.000 <span class="text-xs text-neutral-500 font-medium">CLP + IVA</span></p>
-            <p class="text-[11px] text-neutral-500 mt-1.5">Luego $490.000/mes</p>
+            <p class="text-2xl sm:text-3xl font-black text-green-400">$990.000 <span class="text-xs text-neutral-500 font-medium">CLP + IVA</span></p>
+            <p class="text-[11px] text-neutral-500 mt-1.5">Luego $350.000 CLP/mes</p>
           </div>
         </div>
 
@@ -133,6 +133,85 @@ const { whatsappUrl, included } = Astro.props;
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- ═════════════════════════════════════════════
+         Servicios sueltos — para pymes que solo necesitan una parte
+         ═════════════════════════════════════════════ -->
+    <div class="mt-24 lg:mt-32 pt-16 border-t border-neutral-800/50 scroll-reveal">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <div class="w-8 h-px bg-neutral-700"></div>
+          <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-500">Servicios sueltos</span>
+          <div class="w-8 h-px bg-neutral-700"></div>
+        </div>
+        <h3 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-[0.95] tracking-tight">
+          ¿Solo necesitas una parte?
+        </h3>
+        <p class="mt-5 text-neutral-400 leading-relaxed">
+          También vendemos los servicios por separado. Contrata solo el que te sirva.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 scroll-reveal" style="--d:100ms">
+        <!-- Web -->
+        <div class="border border-neutral-800 bg-neutral-900/30 p-6 hover:border-yellow-400/30 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-yellow-400/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h4 class="text-lg font-bold text-white">Web profesional</h4>
+          </div>
+          <p class="text-sm text-neutral-400 leading-relaxed mb-5">Dominio, hosting, SSL, diseño mobile-first y conexión al CRM. Lista para convertir.</p>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-white">$100.000</span>
+            <span class="text-xs text-neutral-500">CLP + IVA / mes</span>
+          </div>
+          <p class="text-[11px] text-neutral-600 mt-1.5">+ $150.000 CLP + IVA de implementación</p>
+        </div>
+
+        <!-- Agente IA + CRM -->
+        <div class="border border-neutral-800 bg-neutral-900/30 p-6 hover:border-yellow-400/30 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-yellow-400/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            </div>
+            <h4 class="text-lg font-bold text-white">Agente IA + CRM</h4>
+          </div>
+          <p class="text-sm text-neutral-400 leading-relaxed mb-5">Asistente con IA en tu WhatsApp 24/7 y panel donde ves cada conversación y cliente.</p>
+          <div class="flex items-baseline gap-2">
+            <span class="text-xs font-bold text-neutral-500 uppercase tracking-wider">Desde</span>
+            <span class="text-3xl font-black text-white">$250.000</span>
+            <span class="text-xs text-neutral-500">CLP + IVA / mes</span>
+          </div>
+          <p class="text-[11px] text-neutral-600 mt-1.5">+ $200.000 CLP + IVA de implementación · Varía según volumen de conversaciones</p>
+        </div>
+
+        <!-- Marketing (Ads operados) -->
+        <div class="border border-neutral-800 bg-neutral-900/30 p-6 hover:border-yellow-400/30 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-yellow-400/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <h4 class="text-lg font-bold text-white">Marketing operado</h4>
+          </div>
+          <p class="text-sm text-neutral-400 leading-relaxed mb-5">Estrategia, lanzamiento y optimización mensual de anuncios en Instagram y Facebook.</p>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-white">$200.000</span>
+            <span class="text-xs text-neutral-500">CLP + IVA / mes</span>
+          </div>
+          <p class="text-[11px] text-neutral-600 mt-1.5">+ $100.000 CLP + IVA de implementación</p>
+        </div>
+      </div>
+
+      <!-- Nota sobre bundle -->
+      <div class="mt-10 text-center scroll-reveal" style="--d:200ms">
+        <p class="text-sm text-neutral-400">
+          Contratar los 3 por separado: <span class="text-neutral-300">desde $550.000/mes</span>
+          <span class="mx-2 text-neutral-700">·</span>
+          <span class="text-yellow-400 font-bold">Con el Plan ahorras hasta 36%</span>
+        </p>
       </div>
     </div>
   </div>
