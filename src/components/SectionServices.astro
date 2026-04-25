@@ -31,11 +31,11 @@
 
     <div class="max-w-3xl mb-12 scroll-reveal" style="--d:50ms">
       <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight">
-        Tres servicios que se potencian.<br/>
-        <span class="text-yellow-400">Funcionan solos. Juntos rinden más.</span>
+        Servicios para potenciar tu PYME.<br/>
+        <span class="text-yellow-400">Vende más sin sumarte pega.</span>
       </h2>
       <p class="mt-6 text-base sm:text-lg text-neutral-300 leading-relaxed">
-        Contrátalos por separado o en el Plan completo. La diferencia: en el Plan, todo nace conectado — la web alimenta a las campañas, las campañas mandan leads al agente, el agente los ordena en el CRM.
+        Web profesional, agente con IA en tu WhatsApp y campañas en Instagram y Facebook. Cada servicio se contrata por separado — empieza por el que más te apriete y suma los demás cuando lo necesites.
       </p>
     </div>
 
@@ -179,15 +179,19 @@
       </a>
     </div>
 
-    <!-- Bottom note — sin precio -->
-    <div class="mt-12 text-center scroll-reveal" style="--d:300ms">
-      <p class="text-sm text-neutral-500">
-        ¿Los necesitas los tres juntos?
-        <a href="#pricing" class="text-yellow-400 font-bold hover:text-yellow-300 transition-colors inline-flex items-center gap-1.5">
-          Conoce el Plan completo
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </a>
-      </p>
+    <!-- Trust line: features para PYME -->
+    <div class="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-4xl mx-auto scroll-reveal" style="--d:300ms">
+      {[
+        { icon: '🇨🇱', label: 'Precios en CLP' },
+        { icon: '✅', label: 'Sin contrato' },
+        { icon: '⏱️', label: 'Listo en 2-3 semanas' },
+        { icon: '👤', label: 'Soporte directo' },
+      ].map((item) => (
+        <div class="flex items-center gap-3 px-4 py-3 border border-neutral-800 bg-neutral-900/30 rounded-xl">
+          <span class="text-xl shrink-0">{item.icon}</span>
+          <span class="text-xs lg:text-[13px] font-bold uppercase tracking-[0.12em] text-neutral-300">{item.label}</span>
+        </div>
+      ))}
     </div>
   </div>
 </section>
