@@ -301,6 +301,12 @@ const SESSION_TTL_MINUTES = 30;
     };
 
     // ─── API ───
+    const fetchHistory = async (id) => {
+      const res = await fetch(`${API_URL}/public/chat/${id}/messages`);
+      if (!res.ok) throw new Error(`history failed: ${res.status}`);
+      return res.json();
+    };
+
     const startSession = async () => {
       try {
         const res = await fetch(`${API_URL}/public/chat/start`, {
@@ -384,6 +390,31 @@ const SESSION_TTL_MINUTES = 30;
     };
 
     // ─── Modal lifecycle ───
+    const restoreSession = async (id) => {
+      try {
+        const data = await fetchHistory(id);
+        if (!data?.messages?.length) {
+          // No hay historial real → tratar como sesión nueva
+          throw new Error('empty history');
+        }
+        loadingEl?.remove();
+        for (const msg of data.messages) {
+          addMessage(msg.role === 'user' ? 'user' : 'agent', msg.content);
+        }
+        sessionId = id;
+        messageCount = data.messages.filter((m) => m.role === 'user').length;
+        isInitialized = true;
+        if (messageCount >= 3) ctaEl.classList.remove('hidden');
+        track('demo_chat_resumed', { sessionId, messageCount });
+        return true;
+      } catch (err) {
+        // Backend dice 404 o no hay mensajes → limpiar y arrancar de cero
+        clearSession();
+        track('demo_chat_resume_failed', { error: String(err) });
+        return false;
+      }
+    };
+
     const openModal = async () => {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -394,14 +425,8 @@ const SESSION_TTL_MINUTES = 30;
 
       if (!isInitialized) {
         const existing = loadSession();
-        if (existing) {
-          sessionId = existing;
-          isInitialized = true;
-          loadingEl?.remove();
-          addMessage('agent', 'Volviste 🍋 ¿En qué seguimos?');
-        } else {
-          await startSession();
-        }
+        const restored = existing ? await restoreSession(existing) : false;
+        if (!restored) await startSession();
       }
 
       setTimeout(() => input?.focus({ preventScroll: true }), 150);
