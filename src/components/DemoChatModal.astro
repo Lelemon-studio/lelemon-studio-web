@@ -1,0 +1,451 @@
+---
+/**
+ * DemoChatModal — "Conversa con Pepita"
+ *
+ * Modal estilo WhatsApp que conecta al endpoint público del backend
+ * (POST /public/chat/start + /public/chat/send).
+ *
+ * Cada sesión crea un deal anónimo en el pipeline "Demo Web" de lelemon-1.
+ *
+ * Se abre con atributo `[data-open-demo-modal]` en cualquier botón.
+ * Cierre con X, ESC o backdrop click.
+ * Session persiste en localStorage (10 min de inactividad → reset).
+ */
+import { API_URL } from '../config';
+
+// Local session TTL — must match backend SESSION_TIMEOUT_MINUTES in
+// public-chat.service.ts. If the user idles longer than this, we drop
+// the local sessionId and start fresh on next open.
+const SESSION_TTL_MINUTES = 30;
+---
+
+<div
+  id="demo-chat-modal"
+  class="hidden fixed inset-0 z-[100] items-end sm:items-center justify-center"
+  aria-hidden="true"
+  aria-modal="true"
+  role="dialog"
+>
+  <div id="demo-chat-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-demo-modal></div>
+
+  <div class="demo-chat-card relative w-full sm:w-auto sm:max-w-[440px] h-[92vh] sm:h-[640px] sm:max-h-[85vh] bg-[#ECE5DD] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)] flex flex-col sm:rounded-2xl rounded-t-2xl overflow-hidden">
+
+    <!-- ───── HEADER estilo WhatsApp ───── -->
+    <div class="bg-[#075E54] text-white px-4 py-3 flex items-center gap-3 shrink-0">
+      <button
+        type="button"
+        data-close-demo-modal
+        aria-label="Cerrar"
+        class="-ml-1 p-1.5 rounded-full hover:bg-white/10 transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-xl shadow-sm shrink-0">
+        🍋
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-[15px] leading-tight">Pepita</p>
+        <p class="text-[11px] text-green-300 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 bg-green-400 rounded-full inline-block"></span>
+          en línea
+        </p>
+      </div>
+    </div>
+
+    <!-- ───── CHAT AREA ───── -->
+    <div
+      id="demo-chat-messages"
+      class="flex-1 overflow-y-auto overscroll-contain px-3 py-3 space-y-2 demo-chat-bg"
+    >
+      <!-- Hora -->
+      <p class="text-[10px] text-neutral-500 text-center bg-white/60 rounded-full px-3 py-0.5 mx-auto w-fit shadow-sm">
+        Hoy
+      </p>
+
+      <!-- Loading state inicial -->
+      <div id="demo-chat-loading" class="flex justify-start">
+        <div class="bg-white rounded-lg rounded-tl-sm px-4 py-3 shadow-sm">
+          <div class="typing-dots"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── SUGGESTED QUESTIONS (horizontal scroll chips) ───── -->
+    <div id="demo-chat-suggestions" class="hidden shrink-0 px-3 py-2 bg-[#ECE5DD] border-t border-black/5">
+      <div class="flex gap-2 overflow-x-auto scrollbar-hide">
+        <!-- chips injected via JS -->
+      </div>
+    </div>
+
+    <!-- ───── INPUT BAR ───── -->
+    <div class="bg-[#F0F0F0] px-2 py-2 flex items-end gap-2 shrink-0 border-t border-black/5">
+      <textarea
+        id="demo-chat-input"
+        rows="1"
+        maxlength="500"
+        placeholder="Escribe un mensaje"
+        data-ph-no-capture
+        class="flex-1 bg-white rounded-2xl px-4 py-2.5 text-[14px] leading-snug resize-none focus:outline-none max-h-24 border border-transparent focus:border-[#075E54]/30 transition-colors"
+      ></textarea>
+      <button
+        id="demo-chat-send"
+        type="button"
+        aria-label="Enviar"
+        disabled
+        class="w-10 h-10 bg-[#075E54] disabled:bg-neutral-400 rounded-full flex items-center justify-center text-white shrink-0 transition-colors hover:bg-[#064940] disabled:cursor-not-allowed"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      </button>
+    </div>
+
+    <!-- ───── CTA footer: hablemos en serio (aparece después de 3+ mensajes) ───── -->
+    <div id="demo-chat-cta" class="hidden shrink-0 bg-yellow-400 text-neutral-950 px-4 py-2.5 text-xs font-bold text-center border-t border-black/10">
+      <button type="button" data-open-lead-modal data-close-demo-modal class="w-full hover:underline">
+        ¿Te convence? Hablemos en serio →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  #demo-chat-modal {
+    animation: demoFadeIn 0.2s ease-out;
+  }
+  .demo-chat-card {
+    animation: demoSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes demoFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes demoSlideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* WhatsApp-style chat background pattern (subtle) */
+  .demo-chat-bg {
+    background-color: #ECE5DD;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q10 0 20 20 T40 20' stroke='%23ffffff15' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
+  }
+
+  /* Scroll bar discreto */
+  #demo-chat-messages::-webkit-scrollbar { width: 4px; }
+  #demo-chat-messages::-webkit-scrollbar-track { background: transparent; }
+  #demo-chat-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 999px; }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+
+  /* Typing dots (reusamos el pattern de SectionSolution) */
+  .typing-dots {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    height: 14px;
+  }
+  .typing-dots span {
+    width: 6px;
+    height: 6px;
+    background: #999;
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+
+  body.demo-modal-open { overflow: hidden; }
+
+  /* Message bubble styles */
+  .demo-msg-user {
+    background: #DCF8C6;
+    align-self: flex-end;
+    border-top-right-radius: 4px;
+  }
+  .demo-msg-agent {
+    background: #fff;
+    align-self: flex-start;
+    border-top-left-radius: 4px;
+  }
+</style>
+
+<script is:inline define:vars={{ API_URL, SESSION_TTL_MINUTES }}>
+  (() => {
+    'use strict';
+
+    // ─── DOM refs (immutable) ───
+    const modal = document.getElementById('demo-chat-modal');
+    const messagesEl = document.getElementById('demo-chat-messages');
+    const loadingEl = document.getElementById('demo-chat-loading');
+    const input = document.getElementById('demo-chat-input');
+    const sendBtn = document.getElementById('demo-chat-send');
+    const suggestionsEl = document.getElementById('demo-chat-suggestions');
+    const ctaEl = document.getElementById('demo-chat-cta');
+
+    const LS_SESSION = 'lelemon_demo_session_id';
+    const LS_LAST_ACTIVITY = 'lelemon_demo_last_activity';
+
+    // ─── Mutable state ───
+    let sessionId = null;
+    let messageCount = 0;
+    let isSending = false;
+    let isInitialized = false;
+
+    // ─── Analytics ───
+    const track = (event, props = {}) => {
+      try {
+        window.posthog?.capture?.(event, props);
+        window.fbq?.('trackCustom', event, props);
+        window.gtag?.('event', event, props);
+      } catch {}
+    };
+
+    // ─── DOM helpers ───
+    const scrollToBottom = () => {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    };
+
+    const escapeHtml = (str) => {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    };
+
+    const formatMessage = (text) => escapeHtml(text).replace(/\n/g, '<br>');
+
+    const addMessage = (role, text) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+      const bubble = document.createElement('div');
+      bubble.className = `${role === 'user' ? 'demo-msg-user' : 'demo-msg-agent'} max-w-[85%] px-3 py-2 rounded-lg shadow-sm text-[14px] text-neutral-800 leading-relaxed`;
+      bubble.innerHTML = formatMessage(text);
+      wrapper.appendChild(bubble);
+      messagesEl.appendChild(wrapper);
+      scrollToBottom();
+    };
+
+    const showTyping = () => {
+      if (document.getElementById('demo-typing')) return;
+      const wrapper = document.createElement('div');
+      wrapper.id = 'demo-typing';
+      wrapper.className = 'flex justify-start';
+      wrapper.innerHTML = '<div class="bg-white rounded-lg rounded-tl-sm px-4 py-3 shadow-sm"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+      messagesEl.appendChild(wrapper);
+      scrollToBottom();
+    };
+
+    const hideTyping = () => {
+      document.getElementById('demo-typing')?.remove();
+    };
+
+    const renderSuggestions = (questions) => {
+      if (!questions?.length) {
+        suggestionsEl.classList.add('hidden');
+        return;
+      }
+      const trackEl = suggestionsEl.firstElementChild;
+      trackEl.innerHTML = '';
+      for (const q of questions) {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'shrink-0 text-[12px] px-3 py-1.5 bg-white text-neutral-700 border border-neutral-300 rounded-full hover:bg-[#075E54] hover:text-white hover:border-[#075E54] transition-colors';
+        chip.textContent = q;
+        chip.addEventListener('click', () => sendMessage(q));
+        trackEl.appendChild(chip);
+      }
+      suggestionsEl.classList.remove('hidden');
+    };
+
+    const updateSendButton = () => {
+      sendBtn.disabled = !input.value.trim().length || isSending;
+    };
+
+    const autoGrowInput = () => {
+      input.style.height = 'auto';
+      input.style.height = `${Math.min(input.scrollHeight, 96)}px`;
+    };
+
+    // ─── Session storage ───
+    const loadSession = () => {
+      try {
+        const saved = localStorage.getItem(LS_SESSION);
+        const lastActivity = Number(localStorage.getItem(LS_LAST_ACTIVITY)) || 0;
+        if (saved && Date.now() - lastActivity < SESSION_TTL_MINUTES * 60 * 1000) {
+          return saved;
+        }
+      } catch {}
+      return null;
+    };
+
+    const saveSession = (id) => {
+      try {
+        localStorage.setItem(LS_SESSION, id);
+        localStorage.setItem(LS_LAST_ACTIVITY, String(Date.now()));
+      } catch {}
+    };
+
+    const touchSession = () => {
+      try { localStorage.setItem(LS_LAST_ACTIVITY, String(Date.now())); } catch {}
+    };
+
+    const clearSession = () => {
+      try {
+        localStorage.removeItem(LS_SESSION);
+        localStorage.removeItem(LS_LAST_ACTIVITY);
+      } catch {}
+    };
+
+    // ─── API ───
+    const startSession = async () => {
+      try {
+        const res = await fetch(`${API_URL}/public/chat/start`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            locale: 'es',
+            referrer: document.referrer || undefined,
+          }),
+        });
+        if (!res.ok) throw new Error(`start failed: ${res.status}`);
+        const data = await res.json();
+        sessionId = data.sessionId;
+        saveSession(sessionId);
+        hideTyping();
+        loadingEl?.remove();
+        addMessage('agent', data.greeting);
+        renderSuggestions(data.suggestedQuestions);
+        isInitialized = true;
+        track('demo_chat_started', { sessionId });
+      } catch (err) {
+        hideTyping();
+        loadingEl?.remove();
+        addMessage('agent', 'Disculpa, tuve un problema al conectar. Intenta de nuevo en un momento.');
+        track('demo_chat_error', { phase: 'start', error: String(err) });
+      }
+    };
+
+    const sendMessage = async (text) => {
+      const trimmed = text?.trim();
+      if (!sessionId || isSending || !trimmed) return;
+      isSending = true;
+      addMessage('user', trimmed);
+      input.value = '';
+      autoGrowInput();
+      updateSendButton();
+      suggestionsEl.classList.add('hidden');
+      showTyping();
+      touchSession();
+
+      messageCount++;
+      track(
+        messageCount === 1 ? 'demo_chat_first_message' : 'demo_chat_message_sent',
+        { sessionId, messageCount },
+      );
+
+      // CTA "Hablemos en serio" aparece tras 3+ mensajes
+      if (messageCount >= 3) ctaEl.classList.remove('hidden');
+
+      try {
+        const res = await fetch(`${API_URL}/public/chat/send`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, message: trimmed }),
+        });
+        hideTyping();
+
+        if (res.status === 404) {
+          // Sesión expirada → reset y reiniciar
+          clearSession();
+          addMessage('agent', 'La conversación se reinició. Escríbeme otra vez 🍋');
+          sessionId = null;
+          isInitialized = false;
+          await startSession();
+          return;
+        }
+        if (!res.ok) throw new Error(`send failed: ${res.status}`);
+
+        const data = await res.json();
+        addMessage('agent', data.response);
+        renderSuggestions(data.suggestedQuestions);
+        track('demo_chat_response_received', { sessionId });
+      } catch (err) {
+        hideTyping();
+        addMessage('agent', 'Se me complicó procesar eso. ¿Puedes intentar de nuevo?');
+        track('demo_chat_error', { phase: 'send', error: String(err) });
+      } finally {
+        isSending = false;
+        updateSendButton();
+      }
+    };
+
+    // ─── Modal lifecycle ───
+    const openModal = async () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('demo-modal-open');
+
+      track('demo_chat_opened');
+
+      if (!isInitialized) {
+        const existing = loadSession();
+        if (existing) {
+          sessionId = existing;
+          isInitialized = true;
+          loadingEl?.remove();
+          addMessage('agent', 'Volviste 🍋 ¿En qué seguimos?');
+        } else {
+          await startSession();
+        }
+      }
+
+      setTimeout(() => input?.focus({ preventScroll: true }), 150);
+    };
+
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('demo-modal-open');
+      track('demo_chat_closed', { messageCount });
+    };
+
+    // ─── Wiring ───
+    for (const el of document.querySelectorAll('[data-open-demo-modal]')) {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    }
+
+    for (const el of document.querySelectorAll('[data-close-demo-modal]')) {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeModal();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+
+    input?.addEventListener('input', () => {
+      updateSendButton();
+      autoGrowInput();
+    });
+
+    input?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        if (!sendBtn.disabled) sendMessage(input.value);
+      }
+    });
+
+    sendBtn?.addEventListener('click', () => sendMessage(input.value));
+  })();
+</script>
