@@ -2,55 +2,30 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
-import SectionProblem from '../components/SectionProblem.astro';
-import SectionSolution from '../components/SectionSolution.astro';
+import MarqueeStrip from '../components/MarqueeStrip.astro';
+import SectionServices from '../components/SectionServices.astro';
 import BannerBreak from '../components/BannerBreak.astro';
-import SectionPricing from '../components/SectionPricing.astro';
+import SectionPack from '../components/SectionPack.astro';
 import SectionFaq from '../components/SectionFaq.astro';
-import SectionTeam from '../components/SectionTeam.astro';
-import SectionUseCases from '../components/SectionUseCases.astro';
 import SectionCta from '../components/SectionCta.astro';
 import Footer from '../components/Footer.astro';
 
 const rubros = ["Agendamiento", "Ventas", "Soporte", "Calificación", "Recordatorios", "Tu negocio"];
 
-const included = [
-  "Tu web profesional con dominio, correos, hosting y SSL incluidos",
-  "Asistente con IA conectado a tu WhatsApp Business — responde, agenda y califica 24/7 (incluye 2.000 sesiones/mes)",
-  "Calificación automática: los clientes calientes te llegan a ti, del resto se hace cargo el asistente",
-  "Panel donde ves cada conversación, cada cliente, cada oportunidad",
-  "Anuncios en Instagram y Facebook — los armamos, lanzamos, optimizamos y gestionamos por ti",
-  "Reportes claros cada mes: sabes exactamente qué funciona y qué no",
-  "Soporte directo cuando lo necesites, sin tickets ni esperas",
-];
-
 const faqs = [
-  { question: "¿Cuánto se demoran?", answer: "1 a 3 semanas. El asistente inteligente se activa en días. La web toma un poco más dependiendo del rubro. Las campañas se lanzan apenas la web esté arriba." },
-  { question: "¿Se nota que es un bot?", answer: "No. Las respuestas son naturales y están entrenadas con la info de tu negocio. Y cuando el cliente necesita hablar contigo, te traspasa la conversación. Tú decides cuándo tomar el control." },
-  { question: "¿Yo tengo que escribir los textos de la web?", answer: "No. Nosotros hacemos todo. Necesitamos 20 minutos de tu tiempo en una llamada para entender qué haces, a quién atiendes y qué te diferencia. Con eso armamos todo." },
-  { question: "¿Qué pasa con el WhatsApp?", answer: "Usamos el número de WhatsApp Business de tu negocio. Si aún no tienes uno, te ayudamos a crearlo y lo dejamos separado de tu WhatsApp personal. Conectamos el asistente a ese número y tú puedes entrar a cualquier conversación cuando quieras." },
-  { question: "¿Puedo ver las conversaciones de mis clientes?", answer: "Sí. Tienes acceso completo al panel. Ves cada conversación, quién escribió, qué necesita y en qué estado está. Puedes entrar a cualquier chat y tomar el control en cualquier momento." },
-  { question: "¿Necesito saber de tecnología?", answer: "Cero. Nosotros configuramos todo. Tú solo necesitas tu teléfono y 20 minutos para contarnos sobre tu negocio. El resto lo hacemos nosotros." },
-  { question: "¿Las campañas de publicidad están incluidas?", answer: "Nosotros configuramos, optimizamos y gestionamos las campañas en Instagram y Facebook. Los creativos (imágenes, videos) los pone el cliente. Si necesitas trabajo de agencia creativa, eso se cotiza por separado. El presupuesto publicitario se paga directo en Instagram y Facebook (no a nosotros), y tú decides cuánto invertir. Recomendamos partir desde $200.000 CLP/mes para tener señal suficiente." },
-  { question: "¿Puedo cancelar cuando quiera?", answer: "Sí. Sin contrato, sin permanencia mínima, sin multas. Si un mes decides que no lo necesitas, cancelas y listo." },
-  { question: "¿Y si no me sirve?", answer: "Al firmar pagas $400.000 CLP + IVA que cubre la implementación y tu primer mes operando. El mes 2 y 3 pagas $295.000 CLP + IVA/mes (precio promocional). Desde el mes 4, $350.000 CLP + IVA/mes. Sin contrato ni permanencia: cancelas cuando quieras." },
-  { question: "¿Puedo contratar solo una parte (solo web, solo IA o solo ads)?", answer: "Sí. Además del Plan completo vendemos los servicios por separado: Web $100.000/mes (+ $150.000 implementación), Agente IA + CRM $250.000/mes (+ $200.000 implementación), Marketing operado $200.000/mes (+ $100.000 implementación). Todos son precios CLP + IVA. Si eligiéramos los 3 por separado sumarían $550.000/mes, con el Plan completo pagas $350.000/mes (36% menos)." },
-  { question: "¿Cuántas conversaciones del asistente IA incluye el plan?", answer: "El Plan completo y el servicio individual de Agente IA + CRM incluyen 2.000 sesiones al mes. Una sesión es toda la conversación con un cliente (no importa cuántos mensajes se manden). Sobre las 2.000, son $200 CLP por sesión extra. Para contextualizar: una clínica con 300-500 consultas al mes o una tienda con 1.000 mensajes cabe sobrado. Si esperas mucho más volumen, lo ajustamos caso a caso en la llamada." },
-  { question: "¿Cuántos clientes nuevos voy a recibir?", answer: "Depende de tu rubro, tu zona y cuánto inviertas en publicidad. Lo que sí te garantizamos: vas a responder el 100% de las consultas, 24/7, en menos de 1 minuto. Eso solo ya cambia todo." },
+  { question: "¿Cuánto se demoran en montar todo?", answer: "1 a 3 semanas. El agente IA se activa en 5 a 10 días. La web toma un poco más dependiendo del rubro. Las campañas se lanzan apenas la web esté arriba." },
+  { question: "¿Puedo contratar solo una parte (solo web, solo IA o solo ads)?", answer: "Sí. Cada servicio se vende por separado y tiene su propia página: /web, /agente-ia, /marketing. Si terminas necesitando los tres, el pack completo te sale 30% más barato que sumarlos sueltos." },
+  { question: "¿Cuántas conversaciones del asistente IA incluye?", answer: "Depende del tier que elijas. El Pro (1.000 sesiones/mes, incluido en el pack completo) cubre cómodo a una clínica con 300-500 consultas o una tienda con 1.000 mensajes. Si esperas más volumen, ajustamos. Detalle de los 4 tiers en /agente-ia." },
+  { question: "¿El presupuesto publicitario está incluido?", answer: "No. El ad-spend de Meta se paga directo en Instagram y Facebook, no a nosotros. Tú decides cuánto invertir — recomendamos partir desde $200.000/mes para que el algoritmo aprenda. Nosotros operamos las campañas; tú pones el presupuesto y los creativos." },
+  { question: "¿Puedo cancelar cuando quiera?", answer: "Sí. Sin contrato, sin permanencia, sin multas. Cancelas y te entregamos los activos: dominio, contenidos, base de leads del CRM. Te quedas con todo." },
+  { question: "¿Necesito saber de tecnología?", answer: "Cero. Nosotros configuramos todo. Tú solo necesitas 20 minutos en una llamada para contarnos del negocio. El resto lo hacemos nosotros." },
+  { question: "¿Cuántos clientes nuevos voy a recibir?", answer: "Depende de tu rubro, tu zona y cuánto inviertas en ads. Lo que sí garantizamos: respondes el 100% de las consultas, 24/7, en menos de 1 minuto. Eso solo cambia todo." },
 ];
-
-const founder = {
-  name: "Camilo Alaniz",
-  role: "Founder",
-  image: "https://res.cloudinary.com/dborlhema/image/upload/v1768233343/Gemini_Generated_Image_xk43skxk43skxk43_xbkzto.png",
-  linkedin: "https://www.linkedin.com/in/kmilo93sd",
-  badges: ["Google for Startups 2026", "AWS Activate 2026"],
-};
 
 const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
 ---
 
-<Layout title="Potenciamos tu captación de clientes | Lelemon" description="Armamos tu web, corremos tus anuncios en Instagram y Facebook, ponemos un asistente con IA en tu WhatsApp y ordenamos los leads en tu CRM. Todo el proceso de captación de clientes, operado por nosotros.">
+<Layout title="Más ventas para tu negocio cada mes | Lelemon" description="Web profesional, agente IA en WhatsApp y campañas en Meta — montados, conectados y operados por nosotros. Servicios independientes desde $100.000 CLP/mes o pack completo (Sistema vendedor) por $350.000/mes con 30% de ahorro.">
   <!-- JSON-LD: WebSite -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -71,7 +46,7 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Lelemon",
-    "description": "Potenciamos tu captación de clientes. Armamos tu web, corremos tus anuncios en Instagram y Facebook, ponemos un asistente con IA en tu WhatsApp y ordenamos los leads en tu CRM.",
+    "description": "Más ventas para tu negocio cada mes. Web profesional, agente IA en WhatsApp y campañas operadas en Meta. Servicios independientes o pack completo (Sistema vendedor) con 30% de ahorro.",
     "url": "https://lelemon.cl",
     "logo": "https://lelemon.cl/logo.svg",
     "image": "https://lelemon.cl/og.png",
@@ -92,7 +67,7 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
       "@type": "Country",
       "name": "Chile"
     },
-    "priceRange": "Desde $295.000 CLP + IVA/mes",
+    "priceRange": "Desde $100.000 CLP + IVA/mes (servicios sueltos) · $350.000 pack completo",
     "sameAs": [
       "https://www.linkedin.com/in/kmilo93sd"
     ],
@@ -133,13 +108,11 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
 
   <main>
     <Hero whatsappUrl={whatsappUrl} rubros={rubros} />
-    <SectionProblem />
-    <SectionSolution whatsappUrl={whatsappUrl} />
-    <SectionUseCases whatsappUrl={whatsappUrl} />
+    <MarqueeStrip />
+    <SectionServices />
     <BannerBreak whatsappUrl={whatsappUrl} />
-    <SectionPricing whatsappUrl={whatsappUrl} included={included} />
+    <SectionPack />
     <SectionFaq faqs={faqs} whatsappUrl={whatsappUrl} />
-    <SectionTeam founder={founder} />
     <SectionCta whatsappUrl={whatsappUrl} />
     <Footer />
   </main>

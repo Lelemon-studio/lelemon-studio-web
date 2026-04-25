@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceLanding from '../components/ServiceLanding.astro';
+
+const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20el%20marketing%20operado%20de%20Lelemon";
+
+const features = [
+  {
+    icon: "target",
+    title: "Estrategia armada por nosotros",
+    description: "Te entregamos el plan de campañas, audiencias y presupuesto recomendado. Tú validas, nosotros lanzamos.",
+    meta: "Plan",
+    tags: ["Strategy", "Audiencias", "Funnel"],
+    colSpan: 2,
+    featured: true,
+  },
+  {
+    icon: "megaphone",
+    title: "Ads en IG y Facebook",
+    description: "Configuramos campañas, segmentamos audiencias, escribimos copy, montamos creativos.",
+    meta: "Meta",
+    tags: ["IG", "FB"],
+  },
+  {
+    icon: "trending-up",
+    title: "Optimización continua",
+    description: "Cada semana revisamos qué funciona. Apagamos lo que pierde plata, aumentamos lo que convierte.",
+    meta: "Semanal",
+    tags: ["A/B"],
+  },
+  {
+    icon: "pulse",
+    title: "Pixel + CAPI server-side",
+    description: "Tracking server-side incluido. Meta recibe eventos limpios y aprende a quién mostrarte.",
+    meta: "S2S",
+    tags: ["Pixel", "CAPI"],
+  },
+  {
+    icon: "database",
+    title: "Catálogos dinámicos",
+    description: "Si tienes productos, conectamos tu catálogo a Meta. Campañas DABA / Advantage+ con más conversión.",
+    meta: "DABA",
+    tags: ["Catalog"],
+  },
+  {
+    icon: "report",
+    title: "Reportes mensuales claros",
+    description: "Cuánto invertiste, cuántos leads, cuánto te costó cada uno, qué campaña ganó. Sin jerga marketera.",
+    meta: "Mensual",
+    tags: ["Reports", "ROAS", "CPA"],
+    colSpan: 2,
+  },
+  {
+    icon: "link",
+    title: "Conectado al CRM",
+    description: "Cada lead entra al CRM con la fuente identificada. Sabes qué campaña trajo qué cliente.",
+    meta: "Auto",
+    tags: ["UTM", "Attribution"],
+  },
+];
+
+const faqs = [
+  {
+    question: "¿Quién pone el presupuesto publicitario?",
+    answer: "Tú, directo en Meta. Nosotros gestionamos las campañas pero no facturamos el ad-spend. Esto es transparente: ves cada peso que gastas en Meta sin intermediarios.",
+  },
+  {
+    question: "¿Cuánto debo invertir en ads?",
+    answer: "Recomendamos partir desde $200.000 CLP/mes. Bajo eso, Meta no tiene suficiente señal para optimizar y te perjudicas tú mismo. Si tu rubro tiene mucha competencia (real estate, salud, finanzas), conviene partir más alto.",
+  },
+  {
+    question: "¿Qué pasa con los creativos (fotos y videos)?",
+    answer: "Los pones tú. Nosotros configuramos las campañas y escribimos el copy. Si necesitas producción de creativos (fotos profesionales, videos editados), lo cotizamos por separado o te derivamos a un partner.",
+  },
+  {
+    question: "¿Cuánto se demoran en lanzar?",
+    answer: "Entre 5 y 7 días desde que nos das los accesos a tu Business Manager. Si todavía no tienes Business Manager, te ayudamos a crearlo en la primera semana.",
+  },
+  {
+    question: "¿Cuánto se demora en empezar a traer clientes?",
+    answer: "Las primeras 2 semanas son de aprendizaje del algoritmo de Meta. Después de eso, los costos por lead bajan y empiezas a ver resultados consistentes. Cualquiera que te prometa resultados desde el día 1, miente.",
+  },
+  {
+    question: "¿También gestionan Google Ads?",
+    answer: "Hoy enfocados en Meta (Instagram y Facebook). Google Ads lo evaluamos caso a caso — si tu rubro tiene mucha búsqueda activa (servicios técnicos, urgencias) puede tener sentido sumarlo más adelante.",
+  },
+  {
+    question: "¿Qué pasa si no tengo página web?",
+    answer: "Las campañas pueden enviar tráfico directo a WhatsApp (CTWA — Click to WhatsApp Ads). Funciona muy bien con el Agente IA. Aun así, recomendamos tener web — nuestro Plan completo lo incluye.",
+  },
+  {
+    question: "¿Trabajan campañas para B2B?",
+    answer: "Sí. Para B2B funciona mejor con LinkedIn Ads, pero Meta también sirve si la audiencia está bien segmentada. Lo evaluamos en la llamada según tu rubro.",
+  },
+];
+---
+
+<Layout
+  title="Marketing operado: anuncios en Instagram y Facebook"
+  description="Estrategia, lanzamiento, optimización y reportes mensuales de tus anuncios en Meta Ads. Tú decides el presupuesto, nosotros operamos las campañas. $200.000 CLP + IVA/mes."
+  canonicalUrl="https://lelemon.cl/marketing"
+>
+  <!-- JSON-LD: Service -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Marketing operado Lelemon",
+    "provider": { "@type": "Organization", "name": "Lelemon", "url": "https://lelemon.cl" },
+    "description": "Gestión completa de campañas en Instagram y Facebook Ads. Estrategia, optimización y reportes mensuales.",
+    "areaServed": { "@type": "Country", "name": "Chile" },
+    "offers": {
+      "@type": "Offer",
+      "price": "200000",
+      "priceCurrency": "CLP",
+      "priceValidUntil": "2026-12-31"
+    }
+  })} />
+
+  <ServiceLanding
+    whatsappUrl={whatsappUrl}
+    eyebrow="Marketing operado · Volver al inicio"
+    h1Plain="Anuncios que traen"
+    h1Accent="clientes, no likes."
+    subtitle="Estrategia, segmentación, lanzamiento y optimización en Instagram y Facebook. Cada mes. Tú pones los creativos y el presupuesto en Meta. Nosotros operamos."
+    problemTitle="Lanzar ads sin saber qué haces, es regalarle plata a Meta."
+    problemBody="Subir un boost desde el celular no es marketing. Es esperanza. Las campañas que rinden necesitan estructura: audiencias bien armadas, creativos rotando, copy probado, optimización semanal. Si nunca has trabajado con Meta Ads en serio, vas a pagar el doble por la mitad de leads. Esto es lo que evitamos."
+    featuresEyebrow="Qué incluye"
+    featuresTitle="Tus campañas, gestionadas como en una agencia grande."
+    features={features}
+    servicePriceMonthly="$200.000"
+    servicePriceImpl="$100.000"
+    servicePriceNote="Presupuesto publicitario va aparte, directo en Meta. Recomendamos desde $200.000/mes."
+    faqs={faqs}
+  />
+</Layout>

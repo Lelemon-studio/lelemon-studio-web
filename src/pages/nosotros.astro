@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import SectionTeam from '../components/SectionTeam.astro';
+import SectionCta from '../components/SectionCta.astro';
+import Footer from '../components/Footer.astro';
+
+const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
+
+const team = [
+  {
+    name: "Camilo Alaniz",
+    role: "Founder · Lead Engineer",
+    image: "https://res.cloudinary.com/dborlhema/image/upload/v1768233343/Gemini_Generated_Image_xk43skxk43skxk43_xbkzto.png",
+    bio: "Ingeniero de software. CTO de Venpu (SaaS B2B para automotoras). 10+ años armando productos digitales para empresas. En Lelemon opero yo directamente — tu contacto es conmigo, no con un account manager.",
+    linkedin: "https://www.linkedin.com/in/kmilo93sd",
+    whatsapp: "+56977066965",
+    whatsappLabel: "+56 9 7706 6965",
+  },
+];
+
+const companyBadges = ["Google for Startups 2026", "AWS Activate 2026"];
+---
+
+<Layout
+  title="Nosotros · Quién opera tu cuenta"
+  description="Lelemon lo opera Camilo Alaniz directamente. Sin account managers, sin intermediarios. Ingeniero de software, CTO de Venpu, 10+ años en productos digitales B2B."
+  canonicalUrl="https://lelemon.cl/nosotros"
+>
+  <Navbar whatsappUrl={whatsappUrl} variant="glass" />
+
+  <main class="pt-20">
+    <SectionTeam team={team} badges={companyBadges} />
+    <SectionCta whatsappUrl={whatsappUrl} />
+    <Footer />
+  </main>
+</Layout>

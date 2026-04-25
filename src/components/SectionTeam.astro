@@ -1,51 +1,116 @@
 ---
-interface Props {
-  founder: {
-    name: string;
-    role: string;
-    image: string;
-    linkedin: string;
-    badges: string[];
-  };
+/**
+ * SectionTeam — Nosotros. Equipo Lelemon.
+ *
+ * Grid de team members. Cada card: foto (o initial fallback), nombre, rol,
+ * bio corta, links (LinkedIn, WhatsApp). Badges de la empresa al pie.
+ */
+
+interface TeamMember {
+  name: string;
+  role: string;
+  image?: string;          // URL opcional. Si falta, se muestra initial avatar.
+  bio: string;
+  linkedin?: string;
+  whatsapp?: string;       // Número con + y código país, ej: "+56977066965"
+  whatsappLabel?: string;  // Display visible, ej: "+56 9 7706 6965"
 }
-const { founder } = Astro.props;
+
+interface Props {
+  team: TeamMember[];
+  badges?: string[];       // Badges de la empresa (Google for Startups, etc.)
+}
+
+const { team, badges = [] } = Astro.props;
 ---
 
-<section id="team" class="relative bg-neutral-50 py-20 lg:py-32 px-6 sm:px-10 overflow-hidden">
-  <div class="absolute top-0 left-0 right-0 h-px bg-neutral-200"></div>
+<section id="nosotros" class="relative bg-neutral-50 py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+  <!-- Decorative big stroke text -->
+  <div class="absolute -top-[5%] -right-[3%] text-[16vw] font-black text-neutral-950/[0.025] leading-none select-none pointer-events-none tracking-tighter hidden lg:block" aria-hidden="true">NOSOTROS</div>
 
-  <div class="max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-12 gap-16 items-center">
-      <div class="lg:col-span-4 scroll-reveal">
-        <div class="relative">
-          <div class="absolute -top-4 -left-4 w-full h-full bg-yellow-400/10"></div>
-          <img src={founder.image} alt={founder.name} width="800" height="800" class="relative w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
-        </div>
+  <div class="max-w-7xl mx-auto relative">
+    <!-- Header -->
+    <div class="max-w-3xl mb-16 scroll-reveal">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-8 h-px bg-neutral-950"></div>
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-500">Nosotros · Quiénes operamos</span>
       </div>
-      <div class="lg:col-span-7 lg:col-start-6">
-        <div class="flex items-center gap-3 mb-6 scroll-reveal">
-          <div class="w-8 h-px bg-neutral-300"></div>
-          <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Quién está detrás</span>
-        </div>
-        <h3 class="text-3xl sm:text-4xl font-black text-neutral-950 scroll-reveal" style="--d:50ms">{founder.name}</h3>
-        <p class="text-yellow-600 text-sm font-bold uppercase tracking-wider mt-2 mb-8 scroll-reveal" style="--d:100ms">{founder.role}</p>
-
-        <div class="text-lg text-neutral-600 leading-relaxed space-y-4 scroll-reveal" style="--d:150ms">
-          <p>Ingeniero de software. CTO de Venpu (SaaS B2B para automotoras). 10+ años armando productos digitales para empresas.</p>
-          <p>En Lelemon opero yo directamente. Tu contacto es conmigo, no con un account manager.</p>
-          <p class="text-neutral-950 font-bold">Si me escribes directo, contesto yo: <a href="https://wa.me/56977066965" target="_blank" data-wa-cta class="text-yellow-600 hover:text-yellow-500 transition-colors underline underline-offset-4">+56 9 7706 6965</a></p>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-4 mt-8 scroll-reveal" style="--d:200ms">
-          {founder.badges.map((b) => (
-            <span class="text-xs text-neutral-500 bg-white border border-neutral-200 px-3 py-1.5 font-medium">{b}</span>
-          ))}
-          <a href={founder.linkedin} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-neutral-950 transition-colors font-medium uppercase tracking-wider">
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            LinkedIn
-          </a>
-        </div>
-      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight">
+        Equipo chico. <span class="text-yellow-600">Operación directa.</span>
+      </h2>
+      <p class="mt-6 text-base sm:text-lg text-neutral-600 leading-relaxed">
+        Sin account managers de por medio. Tu cuenta la opera la persona con la que hablas — y eso queda firmado en cada conversación.
+      </p>
     </div>
+
+    <!-- Team grid -->
+    <div class="grid md:grid-cols-2 gap-6 lg:gap-10 mb-16">
+      {team.map((member, i) => (
+        <article class="scroll-reveal" style={`--d:${100 + i * 100}ms`}>
+          <div class="grid grid-cols-[140px_1fr] sm:grid-cols-[180px_1fr] gap-6 items-start">
+            <!-- Imagen / Initial avatar -->
+            <div class="relative">
+              <div class="absolute -top-3 -left-3 w-full h-full bg-yellow-400/15"></div>
+              {member.image ? (
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  width="400"
+                  height="400"
+                  class="relative w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="relative w-full aspect-square bg-neutral-900 flex items-center justify-center">
+                  <span class="text-5xl sm:text-6xl font-black text-yellow-400">
+                    {member.name.charAt(0)}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <!-- Info -->
+            <div class="min-w-0">
+              <h3 class="text-xl sm:text-2xl font-black text-neutral-950 leading-tight">{member.name}</h3>
+              <p class="text-yellow-600 text-[11px] font-bold uppercase tracking-[0.2em] mt-1.5 mb-4">{member.role}</p>
+
+              <p class="text-sm text-neutral-600 leading-relaxed mb-5">{member.bio}</p>
+
+              <div class="flex flex-wrap items-center gap-4">
+                {member.linkedin && (
+                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-950 transition-colors font-medium uppercase tracking-wider">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                  </a>
+                )}
+                {member.whatsapp && (
+                  <a
+                    href={`https://wa.me/${member.whatsapp.replace(/[^0-9]/g, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-wa-cta
+                    class="inline-flex items-center gap-1.5 text-xs text-yellow-700 hover:text-yellow-600 transition-colors font-bold underline underline-offset-4 decoration-yellow-400/40 hover:decoration-yellow-500"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    {member.whatsappLabel || member.whatsapp}
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Empresa badges -->
+    {badges.length > 0 && (
+      <div class="flex flex-wrap items-center gap-3 pt-8 border-t border-neutral-200 scroll-reveal" style="--d:300ms">
+        <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-neutral-400 mr-2">Reconocimientos</span>
+        {badges.map((b) => (
+          <span class="text-xs text-neutral-600 bg-white border border-neutral-200 px-3 py-1.5 font-medium">{b}</span>
+        ))}
+      </div>
+    )}
   </div>
 </section>

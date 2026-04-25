@@ -1,0 +1,386 @@
+---
+/**
+ * ServiceLanding — template reusable para las niche landings de servicios
+ * (web, agente-ia, marketing).
+ *
+ * Layout idéntico, contenido parametrizado vía props. Mantiene Navbar,
+ * LeadModal y DemoChatModal globales (renderizados en Layout.astro).
+ *
+ * Uso: ver src/pages/web.astro, /agente-ia.astro, /marketing.astro
+ */
+import Navbar from './Navbar.astro';
+import Footer from './Footer.astro';
+
+interface Feature {
+  title: string;
+  description: string;
+  icon?: string;          // key del dict ICONS
+  meta?: string;          // texto chico tipo "24/7" o "<2s"
+  tags?: string[];        // etiquetas con # al renderizar
+  colSpan?: 1 | 2;        // bento — span 2 cols para destacar
+  featured?: boolean;     // hover persistente (item destacado)
+}
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+// ── Iconos heroicons-style (paths inline, sin dependencias externas) ──
+const ICONS: Record<string, string> = {
+  sparkles: '<path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.456-2.456L14.25 6l1.035-.259a3.375 3.375 0 002.456-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/>',
+  zap: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>',
+  smartphone: '<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/>',
+  message: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25-4.03 8.25-9 8.25c-1.117 0-2.18-.187-3.165-.534-.69.328-2.066.913-3.34 1.193-.388.085-.713-.273-.594-.673.184-.622.582-1.974.671-2.526C4.586 16.49 3.75 14.34 3.75 12z"/>',
+  chart: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>',
+  search: '<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>',
+  shield: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/>',
+  clock: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+  graduation: '<path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0014.474 0a59.92 59.92 0 005.69-1.47l-1.667-1.06A59.85 59.85 0 0012 4.5c-2.291 0-4.545.16-6.757.47L4.26 6.03c.81.42 1.706.81 2.69 1.16M4.26 10.147l-.94 4.485a.75.75 0 00.42.84c.78.39 1.78.7 2.85.91M4.26 10.147a59.92 59.92 0 00-1.667 1.06A59.85 59.85 0 0112 4.5c2.291 0 4.545.16 6.757.47l1.667 1.06M6 9.879v3.621a2.25 2.25 0 00.939 1.829c2.95 1.984 6.222 1.984 9.122 0a2.25 2.25 0 00.939-1.829V9.879"/>',
+  check: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>',
+  calendar: '<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>',
+  'user-check': '<path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>',
+  dashboard: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/>',
+  report: '<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>',
+  target: '<path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>',
+  megaphone: '<path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"/>',
+  'trending-up': '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.306a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941"/>',
+  pulse: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5h2.197l1.286-3.857a.75.75 0 011.412-.057l2.93 7.038a.75.75 0 001.402-.041l1.696-5.485 1.054 2.24a.75.75 0 00.681.43h3.342"/>',
+  database: '<path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/>',
+  link: '<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/>',
+  refresh: '<path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/>',
+  shopping: '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>',
+};
+
+interface Tier {
+  name: string;          // "Starter", "Pro", "Business", "Custom"
+  badge?: string;        // "Más pedido"
+  capacity: string;      // "500 sesiones/mes"
+  price: string;         // "$150.000" o "Conversemos"
+  priceUnit?: string;    // "CLP + IVA / mes" — null para custom
+  priceImpl?: string;    // "$200.000" — null para custom
+  forWhom: string;       // "Solopreneurs, clínicas chicas"
+  ctaLabel: string;      // "Cuéntame qué vendes" o "Conversemos"
+  featured?: boolean;
+}
+
+interface Props {
+  whatsappUrl: string;
+  // Hero
+  eyebrow: string;
+  h1Plain: string;
+  h1Accent: string;
+  subtitle: string;
+  // Problem
+  problemTitle: string;
+  problemBody: string;
+  // Features
+  featuresEyebrow: string;
+  featuresTitle: string;
+  features: Feature[];
+  // Pricing — modo single (web, marketing)
+  servicePriceMonthly?: string;    // ej "$100.000"
+  servicePriceImpl?: string;       // ej "$150.000"
+  servicePriceNote?: string;
+  // Pricing — modo tiers (agente-ia). Si se pasa, se ignora el modo single.
+  tiers?: Tier[];
+  // FAQ
+  faqs: FAQ[];
+}
+
+const {
+  whatsappUrl,
+  eyebrow,
+  h1Plain,
+  h1Accent,
+  subtitle,
+  problemTitle,
+  problemBody,
+  featuresEyebrow,
+  featuresTitle,
+  features,
+  servicePriceMonthly,
+  servicePriceImpl,
+  servicePriceNote,
+  tiers,
+  faqs,
+} = Astro.props;
+
+const hasTiers = Array.isArray(tiers) && tiers.length > 0;
+---
+
+<Navbar whatsappUrl={whatsappUrl} variant="dark" />
+
+<main>
+  <!-- ════════════════════════════════════════════════════
+       HERO — específico al servicio
+       ════════════════════════════════════════════════════ -->
+  <section class="relative min-h-[80vh] bg-neutral-950 text-white overflow-hidden flex items-center pt-28 pb-20" id="hero">
+    <div class="absolute inset-0 grid-pattern opacity-[0.04]"></div>
+    <div class="absolute top-0 right-0 w-[60%] h-[70%] bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.12)_0%,_transparent_70%)]"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 sm:px-10 w-full">
+      <div class="max-w-4xl">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-12 h-px bg-yellow-400"></div>
+          <a href="/" class="text-xs font-semibold uppercase tracking-[0.3em] text-yellow-400/80 hover:text-yellow-400 transition-colors">← {eyebrow}</a>
+        </div>
+
+        <h1>
+          <span class="block text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[0.95] tracking-tight">
+            {h1Plain}
+          </span>
+          <span class="block text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[0.95] tracking-tight text-yellow-400 mt-2">
+            {h1Accent}
+          </span>
+        </h1>
+
+        <p class="mt-8 text-lg sm:text-xl text-neutral-300 max-w-xl leading-relaxed">
+          {subtitle}
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <button type="button" data-open-lead-modal class="group inline-flex items-center justify-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-7 py-4 transition-all text-sm uppercase tracking-wider">
+            <span>Cuéntame qué vendes</span>
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+          <a href="/#pricing" class="inline-flex items-center justify-center gap-2 text-neutral-400 hover:text-yellow-400 font-medium px-6 py-4 text-sm uppercase tracking-wider transition-colors border border-neutral-800 hover:border-yellow-400/30">
+            Ver Plan completo
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" class="w-full h-20">
+        <path d="M0 80L1440 20V80H0Z" fill="white"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       PROBLEM — específico al servicio
+       ════════════════════════════════════════════════════ -->
+  <section class="relative bg-white py-20 lg:py-28 px-6 sm:px-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <div class="w-8 h-px bg-neutral-950"></div>
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-500">El problema</span>
+        <div class="w-8 h-px bg-neutral-950"></div>
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight">
+        {problemTitle}
+      </h2>
+      <p class="mt-8 text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+        {problemBody}
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       FEATURES — bento grid
+       ════════════════════════════════════════════════════ -->
+  <section class="relative bg-neutral-50 py-20 lg:py-28 px-6 sm:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <div class="w-8 h-px bg-yellow-500"></div>
+          <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-600">{featuresEyebrow}</span>
+          <div class="w-8 h-px bg-yellow-500"></div>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight">
+          {featuresTitle}
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-7xl mx-auto">
+        {features.map((feat) => (
+          <div
+            class:list={[
+              'group relative p-5 lg:p-6 rounded-xl overflow-hidden transition-all duration-300 will-change-transform',
+              'border border-neutral-200/80 bg-white',
+              'hover:shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-yellow-400/40',
+              feat.colSpan === 2 ? 'md:col-span-2' : 'md:col-span-1',
+              feat.featured && 'shadow-[0_2px_12px_rgba(0,0,0,0.04)] -translate-y-0.5 border-yellow-400/40',
+            ]}
+          >
+            <!-- Dot pattern bg (visible en hover o si featured) -->
+            <div class:list={[
+              'absolute inset-0 transition-opacity duration-300',
+              feat.featured ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
+            ]}>
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(250,204,21,0.07)_1px,transparent_1px)] bg-[length:6px_6px]"></div>
+            </div>
+
+            <div class="relative flex flex-col gap-3">
+              <!-- Header: icon + meta badge -->
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-lg flex items-center justify-center bg-yellow-400/10 group-hover:bg-yellow-400/20 transition-colors duration-300">
+                  <svg class="w-4.5 h-4.5 text-yellow-600" style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" set:html={feat.icon ? ICONS[feat.icon] : ICONS.sparkles}></svg>
+                </div>
+                {feat.meta && (
+                  <span class="text-[10px] font-bold uppercase tracking-[0.15em] px-2 py-1 rounded-md bg-neutral-100 text-neutral-600 group-hover:bg-yellow-400/15 group-hover:text-yellow-700 transition-colors duration-300">
+                    {feat.meta}
+                  </span>
+                )}
+              </div>
+
+              <!-- Title + description -->
+              <div class="space-y-1.5">
+                <h3 class="font-bold text-neutral-950 leading-tight text-[15px]">{feat.title}</h3>
+                <p class="text-sm text-neutral-600 leading-snug">{feat.description}</p>
+              </div>
+
+              <!-- Tags -->
+              {feat.tags && feat.tags.length > 0 && (
+                <div class="flex items-center flex-wrap gap-1.5 mt-1">
+                  {feat.tags.map((tag) => (
+                    <span class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-neutral-100 text-neutral-500 transition-colors duration-200 group-hover:bg-yellow-400/10 group-hover:text-yellow-700">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <!-- Border gradient on hover -->
+            <div class:list={[
+              'absolute inset-0 -z-10 rounded-xl p-px bg-gradient-to-br from-transparent via-yellow-400/20 to-transparent transition-opacity duration-300',
+              feat.featured ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
+            ]}></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       PRICING del servicio
+       ════════════════════════════════════════════════════ -->
+  <section id="pricing" class="relative bg-neutral-950 text-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
+    <div class="max-w-6xl mx-auto relative">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <div class="w-8 h-px bg-yellow-400"></div>
+          <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">Precio claro</span>
+          <div class="w-8 h-px bg-yellow-400"></div>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight">
+          Sin contrato, sin permanencia.
+        </h2>
+      </div>
+
+      {hasTiers ? (
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {tiers!.map((tier) => (
+            <div class:list={[
+              'relative border bg-neutral-900/30 p-6 flex flex-col transition-all',
+              tier.featured ? 'border-2 border-yellow-400 bg-yellow-400/[0.05]' : 'border-neutral-800 hover:border-yellow-400/30',
+            ]}>
+              {tier.badge && (
+                <span class="absolute -top-3 left-6 bg-yellow-400 text-neutral-950 text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1">{tier.badge}</span>
+              )}
+
+              <p class:list={[
+                'text-[11px] font-bold uppercase tracking-[0.2em] mb-2',
+                tier.featured ? 'text-yellow-400' : 'text-neutral-400',
+              ]}>{tier.name}</p>
+              <p class="text-sm text-neutral-400 mb-5">{tier.capacity}</p>
+
+              <div class="mb-2">
+                <span class="text-3xl sm:text-4xl font-black text-white leading-none">{tier.price}</span>
+                {tier.priceUnit && <span class="text-xs text-neutral-500 block mt-1">{tier.priceUnit}</span>}
+              </div>
+              {tier.priceImpl && <p class="text-[11px] text-neutral-500 mb-4">+ {tier.priceImpl} CLP + IVA de implementación</p>}
+
+              <p class="text-xs text-neutral-500 leading-relaxed mb-6">{tier.forWhom}</p>
+
+              <div class="flex-1"></div>
+              <button type="button" data-open-lead-modal class:list={[
+                'mt-2 inline-flex items-center justify-center gap-2 font-bold px-4 py-3 transition-all text-xs uppercase tracking-wider',
+                tier.featured ? 'bg-yellow-400 hover:bg-yellow-300 text-neutral-950' : 'border border-neutral-700 hover:border-yellow-400 text-neutral-200 hover:text-yellow-400',
+              ]}>
+                {tier.ctaLabel}
+              </button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="max-w-md mx-auto border-2 border-yellow-400 bg-yellow-400/[0.05] p-8 flex flex-col">
+          <p class="text-yellow-400 text-[11px] font-bold uppercase tracking-[0.2em] mb-2">{eyebrow.split('·')[0].trim()}</p>
+          <p class="text-neutral-400 text-xs mb-6">Servicio individual</p>
+
+          <div class="mb-2">
+            <span class="text-4xl sm:text-5xl font-black text-white leading-none">{servicePriceMonthly}</span>
+            <span class="text-sm text-neutral-500 ml-1">CLP + IVA / mes</span>
+          </div>
+          <p class="text-sm text-neutral-400 mb-2">+ {servicePriceImpl} CLP + IVA de implementación</p>
+          {servicePriceNote && <p class="text-xs text-neutral-500 mb-6">{servicePriceNote}</p>}
+
+          <div class="flex-1"></div>
+          <button type="button" data-open-lead-modal class="mt-6 inline-flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-6 py-3.5 transition-all text-sm uppercase tracking-wider">
+            Cuéntame qué vendes
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+      )}
+
+      <!-- Plan completo: nota discreta al final del pricing -->
+      <p class="mt-12 text-center text-sm text-neutral-500">
+        ¿Necesitas web, agente IA y marketing juntos?
+        <a href="/#pricing" class="text-yellow-400 font-bold hover:underline">Plan completo: $350.000/mes</a>
+        — ahorras 30% vs sueltos.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       FAQ específica
+       ════════════════════════════════════════════════════ -->
+  <section class="relative bg-white py-20 lg:py-28 px-6 sm:px-10">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-8 h-px bg-neutral-950"></div>
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-500">FAQ</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-black text-neutral-950 leading-[1.05] tracking-tight mb-12">
+        Preguntas frecuentes
+      </h2>
+      <div class="divide-y divide-neutral-200">
+        {faqs.map((faq) => (
+          <details class="group py-5">
+            <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
+              <h3 class="text-base sm:text-lg font-bold text-neutral-950 leading-snug">{faq.question}</h3>
+              <span class="shrink-0 mt-0.5 text-yellow-500 group-open:rotate-45 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </span>
+            </summary>
+            <p class="mt-3 text-sm sm:text-base text-neutral-600 leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       CTA final
+       ════════════════════════════════════════════════════ -->
+  <section class="relative bg-yellow-400 py-16 lg:py-20 px-6 sm:px-10 overflow-hidden">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight">
+        ¿Hablamos 20 minutos?
+      </h2>
+      <p class="mt-6 text-base sm:text-lg text-neutral-800/80 max-w-xl mx-auto">
+        Evaluamos si encaja con tu negocio. Sin compromiso.
+      </p>
+      <button type="button" data-open-lead-modal class="mt-10 inline-flex items-center gap-3 bg-neutral-950 hover:bg-neutral-800 text-white font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
+        Cuéntame qué vendes
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <Footer />
+</main>

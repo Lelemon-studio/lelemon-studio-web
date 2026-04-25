@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceLanding from '../components/ServiceLanding.astro';
+
+const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20la%20web%20de%20Lelemon";
+
+const features = [
+  {
+    icon: "sparkles",
+    title: "Diseño a tu medida",
+    description: "No es una plantilla genérica. Una web que se ve cara y transmite el nivel real de tu negocio.",
+    meta: "A tu medida",
+    colSpan: 2,
+    featured: true,
+  },
+  {
+    icon: "refresh",
+    title: "¿Ya tienes web? La operamos.",
+    description: "Si tu web ya está y funciona, la tomamos como está y la mejoramos. Cambios, performance, integraciones — sin reescribirla.",
+    meta: "Mantenimiento",
+  },
+  {
+    icon: "zap",
+    title: "Carga rápida y móvil",
+    description: "Bajo 2 segundos en cualquier red. Perfecta en celular — donde está el 80% de tu tráfico.",
+    meta: "<2s",
+  },
+  {
+    icon: "message",
+    title: "WhatsApp a un toque",
+    description: "Botón flotante en cada página. El visitante toca y entra a tu WhatsApp con el mensaje pre-armado.",
+    meta: "Directo",
+  },
+  {
+    icon: "shopping",
+    title: "Tienda online con Shopify",
+    description: "Si vendes productos, montamos tu e-commerce sobre Shopify: catálogo, pagos, envíos, todo. El plan de Shopify lo pagas tú directo.",
+    meta: "Shopify",
+    colSpan: 2,
+  },
+  {
+    icon: "chart",
+    title: "Lista para anuncios",
+    description: "Pixel de Meta y GA4 instalados desde el día 1. Cuando lances campañas, ya tienes data acumulada.",
+    meta: "Día 1",
+  },
+  {
+    icon: "shield",
+    title: "Dominio, correos y hosting",
+    description: "Todo incluido. Dominio .cl, correos profesionales (tu@tunegocio.cl), hosting con uptime y certificado SSL.",
+    meta: "Incluido",
+  },
+];
+
+const faqs = [
+  {
+    question: "¿Cuánto se demoran en armar la web?",
+    answer: "Entre 1 y 3 semanas dependiendo del rubro y la cantidad de páginas. Te entregamos un primer borrador a la semana 1 con el diseño armado, y vamos iterando hasta que quede.",
+  },
+  {
+    question: "¿Yo tengo que escribir los textos?",
+    answer: "No. Te hacemos una llamada de 20 minutos donde nos cuentas a qué te dedicas, a quién atiendes y qué te diferencia. Con eso armamos toda la web. Tú solo revisas y nos dices qué cambiar.",
+  },
+  {
+    question: "¿Qué pasa si ya tengo una web?",
+    answer: "Tienes dos caminos. Si tu web ya está bien armada, la operamos y mejoramos: cambios, performance, SEO, nuevas secciones, integraciones con WhatsApp y campañas — todo sin reescribirla. Si ya cumplió su ciclo, la reemplazamos desde cero migrando dominio y contenido. En la llamada te decimos cuál te conviene.",
+  },
+  {
+    question: "¿La web es mía o de Lelemon?",
+    answer: "Tuya. El dominio queda a tu nombre, los correos son tuyos. Si algún día decides irte, te entregamos todo y sigues adelante. Sin candados.",
+  },
+  {
+    question: "¿Puedo agregar páginas o secciones después?",
+    answer: "Sí. El plan mensual incluye actualizaciones razonables: agregar un servicio nuevo, cambiar precios, sumar testimonios, ajustar copy. Si quieres construir una sección compleja desde cero, lo cotizamos por separado.",
+  },
+  {
+    question: "¿Necesito comprar el dominio aparte?",
+    answer: "No. El dominio .cl está incluido en la implementación. Si ya tienes uno, lo migramos sin costo extra.",
+  },
+  {
+    question: "¿Y si necesito una tienda online (e-commerce)?",
+    answer: "Sí, manejamos e-commerce vía Shopify. Te montamos la tienda completa: catálogo, pagos, envíos, integraciones con WhatsApp y el agente IA. Importante: el plan de Shopify lo pagas tú directo a Shopify (parte aparte de nuestra fee). La implementación se cotiza según el tamaño del catálogo y las integraciones que necesites.",
+  },
+];
+---
+
+<Layout
+  title="Web profesional para PYMES en Chile"
+  description="Una web que convierte visitas en clientes. Rápida, móvil, con WhatsApp a un toque y conectada a tus campañas. Lista en 2-3 semanas. Desde $100.000 CLP + IVA/mes."
+  canonicalUrl="https://lelemon.cl/web"
+>
+  <!-- JSON-LD: Service -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Web profesional Lelemon",
+    "provider": { "@type": "Organization", "name": "Lelemon", "url": "https://lelemon.cl" },
+    "description": "Diseño y desarrollo de web profesional para PYMES en Chile. Incluye dominio, correos, hosting y SSL.",
+    "areaServed": { "@type": "Country", "name": "Chile" },
+    "offers": {
+      "@type": "Offer",
+      "price": "100000",
+      "priceCurrency": "CLP",
+      "priceValidUntil": "2026-12-31"
+    }
+  })} />
+
+  <ServiceLanding
+    whatsappUrl={whatsappUrl}
+    eyebrow="Web profesional · Volver al inicio"
+    h1Plain="Una web que convierte"
+    h1Accent="visitas en clientes."
+    subtitle="Rápida, móvil, con tu WhatsApp a un toque y conectada a tus campañas. Lista en 2 a 3 semanas. Tú apareces solo para revisar."
+    problemTitle="Una web bonita no vende. Una web que captura, sí."
+    problemBody="La mayoría de webs de PYME son tarjetas de presentación digitales: lindas pero pasivas. La gente entra, mira y se va sin que tú te enteres. Una web profesional bien hecha tiene que hacer una cosa: capturar al visitante y empujarlo a escribirte. Eso es lo que armamos."
+    featuresEyebrow="Qué incluye"
+    featuresTitle="Una web pensada para captar, no para impresionar."
+    features={features}
+    servicePriceMonthly="$100.000"
+    servicePriceImpl="$150.000"
+    faqs={faqs}
+  />
+</Layout>

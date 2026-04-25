@@ -1,0 +1,121 @@
+---
+/**
+ * SectionPack — el pack completo, presentado como "atraer clientes".
+ *
+ * Reemplaza la SectionPricing vieja (tabla de pagos por mes detallada).
+ * Foco en outcome, no en price ramps. Los servicios sueltos viven en
+ * sus niche landings con su propio pricing.
+ */
+---
+
+<section id="pricing" class="relative bg-neutral-950 text-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+  <!-- Grid pattern bg -->
+  <div class="absolute inset-0 grid-pattern opacity-[0.04]" aria-hidden="true"></div>
+  <!-- Yellow gradient accent -->
+  <div class="absolute top-1/2 -translate-y-1/2 -right-[20%] w-[700px] h-[700px] bg-[radial-gradient(ellipse_at_center,_rgba(250,204,21,0.10)_0%,_transparent_70%)] pointer-events-none" aria-hidden="true"></div>
+  <!-- Decorative stroke text -->
+  <div class="absolute bottom-[5%] -left-[2%] text-[14vw] font-black text-stroke-yellow leading-none select-none pointer-events-none opacity-[0.05] tracking-tighter hidden lg:block" aria-hidden="true">PACK</div>
+
+  <div class="max-w-6xl mx-auto relative">
+    <!-- Header -->
+    <div class="max-w-3xl mb-12 lg:mb-16 scroll-reveal">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-px bg-yellow-400"></div>
+        <span class="text-xs font-semibold uppercase tracking-[0.3em] text-yellow-400/80">El pack completo · Web + IA + Ads conectados</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight">
+        Para que dejes de <span class="text-yellow-400">perseguir clientes.</span>
+      </h2>
+      <p class="mt-6 text-lg text-neutral-300 leading-relaxed">
+        Un sistema completo de captación y venta: web que convierte, agente IA que atiende y campañas que traen leads calificados. Operado entero, en marcha en 2 a 3 semanas.
+      </p>
+    </div>
+
+    <!-- Big pack card -->
+    <div class="relative scroll-reveal" style="--d:100ms">
+      <!-- Outer yellow glow -->
+      <div class="absolute -inset-2 bg-gradient-to-br from-yellow-400/20 via-yellow-400/5 to-transparent rounded-3xl blur-2xl pointer-events-none" aria-hidden="true"></div>
+
+      <div class="relative bg-gradient-to-br from-yellow-400/[0.06] via-neutral-900/50 to-neutral-900/0 border border-yellow-400/30 rounded-2xl overflow-hidden shadow-[0_0_60px_-15px_rgba(250,204,21,0.3)]">
+        <!-- Diagonal yellow accent -->
+        <div class="absolute top-0 right-[35%] w-px h-full bg-gradient-to-b from-yellow-400/40 via-yellow-400/10 to-transparent skew-x-[-20deg] pointer-events-none" aria-hidden="true"></div>
+        <!-- Lemon flotando -->
+        <span class="absolute top-8 right-10 lg:top-10 lg:right-14 text-5xl lg:text-7xl select-none pointer-events-none lemon-pack" aria-hidden="true">🍋</span>
+
+        <div class="grid lg:grid-cols-2 gap-0">
+          <!-- Lado izquierdo: Pack info + precio + CTA -->
+          <div class="p-8 lg:p-12 relative">
+            <p class="text-yellow-400 text-[11px] font-bold uppercase tracking-[0.25em] mb-4">Sistema vendedor</p>
+
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-5xl sm:text-6xl font-black text-white leading-none">$350.000</span>
+            </div>
+            <p class="text-sm text-neutral-400 mb-6">CLP + IVA / mes · Sin contrato</p>
+
+            <p class="text-base text-neutral-300 leading-relaxed mb-8 max-w-md">
+              Tres piezas trabajando juntas: tu web atrae, tus campañas traen leads, el agente los califica y agenda. Tú entras solo a cerrar.
+            </p>
+
+            <button type="button" data-open-lead-modal id="pricing-cta" class="group inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
+              Cuéntame qué vendes
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            </button>
+
+            <p class="text-xs text-neutral-500 mt-4">
+              Implementación: $400.000 al firmar (incluye setup + mes 1)
+            </p>
+          </div>
+
+          <!-- Lado derecho: Qué incluye -->
+          <div class="border-t lg:border-t-0 lg:border-l border-yellow-400/20 p-8 lg:p-12 bg-neutral-950/40">
+            <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-neutral-500 mb-6">Qué incluye</p>
+
+            <ul class="space-y-4">
+              {[
+                { title: 'Web profesional', desc: 'Dominio + correos + SSL · responsive · Pixel + GA4' },
+                { title: 'Agente IA + CRM', desc: '1.000 sesiones/mes · panel + reportes · Google Calendar' },
+                { title: 'Marketing operado', desc: 'IG + FB · estrategia + optimización semanal · CAPI server-side' },
+                { title: 'Todo conectado', desc: 'Leads de ads → agente → CRM, identificados por fuente' },
+                { title: 'Reportes mensuales', desc: 'Lo que invirtiste, lo que entró, qué funcionó' },
+                { title: 'Soporte directo', desc: 'Sin tickets ni esperas. Hablas con quien opera tu cuenta' },
+              ].map((item) => (
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <div>
+                    <p class="text-sm font-bold text-white leading-snug">{item.title}</p>
+                    <p class="text-xs text-neutral-400 leading-relaxed mt-0.5">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer note: servicios sueltos -->
+    <div class="mt-10 text-center scroll-reveal" style="--d:200ms">
+      <p class="text-sm text-neutral-400">
+        ¿Solo necesitas uno?
+        <a href="/web" class="text-yellow-400 font-bold hover:text-yellow-300 transition-colors">Web</a>
+        <span class="text-neutral-700 mx-2">·</span>
+        <a href="/agente-ia" class="text-yellow-400 font-bold hover:text-yellow-300 transition-colors">Agente IA</a>
+        <span class="text-neutral-700 mx-2">·</span>
+        <a href="/marketing" class="text-yellow-400 font-bold hover:text-yellow-300 transition-colors">Marketing</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lemon-pack {
+    animation: lemon-pack-float 7s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes lemon-pack-float {
+    0%, 100% { transform: translateY(0) rotate(-10deg); }
+    50% { transform: translateY(-14px) rotate(8deg); }
+  }
+</style>

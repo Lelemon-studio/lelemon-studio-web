@@ -11,18 +11,24 @@ const { whatsappUrl } = Astro.props;
   <div class="absolute bottom-0 left-[10%] w-px h-[60%] bg-gradient-to-t from-yellow-400/20 to-transparent skew-x-[15deg]"></div>
 
   <div class="relative max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl sm:text-5xl lg:text-7xl font-black leading-[0.95] tracking-tight scroll-reveal">
-      Esto no es para todos.<br/>
-      <span class="text-stroke-yellow">¿Es para ti?</span>
+    <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight scroll-reveal">
+      Hablemos 20 minutos.<br/>
+      <span class="text-yellow-400">Sin compromiso.</span>
     </h2>
-    <p class="mt-8 text-lg text-neutral-500 max-w-xl mx-auto leading-relaxed scroll-reveal" style="--d:50ms">
-      Si tu negocio ya tiene flujo y quieres dejar de perder clientes por no atender a tiempo, conversemos 20 minutos. Evaluamos tu caso y te decimos si podemos ayudarte. Si no, te lo decimos de una.
+    <p class="mt-8 text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed scroll-reveal" style="--d:50ms">
+      Cuéntanos qué vendes. Te decimos cómo lo armaríamos, qué esperar y cuánto sale. Si calzamos, seguimos. Si no, te decimos por qué — y quedamos como amigos.
     </p>
     <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 scroll-reveal" style="--d:100ms">
       <button type="button" data-open-lead-modal class="group inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-10 py-5 transition-all text-sm uppercase tracking-wider">
         Cuéntame qué vendes
         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
       </button>
+      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-wa-cta class="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-yellow-400 transition-colors font-medium underline underline-offset-4 decoration-neutral-700 hover:decoration-yellow-400">
+        O escríbenos directo por WhatsApp
+      </a>
     </div>
+    <p class="mt-8 text-xs text-neutral-500 scroll-reveal" style="--d:150ms">
+      Sin compromiso · Respondemos en menos de 1 hora hábil
+    </p>
   </div>
 </section>

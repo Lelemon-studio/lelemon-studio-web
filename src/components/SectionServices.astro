@@ -1,0 +1,212 @@
+---
+/**
+ * SectionServices — bento asimétrico unificado en dark.
+ *
+ * Toda la sección comparte fondo neutral-950 (igual que Hero), con yellow
+ * como hilo conductor. Cards diferenciadas por jerarquía (Agente IA destacado),
+ * no por bg disonante.
+ *
+ * Layout desktop (12-col, 2 filas):
+ *   ┌─────────┬─────────────────┐
+ *   │ Web (5) │                 │
+ *   ├─────────┤  Agente IA (7)  │
+ *   │ Mkt (5) │  row-span-2     │
+ *   └─────────┴─────────────────┘
+ */
+---
+
+<section id="como-funciona" class="relative bg-neutral-950 text-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+  <!-- Grid pattern bg (igual que Hero) -->
+  <div class="absolute inset-0 grid-pattern opacity-[0.04]" aria-hidden="true"></div>
+  <!-- Yellow gradient accent -->
+  <div class="absolute top-0 right-0 w-[50%] h-[60%] bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.08)_0%,_transparent_70%)]" aria-hidden="true"></div>
+  <!-- Big decorative stroke text -->
+  <div class="absolute top-[8%] -left-[2%] text-[14vw] font-black text-stroke-yellow leading-none select-none pointer-events-none opacity-[0.05] tracking-tighter hidden lg:block" aria-hidden="true">SERVICIOS</div>
+
+  <div class="max-w-7xl mx-auto relative">
+    <div class="flex items-center gap-3 mb-6 scroll-reveal">
+      <div class="w-12 h-px bg-yellow-400"></div>
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-yellow-400/80">Servicios · Elige el que necesitas</span>
+    </div>
+
+    <div class="max-w-3xl mb-12 scroll-reveal" style="--d:50ms">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight">
+        Tres servicios que se potencian.<br/>
+        <span class="text-yellow-400">Funcionan solos. Juntos rinden más.</span>
+      </h2>
+      <p class="mt-6 text-base sm:text-lg text-neutral-300 leading-relaxed">
+        Contrátalos por separado o en el Plan completo. La diferencia: en el Plan, todo nace conectado — la web alimenta a las campañas, las campañas mandan leads al agente, el agente los ordena en el CRM.
+      </p>
+    </div>
+
+    <!-- Bento asimétrico — todo dark, yellow como acento -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 lg:auto-rows-fr gap-3 lg:gap-4 lg:min-h-[680px] scroll-reveal" style="--d:100ms">
+
+      <!-- ─────────── WEB (top-left) ─────────── -->
+      <a href="/web" class="group relative lg:col-span-5 bg-neutral-900/40 border border-neutral-800 hover:border-yellow-400/40 rounded-2xl p-8 lg:p-10 overflow-hidden transition-all duration-500 flex flex-col min-h-[280px] backdrop-blur-sm">
+        <!-- Big background number — stroke yellow -->
+        <span class="absolute -top-4 -right-2 text-[11rem] lg:text-[13rem] font-black leading-none select-none pointer-events-none tracking-tighter transition-all duration-500 text-stroke-yellow opacity-[0.08] group-hover:opacity-20" aria-hidden="true">01</span>
+
+        <!-- Decorative browser frame -->
+        <div class="absolute top-6 right-6 hidden lg:flex items-center gap-1 opacity-30 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true">
+          <div class="w-1.5 h-1.5 rounded-full bg-red-400/70"></div>
+          <div class="w-1.5 h-1.5 rounded-full bg-yellow-400/70"></div>
+          <div class="w-1.5 h-1.5 rounded-full bg-green-400/70"></div>
+        </div>
+
+        <div class="relative flex flex-col flex-1">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-8 h-px bg-yellow-400"></div>
+            <span class="text-[11px] font-bold uppercase tracking-[0.25em] text-yellow-400/80">Web profesional</span>
+          </div>
+
+          <h3 class="text-2xl lg:text-[28px] font-black text-white leading-[1.1] tracking-tight mb-3">
+            Una web que captura,<br/>no solo presenta.
+          </h3>
+
+          <p class="text-sm text-neutral-400 leading-relaxed max-w-md">
+            Rápida, móvil, con WhatsApp a un toque y conectada a tus campañas.
+          </p>
+
+          <div class="flex-1"></div>
+
+          <span class="inline-flex items-center gap-2 mt-6 text-sm font-bold uppercase tracking-[0.15em] text-yellow-400 group-hover:text-yellow-300 transition-colors">
+            <span class="relative">
+              Ver servicio
+              <span class="absolute -bottom-0.5 left-0 w-full h-px bg-yellow-400 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
+            </span>
+            <svg class="w-4 h-4 group-hover:translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- ─────────── AGENTE IA (right, full height, FEATURED) ─────────── -->
+      <a href="/agente-ia" class="group relative lg:col-span-7 lg:row-span-2 bg-gradient-to-br from-yellow-400/[0.06] via-neutral-900/40 to-neutral-900/0 border border-yellow-400/30 hover:border-yellow-400/60 rounded-2xl p-10 lg:p-14 overflow-hidden transition-all duration-500 flex flex-col min-h-[400px] shadow-[0_0_40px_-15px_rgba(250,204,21,0.25)] hover:shadow-[0_0_60px_-10px_rgba(250,204,21,0.35)]">
+        <!-- Yellow radial glow -->
+        <div class="absolute -top-20 -right-20 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_center,_rgba(250,204,21,0.18)_0%,_transparent_70%)]" aria-hidden="true"></div>
+        <!-- Diagonal yellow line -->
+        <div class="absolute top-0 right-[25%] w-px h-full bg-gradient-to-b from-yellow-400/40 via-yellow-400/10 to-transparent skew-x-[-20deg]" aria-hidden="true"></div>
+
+        <!-- Big "02" filled yellow -->
+        <span class="absolute top-1/2 -translate-y-1/2 -right-8 text-[24rem] font-black text-yellow-400/[0.06] group-hover:text-yellow-400/[0.10] leading-none select-none pointer-events-none tracking-tighter transition-colors duration-700" aria-hidden="true">02</span>
+
+        <!-- Lemon flotante (Pepita) -->
+        <span class="absolute top-8 right-10 lg:top-10 lg:right-14 text-5xl lg:text-6xl select-none pointer-events-none lemon-float" aria-hidden="true">🍋</span>
+
+        <div class="relative flex flex-col flex-1">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-8 h-px bg-yellow-400"></div>
+            <span class="text-[11px] font-bold uppercase tracking-[0.25em] text-yellow-400">Agente IA + CRM · La pieza que nunca duerme</span>
+          </div>
+
+          <h3 class="text-3xl lg:text-5xl font-black leading-[1.05] tracking-tight mb-5 max-w-xl text-white">
+            Atiende tu WhatsApp <span class="text-yellow-400">24/7.</span>
+          </h3>
+
+          <p class="text-base lg:text-lg text-neutral-300 leading-relaxed max-w-md mb-8">
+            Responde, cotiza, agenda y califica leads. Tú apareces solo a cerrar lo que vale. Lo demás, gestionado solo.
+          </p>
+
+          <ul class="space-y-2.5 mb-10">
+            {[
+              '4 tiers desde 500 sesiones/mes',
+              'Panel CRM + reportes mensuales',
+              'Conectado a Google Calendar',
+              'Pasa a humano cuando hace falta',
+            ].map((b) => (
+              <li class="flex items-center gap-3 text-sm text-neutral-300">
+                <span class="shrink-0 w-1.5 h-1.5 rounded-full bg-yellow-400"></span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="flex-1"></div>
+
+          <span class="inline-flex items-center gap-3 text-sm font-bold uppercase tracking-[0.15em] text-yellow-400 group-hover:text-yellow-300 transition-colors">
+            <span class="relative">
+              Ver servicio completo
+              <span class="absolute -bottom-0.5 left-0 w-full h-px bg-yellow-400 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
+            </span>
+            <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- ─────────── MARKETING (bottom-left) ─────────── -->
+      <a href="/marketing" class="group relative lg:col-span-5 bg-neutral-900/40 border border-neutral-800 hover:border-yellow-400/40 rounded-2xl p-8 lg:p-10 overflow-hidden transition-all duration-500 flex flex-col min-h-[280px] backdrop-blur-sm">
+        <!-- Diagonal lines pattern -->
+        <div class="absolute inset-0 diagonal-lines opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500" aria-hidden="true"></div>
+
+        <!-- Big "03" stroke yellow -->
+        <span class="absolute -bottom-8 -right-2 text-[11rem] lg:text-[13rem] font-black leading-none select-none pointer-events-none tracking-tighter transition-all duration-500 text-stroke-yellow opacity-[0.08] group-hover:opacity-20" aria-hidden="true">03</span>
+
+        <!-- Decorative trending arrow -->
+        <svg class="absolute top-7 right-7 w-7 h-7 text-yellow-400/40 group-hover:text-yellow-400 group-hover:rotate-12 transition-all duration-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.306a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941"/>
+        </svg>
+
+        <div class="relative flex flex-col flex-1">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-8 h-px bg-yellow-400"></div>
+            <span class="text-[11px] font-bold uppercase tracking-[0.25em] text-yellow-400/80">Marketing operado</span>
+          </div>
+
+          <h3 class="text-2xl lg:text-[28px] font-black text-white leading-[1.1] tracking-tight mb-3">
+            Anuncios que traen<br/>clientes, no likes.
+          </h3>
+
+          <p class="text-sm text-neutral-400 leading-relaxed max-w-md">
+            Estrategia, optimización y reportes mensuales en Instagram y Facebook.
+          </p>
+
+          <div class="flex-1"></div>
+
+          <span class="inline-flex items-center gap-2 mt-6 text-sm font-bold uppercase tracking-[0.15em] text-yellow-400 group-hover:text-yellow-300 transition-colors">
+            <span class="relative">
+              Ver servicio
+              <span class="absolute -bottom-0.5 left-0 w-full h-px bg-yellow-400 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
+            </span>
+            <svg class="w-4 h-4 group-hover:translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Bottom note — sin precio -->
+    <div class="mt-12 text-center scroll-reveal" style="--d:300ms">
+      <p class="text-sm text-neutral-500">
+        ¿Los necesitas los tres juntos?
+        <a href="#pricing" class="text-yellow-400 font-bold hover:text-yellow-300 transition-colors inline-flex items-center gap-1.5">
+          Conoce el Plan completo
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lemon-float {
+    animation: lemon-services-float 6s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes lemon-services-float {
+    0%, 100% { transform: translateY(0) rotate(-15deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+  }
+
+  .chat-bubble-float {
+    animation: bubble-float 4s ease-in-out infinite;
+  }
+  @keyframes bubble-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+</style>
