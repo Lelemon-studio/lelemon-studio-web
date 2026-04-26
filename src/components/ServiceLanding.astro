@@ -86,6 +86,8 @@ interface Props {
   tiers?: Tier[];
   // FAQ
   faqs: FAQ[];
+  // CTA secundario "Probar demo" en el Hero — solo agente-ia
+  showDemoCta?: boolean;
 }
 
 const {
@@ -104,6 +106,7 @@ const {
   servicePriceNote,
   tiers,
   faqs,
+  showDemoCta = false,
 } = Astro.props;
 
 const hasTiers = Array.isArray(tiers) && tiers.length > 0;
@@ -255,6 +258,136 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
     </div>
   </section>
 
+  {showDemoCta && (
+    <!-- ════════════════════════════════════════════════════
+         DEMO LIVE — pruébala antes de pagar (solo /agente-ia)
+         ════════════════════════════════════════════════════ -->
+    <section id="demo" class="relative bg-neutral-950 text-white py-20 lg:py-28 px-6 sm:px-10 overflow-hidden">
+      <!-- BG decoration -->
+      <div class="absolute inset-0 grid-pattern opacity-[0.04]" aria-hidden="true"></div>
+      <div class="absolute top-1/2 -translate-y-1/2 -right-[15%] w-[700px] h-[700px] bg-[radial-gradient(ellipse_at_center,_rgba(250,204,21,0.12)_0%,_transparent_70%)] pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute top-0 right-[30%] w-px h-full bg-gradient-to-b from-yellow-400/30 via-yellow-400/5 to-transparent skew-x-[-20deg]" aria-hidden="true"></div>
+
+      <div class="max-w-7xl mx-auto relative">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          <!-- LEFT: Pitch + CTA -->
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="absolute inline-flex h-full w-full rounded-full bg-green-400 demo-live-dot"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400"></span>
+              </span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-green-400">Pepita · En línea ahora</span>
+            </div>
+
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[0.95] tracking-tight mb-6">
+              Pruébala antes
+              <br/>
+              <span class="text-yellow-400">de contratarla.</span>
+            </h2>
+
+            <p class="text-lg text-neutral-300 leading-relaxed mb-8 max-w-md">
+              Habla con Pepita ahora mismo. Sin demos agendadas, sin formularios largos. Escríbele cualquier cosa de tu negocio y mira cómo responde.
+            </p>
+
+            <!-- Trust bullets -->
+            <ul class="space-y-2.5 mb-10">
+              {[
+                'Sin compromiso · 1 minuto',
+                'Hablas con la IA real, no un mock',
+                'Pepita te dirá si tu negocio encaja',
+              ].map((b) => (
+                <li class="flex items-center gap-3 text-sm text-neutral-300">
+                  <svg class="w-4 h-4 text-yellow-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+
+            <button
+              type="button"
+              data-open-demo-modal
+              class="demo-live-cta group relative inline-flex items-center gap-4 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold pl-3 pr-7 py-3 transition-all"
+            >
+              <span class="w-12 h-12 rounded-full bg-neutral-950 flex items-center justify-center text-2xl shrink-0">🍋</span>
+              <span class="flex flex-col items-start gap-0.5">
+                <span class="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-700">▶ Probar ahora</span>
+                <span class="text-base font-black uppercase tracking-wider">Hablar con Pepita</span>
+              </span>
+            </button>
+
+            <p class="mt-4 text-xs text-neutral-500">
+              Solo te pediré tu nombre para empezar. Nada más.
+            </p>
+          </div>
+
+          <!-- RIGHT: Phone mockup con preview de chat -->
+          <div class="relative max-w-sm mx-auto lg:mx-0 lg:ml-auto">
+            <!-- Floating tag -->
+            <div class="absolute -top-6 -left-4 sm:-left-6 z-20 bg-yellow-400 text-neutral-950 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl rotate-[-4deg]">
+              ✨ Vista previa
+            </div>
+
+            <div class="bg-neutral-900 rounded-[2.5rem] border-[8px] border-neutral-800 shadow-2xl shadow-black/50 overflow-hidden">
+              <!-- Notch -->
+              <div class="bg-neutral-900 h-5 flex justify-center items-end pb-1">
+                <div class="w-24 h-1 rounded-full bg-neutral-700"></div>
+              </div>
+
+              <!-- WhatsApp header -->
+              <div class="bg-[#075E54] px-4 py-3 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-yellow-400 flex items-center justify-center text-lg">🍋</div>
+                <div class="flex-1">
+                  <p class="text-white font-semibold text-sm leading-tight">Pepita · Lelemon</p>
+                  <p class="text-[10px] text-green-300 flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 bg-green-400 rounded-full demo-live-dot"></span>
+                    en línea
+                  </p>
+                </div>
+              </div>
+
+              <!-- Chat preview -->
+              <div class="bg-[#ECE5DD] p-3 space-y-2 min-h-[340px]">
+                <p class="text-[9px] text-neutral-500 text-center bg-white/60 rounded-full px-3 py-0.5 mx-auto w-fit">Hoy</p>
+
+                <div class="flex justify-start">
+                  <div class="bg-white rounded-lg rounded-tl-sm px-3 py-2 max-w-[85%] shadow-sm">
+                    <p class="text-[12px] text-neutral-800 leading-snug">¡Hola! Soy Pepita 🍋. ¿A qué se dedica tu negocio?</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-end">
+                  <div class="bg-[#DCF8C6] rounded-lg rounded-tr-sm px-3 py-2 max-w-[85%] shadow-sm">
+                    <p class="text-[12px] text-neutral-800 leading-snug">Tengo una clínica dental. Recibo como 40 mensajes al día.</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-start">
+                  <div class="bg-white rounded-lg rounded-tl-sm px-3 py-2 max-w-[85%] shadow-sm">
+                    <p class="text-[12px] text-neutral-800 leading-snug">Súper. Atendiendo 40 al día, el tier Pro de $200k te calza perfecto. ¿Cuál es el dolor mayor: la velocidad de respuesta o agendar?</p>
+                  </div>
+                </div>
+
+                <!-- Typing dots -->
+                <div class="flex justify-end">
+                  <div class="bg-[#DCF8C6] rounded-lg rounded-tr-sm px-4 py-2.5 shadow-sm">
+                    <div class="flex gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-neutral-400 demo-typing-dot" style="animation-delay: 0s"></span>
+                      <span class="w-1.5 h-1.5 rounded-full bg-neutral-400 demo-typing-dot" style="animation-delay: 0.2s"></span>
+                      <span class="w-1.5 h-1.5 rounded-full bg-neutral-400 demo-typing-dot" style="animation-delay: 0.4s"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- ════════════════════════════════════════════════════
        PRICING del servicio
        ════════════════════════════════════════════════════ -->
@@ -384,3 +517,40 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
 
   <Footer />
 </main>
+
+<style>
+  /* Live dot pulse — indicador "Pepita en línea" */
+  .demo-live-dot {
+    animation: demo-live-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes demo-live-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);
+    }
+  }
+
+  /* Subtle glow loop en el botón — invita al click sin distraer */
+  .demo-live-cta {
+    animation: demo-cta-glow 3s ease-in-out infinite;
+  }
+  @keyframes demo-cta-glow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 32px -2px rgba(250, 204, 21, 0.7);
+    }
+  }
+
+  /* Typing dots en el preview chat */
+  .demo-typing-dot {
+    animation: demo-typing 1.2s infinite ease-in-out;
+  }
+  @keyframes demo-typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-3px); opacity: 1; }
+  }
+</style>
