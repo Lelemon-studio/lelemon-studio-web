@@ -117,32 +117,30 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
        ════════════════════════════════════════════════════ -->
   <section class="relative min-h-[80vh] bg-neutral-950 text-white overflow-hidden flex items-center pt-28 pb-20" id="hero">
     <div class="absolute inset-0 grid-pattern opacity-[0.04]"></div>
-    <div class="absolute top-0 right-0 w-[60%] h-[70%] bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.12)_0%,_transparent_70%)] pointer-events-none" data-parallax="-0.2"></div>
-    <!-- Decorative giant lemon parallax -->
-    <span class="hidden lg:block absolute top-[55%] -right-12 text-[20rem] opacity-[0.06] select-none pointer-events-none" data-parallax="-0.4" aria-hidden="true">🍋</span>
+    <div class="absolute top-0 right-0 w-[60%] h-[70%] bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.12)_0%,_transparent_70%)]"></div>
 
     <div class="relative max-w-7xl mx-auto px-6 sm:px-10 w-full">
       <div class="max-w-4xl">
-        <div class="flex items-center gap-3 mb-8 fade-up fade-up-sm" style="--motion-delay: 50ms">
+        <div class="flex items-center gap-3 mb-8">
           <div class="w-12 h-px bg-yellow-400"></div>
           <a href="/" class="text-xs font-semibold uppercase tracking-[0.3em] text-yellow-400/80 hover:text-yellow-400 transition-colors">← {eyebrow}</a>
         </div>
 
         <h1>
-          <span class="block text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[0.95] tracking-tight fade-up" style="--motion-delay: 150ms">
+          <span class="block text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[0.95] tracking-tight">
             {h1Plain}
           </span>
-          <span class="block text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[0.95] tracking-tight text-yellow-400 mt-2 fade-up" style="--motion-delay: 280ms">
+          <span class="block text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[0.95] tracking-tight text-yellow-400 mt-2">
             {h1Accent}
           </span>
         </h1>
 
-        <p class="mt-8 text-lg sm:text-xl text-neutral-300 max-w-xl leading-relaxed fade-up" style="--motion-delay: 420ms">
+        <p class="mt-8 text-lg sm:text-xl text-neutral-300 max-w-xl leading-relaxed">
           {subtitle}
         </p>
 
-        <div class="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 fade-up" style="--motion-delay: 560ms">
-          <button type="button" data-open-lead-modal data-magnetic="0.15" class="group inline-flex items-center justify-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-7 py-4 transition-all text-sm uppercase tracking-wider">
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <button type="button" data-open-lead-modal class="group inline-flex items-center justify-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-7 py-4 transition-all text-sm uppercase tracking-wider">
             <span>Cuéntame qué vendes</span>
             <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
           </button>
@@ -166,15 +164,15 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
        ════════════════════════════════════════════════════ -->
   <section class="relative bg-white py-20 lg:py-28 px-6 sm:px-10">
     <div class="max-w-4xl mx-auto text-center">
-      <div class="flex items-center justify-center gap-3 mb-8 fade-up fade-up-sm">
+      <div class="flex items-center justify-center gap-3 mb-8">
         <div class="w-8 h-px bg-neutral-950"></div>
         <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-500">El problema</span>
         <div class="w-8 h-px bg-neutral-950"></div>
       </div>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight fade-up" style="--motion-delay: 100ms">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight">
         {problemTitle}
       </h2>
-      <p class="mt-8 text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto fade-up" style="--motion-delay: 220ms">
+      <p class="mt-8 text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
         {problemBody}
       </p>
     </div>
@@ -186,28 +184,26 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
   <section class="relative bg-neutral-50 py-20 lg:py-28 px-6 sm:px-10">
     <div class="max-w-7xl mx-auto">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <div class="flex items-center justify-center gap-3 mb-6 fade-up fade-up-sm">
+        <div class="flex items-center justify-center gap-3 mb-6">
           <div class="w-8 h-px bg-yellow-500"></div>
           <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-600">{featuresEyebrow}</span>
           <div class="w-8 h-px bg-yellow-500"></div>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight fade-up" style="--motion-delay: 100ms">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight">
           {featuresTitle}
         </h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-7xl mx-auto">
-        {features.map((feat, i) => (
+        {features.map((feat) => (
           <div
-            data-tilt="4"
             class:list={[
-              'group relative p-5 lg:p-6 rounded-xl overflow-hidden transition-all duration-300 will-change-transform fade-up touch-feedback',
+              'group relative p-5 lg:p-6 rounded-xl overflow-hidden transition-all duration-300 will-change-transform',
               'border border-neutral-200/80 bg-white',
               'hover:shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-yellow-400/40',
               feat.colSpan === 2 ? 'md:col-span-2' : 'md:col-span-1',
               feat.featured && 'shadow-[0_2px_12px_rgba(0,0,0,0.04)] -translate-y-0.5 border-yellow-400/40',
             ]}
-            style={`--motion-delay: ${80 + i * 70}ms`}
           >
             <!-- Dot pattern bg (visible en hover o si featured) -->
             <div class:list={[
@@ -266,27 +262,23 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
     <div class="absolute inset-0 grid-pattern opacity-[0.03]"></div>
     <div class="max-w-6xl mx-auto relative">
       <div class="text-center mb-12">
-        <div class="flex items-center justify-center gap-3 mb-6 fade-up fade-up-sm">
+        <div class="flex items-center justify-center gap-3 mb-6">
           <div class="w-8 h-px bg-yellow-400"></div>
           <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400/80">Precio claro</span>
           <div class="w-8 h-px bg-yellow-400"></div>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight fade-up" style="--motion-delay: 100ms">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight">
           Sin contrato, sin permanencia.
         </h2>
       </div>
 
       {hasTiers ? (
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {tiers!.map((tier, i) => (
-            <div
-              data-tilt="3"
-              class:list={[
-                'relative border bg-neutral-900/30 p-6 flex flex-col transition-all fade-up touch-feedback',
-                tier.featured ? 'border-2 border-yellow-400 bg-yellow-400/[0.05] pulse-glow' : 'border-neutral-800 hover:border-yellow-400/30',
-              ]}
-              style={`--motion-delay: ${100 + i * 80}ms`}
-            >
+          {tiers!.map((tier) => (
+            <div class:list={[
+              'relative border bg-neutral-900/30 p-6 flex flex-col transition-all',
+              tier.featured ? 'border-2 border-yellow-400 bg-yellow-400/[0.05]' : 'border-neutral-800 hover:border-yellow-400/30',
+            ]}>
               {tier.badge && (
                 <span class="absolute -top-3 left-6 bg-yellow-400 text-neutral-950 text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1">{tier.badge}</span>
               )}
@@ -316,7 +308,7 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
           ))}
         </div>
       ) : (
-        <div data-tilt="3" class="max-w-md mx-auto border-2 border-yellow-400 bg-yellow-400/[0.05] p-8 flex flex-col fade-scale pulse-glow touch-feedback">
+        <div class="max-w-md mx-auto border-2 border-yellow-400 bg-yellow-400/[0.05] p-8 flex flex-col">
           <p class="text-yellow-400 text-[11px] font-bold uppercase tracking-[0.2em] mb-2">{eyebrow.split('·')[0].trim()}</p>
           <p class="text-neutral-400 text-xs mb-6">Servicio individual</p>
 
@@ -328,7 +320,7 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
           {servicePriceNote && <p class="text-xs text-neutral-500 mb-6">{servicePriceNote}</p>}
 
           <div class="flex-1"></div>
-          <button type="button" data-open-lead-modal data-magnetic="0.12" class="mt-6 inline-flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-6 py-3.5 transition-all text-sm uppercase tracking-wider">
+          <button type="button" data-open-lead-modal class="mt-6 inline-flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-6 py-3.5 transition-all text-sm uppercase tracking-wider">
             Cuéntame qué vendes
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
           </button>
@@ -349,19 +341,19 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
        ════════════════════════════════════════════════════ -->
   <section class="relative bg-white py-20 lg:py-28 px-6 sm:px-10">
     <div class="max-w-3xl mx-auto">
-      <div class="flex items-center gap-3 mb-8 fade-up fade-up-sm">
+      <div class="flex items-center gap-3 mb-8">
         <div class="w-8 h-px bg-neutral-950"></div>
         <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-500">FAQ</span>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-black text-neutral-950 leading-[1.05] tracking-tight mb-12 fade-up" style="--motion-delay: 100ms">
+      <h2 class="text-3xl sm:text-4xl font-black text-neutral-950 leading-[1.05] tracking-tight mb-12">
         Preguntas frecuentes
       </h2>
       <div class="divide-y divide-neutral-200">
-        {faqs.map((faq, i) => (
-          <details class="group py-5 faq-item fade-up fade-up-sm" style={`--motion-delay: ${100 + i * 60}ms`}>
-            <summary class="flex items-start justify-between gap-4 cursor-pointer list-none touch-feedback">
+        {faqs.map((faq) => (
+          <details class="group py-5">
+            <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
               <h3 class="text-base sm:text-lg font-bold text-neutral-950 leading-snug">{faq.question}</h3>
-              <span class="shrink-0 mt-0.5 text-yellow-500 group-open:rotate-45 transition-transform duration-300">
+              <span class="shrink-0 mt-0.5 text-yellow-500 group-open:rotate-45 transition-transform">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
               </span>
             </summary>
@@ -376,17 +368,14 @@ const hasTiers = Array.isArray(tiers) && tiers.length > 0;
        CTA final
        ════════════════════════════════════════════════════ -->
   <section class="relative bg-yellow-400 py-16 lg:py-20 px-6 sm:px-10 overflow-hidden">
-    <!-- Decorative diagonal lines parallax -->
-    <div class="absolute inset-0 diagonal-lines-dark opacity-[0.06] pointer-events-none" data-parallax="-0.15"></div>
-
-    <div class="max-w-4xl mx-auto text-center relative">
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight fade-up">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 leading-[1.05] tracking-tight">
         ¿Hablamos 20 minutos?
       </h2>
-      <p class="mt-6 text-base sm:text-lg text-neutral-800/80 max-w-xl mx-auto fade-up" style="--motion-delay: 120ms">
+      <p class="mt-6 text-base sm:text-lg text-neutral-800/80 max-w-xl mx-auto">
         Evaluamos si encaja con tu negocio. Sin compromiso.
       </p>
-      <button type="button" data-open-lead-modal data-magnetic="0.2" class="mt-10 inline-flex items-center gap-3 bg-neutral-950 hover:bg-neutral-800 text-white font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider fade-up" style="--motion-delay: 240ms">
+      <button type="button" data-open-lead-modal class="mt-10 inline-flex items-center gap-3 bg-neutral-950 hover:bg-neutral-800 text-white font-bold px-8 py-4 transition-all text-sm uppercase tracking-wider">
         Cuéntame qué vendes
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
       </button>

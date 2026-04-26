@@ -29,9 +29,6 @@ import { TURNSTILE_SITE_KEY, POSTHOG_KEY, POSTHOG_HOST } from '../config';
 import LeadModal from '../components/LeadModal.astro';
 import DemoChatModal from '../components/DemoChatModal.astro';
 
-// ── Motion styles (always loaded; script lazy below) ──
-import '../styles/motion.css';
-
 const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Lelemon";
 ---
 
@@ -119,11 +116,6 @@ const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20sabe
 
     <!-- Demo Chat Modal global (se abre con data-open-demo-modal) -->
     <DemoChatModal />
-
-    <!-- Motion · Lenis smooth scroll + reveal observer + parallax + tilt -->
-    <script>
-      import '../scripts/motion';
-    </script>
 
     <!-- Deferred Pixel + PostHog + Turnstile lazy loader + CTA tracking
          GA4 corre en Web Worker vía Partytown (zero main thread).
