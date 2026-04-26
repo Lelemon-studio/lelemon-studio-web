@@ -9,7 +9,6 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/partytown": "^2.1.7",
     "@astrojs/tailwind": "^5.1.4",
     "astro": "^4.16.18",
     "posthog-js": "^1.371.2",

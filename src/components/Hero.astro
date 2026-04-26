@@ -115,11 +115,17 @@ const { whatsappUrl, rubros } = Astro.props;
 </section>
 
 <style>
-  .hero-fade {
+  /* Hero arranca visible para no romper Speed Index.
+     La animación solo se aplica cuando hay JS y el usuario no prefiere reducción de movimiento. */
+  .hero-fade { opacity: 1; transform: none; }
+  html.js-anim .hero-fade {
     opacity: 0;
     transform: translateY(24px);
-    animation: hero-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: calc(var(--i) * 150ms + 300ms);
+    animation: hero-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--i) * 80ms);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js-anim .hero-fade { opacity: 1; transform: none; animation: none; }
   }
   @keyframes hero-enter {
     to { opacity: 1; transform: translateY(0); }
