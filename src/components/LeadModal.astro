@@ -64,106 +64,58 @@ const COUNTRIES = [
     <div class="flex-1 overflow-y-auto overscroll-contain lead-modal-scroll">
       <form id="modal-lead-form" class="px-5 py-5 sm:px-7 sm:py-6 space-y-4" novalidate>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label for="modal-lead-name" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Nombre<span class="text-yellow-400 ml-1">*</span></label>
-            <input
-              type="text"
-              id="modal-lead-name"
-              name="name"
-              required
-              autocomplete="name"
-              placeholder="Tu nombre"
-              class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-            />
-            <p id="modal-err-name" class="hidden text-[11px] text-red-400 mt-1"></p>
-          </div>
-          <div>
-            <label for="modal-lead-email" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Email<span class="text-yellow-400 ml-1">*</span></label>
-            <input
-              type="email"
-              id="modal-lead-email"
-              name="email"
-              required
-              autocomplete="email"
-              placeholder="tu@correo.com"
-              class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-            />
-            <p id="modal-err-email" class="hidden text-[11px] text-red-400 mt-1"></p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="min-w-0">
-            <label for="modal-lead-phone" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Teléfono</label>
-            <div class="flex gap-2">
-              <select
-                id="modal-lead-country"
-                name="country"
-                class="bg-neutral-900 border border-neutral-800 text-white px-2 py-2.5 text-sm focus:border-yellow-400 focus:outline-none transition-colors shrink-0 w-[88px]"
-                aria-label="Código de país"
-              >
-                {COUNTRIES.map((c) => (
-                  <option value={c.code} selected={c.code === "+56"}>{c.flag} {c.code}</option>
-                ))}
-              </select>
-              <input
-                type="tel"
-                id="modal-lead-phone"
-                name="phone"
-                autocomplete="tel"
-                inputmode="numeric"
-                placeholder="9 1234 5678"
-                class="lead-input flex-1 min-w-0 bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-              />
-            </div>
-            <p id="modal-err-phone" class="hidden text-[11px] text-red-400 mt-1"></p>
-          </div>
-          <div>
-            <label for="modal-lead-business" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Rubro<span class="text-yellow-400 ml-1">*</span></label>
-            <input
-              type="text"
-              id="modal-lead-business"
-              name="business"
-              required
-              placeholder="Clínica, abogado, tienda..."
-              class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
-            />
-            <p id="modal-err-business" class="hidden text-[11px] text-red-400 mt-1"></p>
-          </div>
-        </div>
-
         <div>
-          <label for="modal-lead-website" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">
-            Sitio web o Instagram
-            <span class="text-neutral-600 font-normal normal-case ml-1">(opcional)</span>
-          </label>
+          <label for="modal-lead-name" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Nombre<span class="text-yellow-400 ml-1">*</span></label>
           <input
             type="text"
-            id="modal-lead-website"
-            name="website"
-            placeholder="minegocio.cl · @minegocio"
+            id="modal-lead-name"
+            name="name"
+            required
+            autocomplete="name"
+            placeholder="Tu nombre"
             class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
           />
-          <p id="modal-err-website" class="hidden text-[11px] text-red-400 mt-1"></p>
+          <p id="modal-err-name" class="hidden text-[11px] text-red-400 mt-1"></p>
+        </div>
+
+        <div class="min-w-0">
+          <label for="modal-lead-phone" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">WhatsApp<span class="text-yellow-400 ml-1">*</span></label>
+          <div class="flex gap-2">
+            <select
+              id="modal-lead-country"
+              name="country"
+              class="bg-neutral-900 border border-neutral-800 text-white px-2 py-2.5 text-sm focus:border-yellow-400 focus:outline-none transition-colors shrink-0 w-[88px]"
+              aria-label="Código de país"
+            >
+              {COUNTRIES.map((c) => (
+                <option value={c.code} selected={c.code === "+56"}>{c.flag} {c.code}</option>
+              ))}
+            </select>
+            <input
+              type="tel"
+              id="modal-lead-phone"
+              name="phone"
+              required
+              autocomplete="tel"
+              inputmode="numeric"
+              placeholder="9 1234 5678"
+              class="lead-input flex-1 min-w-0 bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+            />
+          </div>
+          <p id="modal-err-phone" class="hidden text-[11px] text-red-400 mt-1"></p>
         </div>
 
         <div>
-          <div class="flex items-baseline justify-between mb-1.5">
-            <label for="modal-lead-help" class="block text-[11px] font-bold text-neutral-400 uppercase tracking-wider">
-              ¿En qué te podemos apoyar?
-              <span class="text-neutral-600 font-normal normal-case ml-1">(opcional)</span>
-            </label>
-            <span id="modal-help-counter" class="text-[10px] text-neutral-600">0/250</span>
-          </div>
-          <textarea
-            id="modal-lead-help"
-            name="help"
-            rows="2"
-            maxlength="250"
-            placeholder="Cuéntanos brevemente qué necesitas."
-            class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors resize-none"
-          ></textarea>
+          <label for="modal-lead-business" class="block text-[11px] font-bold text-neutral-400 mb-1.5 uppercase tracking-wider">Rubro<span class="text-yellow-400 ml-1">*</span></label>
+          <input
+            type="text"
+            id="modal-lead-business"
+            name="business"
+            required
+            placeholder="Clínica, abogado, tienda..."
+            class="lead-input w-full bg-neutral-900 border border-neutral-800 text-white px-3.5 py-2.5 text-sm placeholder-neutral-600 focus:border-yellow-400 focus:outline-none transition-colors"
+          />
+          <p id="modal-err-business" class="hidden text-[11px] text-red-400 mt-1"></p>
         </div>
 
         <div class="flex items-start gap-2.5 pt-1">
@@ -245,21 +197,12 @@ const COUNTRIES = [
     var submitBtn = document.getElementById('modal-lead-submit');
     var feedback = document.getElementById('modal-form-feedback');
     var successEl = document.getElementById('modal-form-success');
-    var helpCounter = document.getElementById('modal-help-counter');
 
     // ============ Validators ============
-    function isValidEmail(v) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-    }
     function isValidPhone(v) {
       // 7-14 dígitos (sin contar código país)
       var digits = v.replace(/\D/g, '');
       return digits.length >= 7 && digits.length <= 14;
-    }
-    function isValidWebsite(v) {
-      if (!v) return true;
-      // URL (con o sin protocolo) o handle @usuario
-      return /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(v) || /^@[\w.]+$/.test(v);
     }
 
     // ============ Error helpers ============
@@ -287,15 +230,11 @@ const COUNTRIES = [
       var val = (fid(id).value || '').trim();
       if (id === 'name') {
         if (val.length < 2) { showError(id, 'Ingresa al menos 2 caracteres.'); return false; }
-      } else if (id === 'email') {
-        if (!val) { showError(id, 'Email requerido.'); return false; }
-        if (!isValidEmail(val)) { showError(id, 'Email no válido (ej: tu@correo.com).'); return false; }
       } else if (id === 'phone') {
-        if (val && !isValidPhone(val)) { showError(id, 'Ingresa un teléfono válido (7-14 dígitos).'); return false; }
+        if (!val) { showError(id, 'WhatsApp requerido.'); return false; }
+        if (!isValidPhone(val)) { showError(id, 'Ingresa un número válido (7-14 dígitos).'); return false; }
       } else if (id === 'business') {
         if (val.length < 2) { showError(id, 'Cuéntanos a qué se dedica tu negocio.'); return false; }
-      } else if (id === 'website') {
-        if (val && !isValidWebsite(val)) { showError(id, 'Ingresa un sitio (minegocio.cl) o handle (@minegocio).'); return false; }
       }
       clearError(id);
       return true;
@@ -304,14 +243,14 @@ const COUNTRIES = [
     // Validar todo
     function validateAll() {
       var ok = true;
-      ['name','email','phone','business','website'].forEach(function(id) {
+      ['name','phone','business'].forEach(function(id) {
         if (!validateField(id)) ok = false;
       });
       return ok;
     }
 
     // On-blur
-    ['name','email','phone','business','website'].forEach(function(id) {
+    ['name','phone','business'].forEach(function(id) {
       var el = fid(id);
       if (!el) return;
       el.addEventListener('blur', function() { validateField(id); });
@@ -327,14 +266,6 @@ const COUNTRIES = [
       phoneEl.addEventListener('input', function(e) {
         var cleaned = e.target.value.replace(/[^\d\s]/g, '');
         if (cleaned !== e.target.value) e.target.value = cleaned;
-      });
-    }
-
-    // Help counter
-    var helpEl = fid('help');
-    if (helpEl && helpCounter) {
-      helpEl.addEventListener('input', function() {
-        helpCounter.textContent = helpEl.value.length + '/250';
       });
     }
 
@@ -412,13 +343,10 @@ const COUNTRIES = [
       }
 
       var name = fid('name').value.trim();
-      var email = fid('email').value.trim();
       var countryCode = document.getElementById('modal-lead-country').value;
       var phoneRaw = fid('phone').value.trim();
-      var phone = phoneRaw ? countryCode + ' ' + phoneRaw : '';
+      var phone = countryCode + ' ' + phoneRaw;
       var business = fid('business').value.trim();
-      var website = fid('website').value.trim();
-      var help = fid('help').value.trim();
 
       // Turnstile: obtener token del input que Cloudflare genera
       var turnstileToken = getTurnstileToken();
@@ -427,19 +355,15 @@ const COUNTRIES = [
         return;
       }
 
-      submitLead(name, email, phone, business, website, help, turnstileToken);
+      submitLead(name, phone, business, turnstileToken);
     });
 
-    function submitLead(name, email, phone, business, website, help, turnstileToken) {
+    function submitLead(name, phone, business, turnstileToken) {
       setLoading(true);
 
-      // Campos custom de ESTE sitio van en `data` (agnóstico en el backend).
-      // Usamos keys estándar que el dashboard ya sabe traducir a labels en español
-      // (FRIENDLY_FIELD_NAMES): business_type, website, message
-      var data = {};
-      if (business) data.business_type = business;
-      if (website) data.website = website;
-      if (help) data.message = help;
+      // Campo custom 'business_type' va en `data` (agnóstico en el backend).
+      // Key estándar que el dashboard sabe traducir (FRIENDLY_FIELD_NAMES).
+      var data = { business_type: business };
 
       fetch(FORM_API_URL + '/public/forms/' + FORM_ID + '/leads', {
         method: 'POST',
@@ -449,9 +373,8 @@ const COUNTRIES = [
         },
         body: JSON.stringify({
           name: name,
-          email: email,
-          phone: phone || undefined,
-          data: Object.keys(data).length > 0 ? data : undefined,
+          phone: phone,
+          data: data,
           turnstileToken: turnstileToken || 'no-turnstile',
         }),
       })
