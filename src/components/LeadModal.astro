@@ -118,12 +118,8 @@ const COUNTRIES = [
           <p id="modal-err-business" class="hidden text-[11px] text-red-400 mt-1"></p>
         </div>
 
-        <div class="flex items-start gap-2.5 pt-1">
-          <input type="checkbox" id="modal-lead-consent" name="consent" required class="mt-0.5 w-4 h-4 accent-yellow-400 bg-neutral-900 border-neutral-700 shrink-0" />
-          <label for="modal-lead-consent" class="text-[11px] text-neutral-500 leading-snug">Acepto que Lelemon me contacte para agendar una llamada. No spam.</label>
-        </div>
-
         <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" data-size="flexible"></div>
+        <p class="text-[10px] text-neutral-600 leading-snug text-center px-2">Al enviar aceptas que te contactemos para agendar una llamada.</p>
 
         <button
           type="submit"
@@ -331,10 +327,6 @@ const COUNTRIES = [
       // Validación completa
       if (!validateAll()) {
         showFeedback('Revisa los campos marcados.', true);
-        return;
-      }
-      if (!document.getElementById('modal-lead-consent').checked) {
-        showFeedback('Debes aceptar ser contactado.', true);
         return;
       }
       if (!FORM_API_URL || !FORM_ID || !FORM_API_KEY) {
