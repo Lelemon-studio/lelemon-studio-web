@@ -1,181 +1,169 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ServiceLanding from '../components/ServiceLanding.astro';
+import Navbar from '../components/Navbar.astro';
+import NicheHero from '../components/NicheHero.astro';
+import Footer from '../components/Footer.astro';
 
 const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20el%20agente%20IA%20de%20Lelemon";
 
-const tiers = [
-  {
-    name: "Starter",
-    capacity: "500 sesiones / mes",
-    price: "$150.000",
-    priceUnit: "CLP + IVA / mes",
-    priceImpl: "$200.000",
-    forWhom: "Solopreneurs, clínicas chicas, talleres con bajo volumen.",
-    ctaLabel: "Cuéntame qué vendes",
-  },
-  {
-    name: "Pro",
-    capacity: "1.000 sesiones / mes",
-    price: "$200.000",
-    priceUnit: "CLP + IVA / mes",
-    priceImpl: "$200.000",
-    forWhom: "PYME mediana con flujo constante de consultas.",
-    ctaLabel: "Cuéntame qué vendes",
-  },
-  {
-    name: "Business",
-    capacity: "2.000 sesiones / mes",
-    price: "$250.000",
-    priceUnit: "CLP + IVA / mes",
-    priceImpl: "$200.000",
-    forWhom: "PYME activa con campañas corriendo y alto volumen.",
-    ctaLabel: "Cuéntame qué vendes",
-    badge: "Más pedido",
-    featured: true,
-  },
-  {
-    name: "Custom",
-    capacity: "+2.000 sesiones / mes",
-    price: "Conversemos",
-    forWhom: "Volúmenes altos, multi-rubro o necesidades específicas.",
-    ctaLabel: "Hablemos",
-  },
+const bullets = [
+  "Atiende WhatsApp 24/7 — incluso de madrugada",
+  "Cotiza, agenda y califica al lead solo",
+  "Deja todo ordenado en un panel CRM",
+  "Tú apareces solo a cerrar lo que vale",
 ];
 
 const features = [
-  {
-    icon: "clock",
-    title: "Atiende 24/7 en tu WhatsApp",
-    description: "Sábados, domingos, feriados, 3 AM. Tus clientes nunca encuentran el negocio cerrado. Responde en menos de 1 minuto.",
-    meta: "24/7",
-    tags: ["IA", "WhatsApp", "Auto"],
-    colSpan: 2,
-    featured: true,
-  },
-  {
-    icon: "graduation",
-    title: "Entrenado con tu negocio",
-    description: "Sabe qué vendes, cuánto cuesta, qué horarios manejas. No improvisa.",
-    meta: "Custom",
-    tags: ["Onboarding"],
-  },
-  {
-    icon: "check",
-    title: "Califica leads",
-    description: "Detecta quién está listo para comprar. Solo te llega lo caliente — el resto se gestiona solo.",
-    meta: "Auto",
-    tags: ["Sales", "SDR"],
-  },
-  {
-    icon: "calendar",
-    title: "Agenda en tu calendar",
-    description: "Conectado a Google Calendar. El cliente elige hora, queda agendado, recibe recordatorio automático.",
-    meta: "G-Cal",
-    tags: ["Calendar", "Booking"],
-  },
-  {
-    icon: "user-check",
-    title: "Pasa a humano",
-    description: "Cuando hace falta, el agente te traspasa el chat. Tú decides cuándo entrar.",
-    meta: "Handoff",
-    tags: ["Live"],
-  },
-  {
-    icon: "dashboard",
-    title: "Panel CRM + reportes",
-    description: "Cada conversación, cada lead, cada oportunidad. Estados, historial, notas. Tu equipo trabaja desde ahí.",
-    meta: "Incluido",
-    tags: ["CRM", "Inbox", "Reports"],
-    colSpan: 2,
-  },
-  {
-    icon: "report",
-    title: "Reportes mensuales",
-    description: "Cuántas conversaciones, cuántos calificados, cuánto cerraste. Sabes qué te está aportando.",
-    meta: "Mensual",
-    tags: ["Analytics"],
-  },
+  { title: "Entiende tu negocio", body: "Cargamos tu catálogo, precios y FAQs. Responde como si fueras tú." },
+  { title: "Reportes mensuales", body: "Cuántas conversaciones, cuántas calificadas, cuáles agendaron." },
+  { title: "4 planes según volumen", body: "Desde solopreneur a empresa con 1.000+ sesiones/mes." },
+  { title: "Sin contrato", body: "Cancelas cuando quieras. Te entregamos toda la base de leads." },
 ];
 
 const faqs = [
-  {
-    question: "¿Se nota que es un bot?",
-    answer: "No. Las respuestas son naturales y conversacionales. Está entrenado con la voz de tu negocio. Si un cliente pregunta algo que no sabe, te lo traspasa antes de inventar respuestas.",
-  },
-  {
-    question: "¿Qué pasa con el WhatsApp?",
-    answer: "Usamos el número de WhatsApp Business de tu negocio. Si no tienes uno, te ayudamos a crearlo y lo dejamos separado de tu WhatsApp personal. Conectamos el agente a ese número.",
-  },
-  {
-    question: "¿Puedo entrar a las conversaciones cuando quiera?",
-    answer: "Sí. En el panel ves cada chat en tiempo real. Puedes pausar al agente, tomar el control, escribir tú mismo y volver a activarlo. Tú mandas siempre.",
-  },
-  {
-    question: "¿Qué es una sesión?",
-    answer: "Toda la conversación con un cliente, no importa cuántos mensajes intercambien. Si un cliente te escribe 30 mensajes en un chat, eso cuenta como 1 sesión. Las sesiones se reinician cuando el cliente vuelve después de inactividad o si la conversación se cierra.",
-  },
-  {
-    question: "¿Qué pasa si supero las sesiones del tier?",
-    answer: "$200 CLP por sesión extra. Si esto se vuelve recurrente, lo más conveniente es subir al tier siguiente y bajar el costo unitario. Te avisamos en el reporte mensual.",
-  },
-  {
-    question: "¿Puedo cambiar de tier después?",
-    answer: "Sí. Si arrancas en Starter y empieza a llegarte más volumen, subes a Pro o Business sin re-implementación. Es solo un cambio en el plan. También puedes bajar si bajó el flujo.",
-  },
-  {
-    question: "¿Puede vender o solo responde?",
-    answer: "Vende. Cotiza, manda links de pago, agenda citas, responde objeciones. Está armado como SDR (vendedor): su trabajo es mover al cliente hacia la decisión, no solo contestar dudas.",
-  },
-  {
-    question: "¿Cuánto se demora en estar operando?",
-    answer: "Entre 5 y 10 días. Hacemos una llamada de 30-45 minutos donde nos cuentas todo del negocio, el agente queda entrenado, lo conectamos al WhatsApp, lo probamos contigo y sale a producción.",
-  },
-  {
-    question: "¿Qué información necesitan de mí?",
-    answer: "Servicios o productos con precios, horarios, dirección, formas de pago, preguntas frecuentes que ya te hacen los clientes. Si tienes catálogo en PDF o Excel, mejor. Si no, lo armamos juntos en la llamada.",
-  },
-  {
-    question: "¿Y si decido cancelar?",
-    answer: "Sin contrato ni permanencia. Te quedas con la información del CRM y los chats históricos. Apagamos el agente y listo.",
-  },
+  { q: "¿Cuántos mensajes incluye?", a: "El plan Starter incluye 500 sesiones/mes (cubre cómodo a un solopreneur o pyme chica). Tiers superiores escalan a 1.000, 2.000 y custom." },
+  { q: "¿Qué pasa si me paso del límite?", a: "$200 CLP por sesión extra. Si se vuelve recurrente, conviene subir al tier siguiente." },
+  { q: "¿Qué tan rápido se activa?", a: "Entre 5 y 10 días. Te pedimos info de tu negocio, configuramos a la IA y la testeamos contigo antes de soltarla." },
 ];
 ---
 
 <Layout
-  title="Asistente con IA para tu WhatsApp"
-  description="Un agente IA que atiende, cotiza, agenda y califica leads en tu WhatsApp 24/7. Incluye CRM y reportes. Desde $150.000 CLP + IVA/mes (500 sesiones)."
+  title="Asistente IA en WhatsApp para PYMES en Chile"
+  description="Agente IA que atiende, cotiza, agenda y califica leads en tu WhatsApp 24/7. Incluye CRM y reportes. Desde $150.000 CLP + IVA/mes."
   canonicalUrl="https://lelemon.cl/agente-ia"
 >
-  <!-- JSON-LD: Service -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Agente IA + CRM Lelemon",
+    "name": "Agente IA en WhatsApp Lelemon",
     "provider": { "@type": "Organization", "name": "Lelemon", "url": "https://lelemon.cl" },
-    "description": "Agente conversacional con IA conectado a WhatsApp Business. Atiende, cotiza, agenda y califica leads 24/7. Incluye panel CRM.",
+    "description": "Asistente IA que atiende WhatsApp 24/7, cotiza, agenda y califica leads.",
     "areaServed": { "@type": "Country", "name": "Chile" },
-    "offers": {
-      "@type": "Offer",
-      "price": "150000",
-      "priceCurrency": "CLP",
-      "priceValidUntil": "2026-12-31"
-    }
+    "offers": { "@type": "Offer", "price": "150000", "priceCurrency": "CLP", "priceValidUntil": "2026-12-31" }
   })} />
 
-  <ServiceLanding
-    whatsappUrl={whatsappUrl}
-    eyebrow="Agente IA + CRM · Volver al inicio"
-    h1Plain="Un asistente con IA"
-    h1Accent="que atiende tu WhatsApp 24/7."
-    subtitle="Responde, cotiza, agenda y califica leads. Tú apareces solo para cerrar lo que vale. Lo demás, gestionado solo."
-    problemTitle="Cada mensaje sin responder en 5 minutos es un cliente perdido."
-    problemBody="La gente compra cuando tiene la duda fresca. Si llegas 2 horas tarde — o peor, al día siguiente — el cliente ya se fue a la competencia. Tú no puedes estar pegado al WhatsApp todo el día. Pero un agente con IA bien entrenado sí. Y atiende exactamente como tú lo harías, con la información de tu negocio."
-    featuresEyebrow="Qué incluye"
-    featuresTitle="Tu vendedor virtual, operando solo, todo el día."
-    features={features}
-    tiers={tiers}
-    faqs={faqs}
-    showDemoCta={true}
-  />
+  <Navbar whatsappUrl={whatsappUrl} variant="dark" />
+
+  <main>
+    <NicheHero
+      eyebrow="Agente IA WhatsApp · Chile"
+      h1Plain="Tu WhatsApp atendido"
+      h1Accent="24/7 con IA."
+      subtitle="Una IA que contesta, cotiza, agenda y deja todo ordenado en un panel."
+      bullets={bullets}
+      priceFrom="$150.000"
+      whatsappUrl={whatsappUrl}
+      testimonial={{
+        quote: "Dejé de perder ventas por no contestar a tiempo.",
+        name: "Nicolás V.",
+        role: "Abogado",
+        site: "teayudamoslaboral.cl",
+      }}
+    >
+      <div slot="visual" class="relative max-w-sm mx-auto">
+        <div class="absolute -inset-10 bg-green-500/10 blur-3xl rounded-full" aria-hidden="true"></div>
+
+        <!-- Phone mockup con chat WSP -->
+        <div class="relative bg-neutral-900 rounded-[2.5rem] p-3 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.7)] border border-neutral-800">
+          <div class="bg-[#ECE5DD] rounded-[2rem] overflow-hidden">
+            <!-- Header WSP -->
+            <div class="bg-[#075E54] text-white px-4 py-3 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-yellow-400 flex items-center justify-center text-lg shrink-0">🍋</div>
+              <div class="flex-1 min-w-0">
+                <p class="font-semibold text-sm leading-tight">Tu negocio</p>
+                <p class="text-[10px] text-green-300 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 bg-green-400 rounded-full inline-block"></span>
+                  en línea
+                </p>
+              </div>
+            </div>
+            <!-- Mensajes -->
+            <div class="px-3 py-4 space-y-2 min-h-[280px]">
+              <div class="flex justify-end">
+                <div class="bg-[#DCF8C6] rounded-lg rounded-tr-sm px-3 py-2 max-w-[80%] shadow-sm">
+                  <p class="text-[12px] text-neutral-800">Hola, ¿atienden hoy?</p>
+                </div>
+              </div>
+              <div class="flex justify-start">
+                <div class="bg-white rounded-lg rounded-tl-sm px-3 py-2 max-w-[80%] shadow-sm">
+                  <p class="text-[12px] text-neutral-800">¡Hola! Sí, te atiendo. ¿Qué necesitas cotizar?</p>
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <div class="bg-[#DCF8C6] rounded-lg rounded-tr-sm px-3 py-2 max-w-[80%] shadow-sm">
+                  <p class="text-[12px] text-neutral-800">Una asesoría tributaria</p>
+                </div>
+              </div>
+              <div class="flex justify-start">
+                <div class="bg-white rounded-lg rounded-tl-sm px-3 py-2 max-w-[80%] shadow-sm">
+                  <p class="text-[12px] text-neutral-800">Perfecto. Te agendo con Camilo el jueves a las 11. ¿Te calza?</p>
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <div class="bg-[#DCF8C6] rounded-lg rounded-tr-sm px-3 py-2 max-w-[80%] shadow-sm">
+                  <p class="text-[12px] text-neutral-800">Sí, dale 🙌</p>
+                </div>
+              </div>
+            </div>
+            <!-- Input bar -->
+            <div class="bg-[#F0F0F0] px-3 py-2 flex items-center gap-2">
+              <div class="flex-1 bg-white rounded-full h-7 px-3 flex items-center text-[11px] text-neutral-400">Escribe un mensaje</div>
+              <div class="w-7 h-7 bg-[#075E54] rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge "24/7" flotante -->
+        <div class="absolute -top-3 -right-3 bg-yellow-400 text-neutral-950 font-black text-xs px-3 py-1.5 rounded-full shadow-lg rotate-6">
+          24/7 ✨
+        </div>
+      </div>
+    </NicheHero>
+
+    <!-- Mini features -->
+    <section class="bg-white py-14 sm:py-20 px-6 sm:px-10">
+      <div class="max-w-3xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {features.map((f) => (
+            <div class="border border-neutral-200 p-5 sm:p-6">
+              <h3 class="font-bold text-neutral-950 text-base">{f.title}</h3>
+              <p class="text-sm text-neutral-600 mt-1.5 leading-relaxed">{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ corto -->
+    <section class="bg-neutral-50 py-14 sm:py-20 px-6 sm:px-10">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-black text-neutral-950 mb-8">Dudas comunes</h2>
+        <div class="space-y-3">
+          {faqs.map((f) => (
+            <details class="group bg-white border border-neutral-200 px-4 py-3.5">
+              <summary class="cursor-pointer font-bold text-neutral-950 text-sm sm:text-base flex justify-between items-center gap-3 list-none">
+                <span>{f.q}</span>
+                <svg class="w-4 h-4 shrink-0 text-neutral-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <p class="text-sm text-neutral-600 mt-3 leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="bg-neutral-950 text-white py-16 px-6 sm:px-10">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Listo para que la IA atienda por ti.</h2>
+        <p class="mt-4 text-neutral-400 text-sm sm:text-base">20 min y sabes si te calza. Sin compromiso.</p>
+        <button type="button" data-open-lead-modal class="mt-7 inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-7 py-4 text-sm uppercase tracking-wider transition-all">
+          Cuéntame qué vendes
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
 </Layout>

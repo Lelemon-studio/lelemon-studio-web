@@ -1,135 +1,110 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ServiceLanding from '../components/ServiceLanding.astro';
+import Navbar from '../components/Navbar.astro';
+import NicheHero from '../components/NicheHero.astro';
+import Footer from '../components/Footer.astro';
 
 const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20el%20marketing%20operado%20de%20Lelemon";
 
+const bullets = [
+  "Anuncios en Instagram y Facebook operados por nosotros",
+  "Estrategia, audiencias y creativos armados",
+  "Tracking server-side (Pixel + CAPI) desde el día 1",
+  "Optimización semanal — cortamos lo que pierde, escalamos lo que rinde",
+];
+
 const features = [
-  {
-    icon: "target",
-    title: "Estrategia armada por nosotros",
-    description: "Te entregamos el plan de campañas, audiencias y presupuesto recomendado. Tú validas, nosotros lanzamos.",
-    meta: "Plan",
-    tags: ["Strategy", "Audiencias", "Funnel"],
-    colSpan: 2,
-    featured: true,
-  },
-  {
-    icon: "megaphone",
-    title: "Ads en IG y Facebook",
-    description: "Configuramos campañas, segmentamos audiencias, escribimos copy, montamos creativos.",
-    meta: "Meta",
-    tags: ["IG", "FB"],
-  },
-  {
-    icon: "trending-up",
-    title: "Optimización continua",
-    description: "Cada semana revisamos qué funciona. Apagamos lo que pierde plata, aumentamos lo que convierte.",
-    meta: "Semanal",
-    tags: ["A/B"],
-  },
-  {
-    icon: "pulse",
-    title: "Pixel + CAPI server-side",
-    description: "Tracking server-side incluido. Meta recibe eventos limpios y aprende a quién mostrarte.",
-    meta: "S2S",
-    tags: ["Pixel", "CAPI"],
-  },
-  {
-    icon: "database",
-    title: "Catálogos dinámicos",
-    description: "Si tienes productos, conectamos tu catálogo a Meta. Campañas DABA / Advantage+ con más conversión.",
-    meta: "DABA",
-    tags: ["Catalog"],
-  },
-  {
-    icon: "report",
-    title: "Reportes mensuales claros",
-    description: "Cuánto invertiste, cuántos leads, cuánto te costó cada uno, qué campaña ganó. Sin jerga marketera.",
-    meta: "Mensual",
-    tags: ["Reports", "ROAS", "CPA"],
-    colSpan: 2,
-  },
-  {
-    icon: "link",
-    title: "Conectado al CRM",
-    description: "Cada lead entra al CRM con la fuente identificada. Sabes qué campaña trajo qué cliente.",
-    meta: "Auto",
-    tags: ["UTM", "Attribution"],
-  },
+  { title: "Estrategia armada", body: "Plan de campañas, audiencias y presupuesto recomendado. Tú validas, nosotros lanzamos." },
+  { title: "Creativos incluidos", body: "Copy, video y carruseles producidos por nosotros. Refresh cada 3 semanas." },
+  { title: "Pixel + CAPI", body: "Eventos server-side correctamente deduplicados. Meta aprende a quién mostrarte." },
+  { title: "Reporte mensual", body: "Qué funcionó, qué no, y plan del mes siguiente. Sin tablas oscuras." },
 ];
 
 const faqs = [
-  {
-    question: "¿Quién pone el presupuesto publicitario?",
-    answer: "Tú, directo en Meta. Nosotros gestionamos las campañas pero no facturamos el ad-spend. Esto es transparente: ves cada peso que gastas en Meta sin intermediarios.",
-  },
-  {
-    question: "¿Cuánto debo invertir en ads?",
-    answer: "Recomendamos partir desde $200.000 CLP/mes. Bajo eso, Meta no tiene suficiente señal para optimizar y te perjudicas tú mismo. Si tu rubro tiene mucha competencia (real estate, salud, finanzas), conviene partir más alto.",
-  },
-  {
-    question: "¿Qué pasa con los creativos (fotos y videos)?",
-    answer: "Los pones tú. Nosotros configuramos las campañas y escribimos el copy. Si necesitas producción de creativos (fotos profesionales, videos editados), lo cotizamos por separado o te derivamos a un partner.",
-  },
-  {
-    question: "¿Cuánto se demoran en lanzar?",
-    answer: "Entre 5 y 7 días desde que nos das los accesos a tu Business Manager. Si todavía no tienes Business Manager, te ayudamos a crearlo en la primera semana.",
-  },
-  {
-    question: "¿Cuánto se demora en empezar a traer clientes?",
-    answer: "Las primeras 2 semanas son de aprendizaje del algoritmo de Meta. Después de eso, los costos por lead bajan y empiezas a ver resultados consistentes. Cualquiera que te prometa resultados desde el día 1, miente.",
-  },
-  {
-    question: "¿También gestionan Google Ads?",
-    answer: "Hoy enfocados en Meta (Instagram y Facebook). Google Ads lo evaluamos caso a caso — si tu rubro tiene mucha búsqueda activa (servicios técnicos, urgencias) puede tener sentido sumarlo más adelante.",
-  },
-  {
-    question: "¿Qué pasa si no tengo página web?",
-    answer: "Las campañas pueden enviar tráfico directo a WhatsApp (CTWA — Click to WhatsApp Ads). Funciona muy bien con el Agente IA. Aun así, recomendamos tener web — nuestro Plan completo lo incluye.",
-  },
-  {
-    question: "¿Trabajan campañas para B2B?",
-    answer: "Sí. Para B2B funciona mejor con LinkedIn Ads, pero Meta también sirve si la audiencia está bien segmentada. Lo evaluamos en la llamada según tu rubro.",
-  },
+  { q: "¿El presupuesto de anuncios está incluido?", a: "No. El ad-spend se paga directo a Meta — tú decides cuánto invertir. Recomendamos partir desde $200.000/mes para que el algoritmo aprenda. Nuestra fee cubre la operación." },
+  { q: "¿Cuándo veo resultados?", a: "Los primeros 7 días son aprendizaje del Pixel (no toques nada). Desde la semana 2 ya hay señales claras y empieza la optimización." },
+  { q: "¿Y si ya tengo campañas corriendo?", a: "Las auditamos primero. Si están bien, las heredamos y mejoramos. Si no, las apagamos y partimos limpio. En la llamada te decimos." },
 ];
 ---
 
 <Layout
-  title="Marketing operado: anuncios en Instagram y Facebook"
-  description="Estrategia, lanzamiento, optimización y reportes mensuales de tus anuncios en Meta Ads. Tú decides el presupuesto, nosotros operamos las campañas. $200.000 CLP + IVA/mes."
+  title="Marketing operado en Meta para PYMES en Chile"
+  description="Anuncios en Instagram y Facebook operados por nosotros. Estrategia, creativos, tracking y optimización. Desde $200.000 CLP + IVA/mes."
   canonicalUrl="https://lelemon.cl/marketing"
 >
-  <!-- JSON-LD: Service -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "Marketing operado Lelemon",
     "provider": { "@type": "Organization", "name": "Lelemon", "url": "https://lelemon.cl" },
-    "description": "Gestión completa de campañas en Instagram y Facebook Ads. Estrategia, optimización y reportes mensuales.",
+    "description": "Operamos campañas de Meta Ads para PYMES en Chile. Estrategia, creativos, tracking y optimización semanal.",
     "areaServed": { "@type": "Country", "name": "Chile" },
-    "offers": {
-      "@type": "Offer",
-      "price": "200000",
-      "priceCurrency": "CLP",
-      "priceValidUntil": "2026-12-31"
-    }
+    "offers": { "@type": "Offer", "price": "200000", "priceCurrency": "CLP", "priceValidUntil": "2026-12-31" }
   })} />
 
-  <ServiceLanding
-    whatsappUrl={whatsappUrl}
-    eyebrow="Marketing operado · Volver al inicio"
-    h1Plain="Anuncios que traen"
-    h1Accent="clientes, no likes."
-    subtitle="Estrategia, segmentación, lanzamiento y optimización en Instagram y Facebook. Cada mes. Tú pones los creativos y el presupuesto en Meta. Nosotros operamos."
-    problemTitle="Lanzar ads sin saber qué haces, es regalarle plata a Meta."
-    problemBody="Subir un boost desde el celular no es marketing. Es esperanza. Las campañas que rinden necesitan estructura: audiencias bien armadas, creativos rotando, copy probado, optimización semanal. Si nunca has trabajado con Meta Ads en serio, vas a pagar el doble por la mitad de leads. Esto es lo que evitamos."
-    featuresEyebrow="Qué incluye"
-    featuresTitle="Tus campañas, gestionadas como en una agencia grande."
-    features={features}
-    servicePriceMonthly="$200.000"
-    servicePriceImpl="$100.000"
-    servicePriceNote="Presupuesto publicitario va aparte, directo en Meta. Recomendamos desde $200.000/mes."
-    faqs={faqs}
-  />
+  <Navbar whatsappUrl={whatsappUrl} variant="dark" />
+
+  <main>
+    <NicheHero
+      eyebrow="Marketing operado · Chile"
+      h1Plain="Anuncios en Meta"
+      h1Accent="operados por nosotros."
+      subtitle="Estrategia, creativos y optimización semanal. Tú apareces solo a cerrar."
+      bullets={bullets}
+      priceFrom="$200.000"
+      whatsappUrl={whatsappUrl}
+      testimonial={{
+        quote: "Cerré mis 3 primeros clientes el primer mes.",
+        name: "Nicolás V.",
+        role: "Abogado",
+        site: "teayudamoslaboral.cl",
+      }}
+    />
+
+    <!-- Mini features -->
+    <section class="bg-white py-14 sm:py-20 px-6 sm:px-10">
+      <div class="max-w-3xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {features.map((f) => (
+            <div class="border border-neutral-200 p-5 sm:p-6">
+              <h3 class="font-bold text-neutral-950 text-base">{f.title}</h3>
+              <p class="text-sm text-neutral-600 mt-1.5 leading-relaxed">{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ corto -->
+    <section class="bg-neutral-50 py-14 sm:py-20 px-6 sm:px-10">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-black text-neutral-950 mb-8">Dudas comunes</h2>
+        <div class="space-y-3">
+          {faqs.map((f) => (
+            <details class="group bg-white border border-neutral-200 px-4 py-3.5">
+              <summary class="cursor-pointer font-bold text-neutral-950 text-sm sm:text-base flex justify-between items-center gap-3 list-none">
+                <span>{f.q}</span>
+                <svg class="w-4 h-4 shrink-0 text-neutral-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <p class="text-sm text-neutral-600 mt-3 leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="bg-neutral-950 text-white py-16 px-6 sm:px-10">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Listo para que tus anuncios anden solos.</h2>
+        <p class="mt-4 text-neutral-400 text-sm sm:text-base">20 min y sabes si te calza. Sin compromiso.</p>
+        <button type="button" data-open-lead-modal class="mt-7 inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-7 py-4 text-sm uppercase tracking-wider transition-all">
+          Cuéntame qué vendes
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
 </Layout>

@@ -1,123 +1,290 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ServiceLanding from '../components/ServiceLanding.astro';
+import Navbar from '../components/Navbar.astro';
+import NicheHero from '../components/NicheHero.astro';
+import Footer from '../components/Footer.astro';
 
 const whatsappUrl = "https://wa.me/56950467634?text=Hola,%20me%20interesa%20la%20web%20de%20Lelemon";
 
+const bullets = [
+  "Lista en 2 a 3 días",
+  "Diseño a tu medida (no plantilla genérica)",
+  "Tus clientes te escriben directo a WhatsApp",
+  "Todo queda a tu nombre — la web es tuya",
+];
+
 const features = [
   {
-    icon: "sparkles",
-    title: "Diseño a tu medida",
-    description: "No es una plantilla genérica. Una web que se ve cara y transmite el nivel real de tu negocio.",
-    meta: "A tu medida",
-    colSpan: 2,
-    featured: true,
+    title: "La cuidamos cada mes",
+    body: "La revisamos mes a mes y la mejoramos según lo que necesite tu negocio. Cambios de temporada, ofertas nuevas, secciones extra — todo incluido en el plan.",
   },
   {
-    icon: "refresh",
-    title: "¿Ya tienes web? La operamos.",
-    description: "Si tu web ya está y funciona, la tomamos como está y la mejoramos. Cambios, performance, integraciones — sin reescribirla.",
-    meta: "Mantenimiento",
+    title: "Lista en días, no en semanas",
+    body: "Primer borrador entre 2 y 3 días desde que nos cuentas tu negocio. Después la afinamos contigo hasta que quede.",
   },
   {
-    icon: "zap",
-    title: "Carga rápida y móvil",
-    description: "Bajo 2 segundos en cualquier red. Perfecta en celular — donde está el 80% de tu tráfico.",
-    meta: "<2s",
+    title: "Todo a tu nombre",
+    body: "Dominio, web y contenidos quedan a tu nombre. Si te vas, te llevas todo. Sin candados, sin permanencia.",
   },
   {
-    icon: "message",
-    title: "WhatsApp a un toque",
-    description: "Botón flotante en cada página. El visitante toca y entra a tu WhatsApp con el mensaje pre-armado.",
-    meta: "Directo",
+    title: "Rápida en cualquier celular",
+    body: "Carga en menos de 2 segundos. La mayoría de tus clientes te van a ver desde el celular.",
   },
   {
-    icon: "shopping",
-    title: "Tienda online con Shopify",
-    description: "Si vendes productos, montamos tu e-commerce sobre Shopify: catálogo, pagos, envíos, todo. El plan de Shopify lo pagas tú directo.",
-    meta: "Shopify",
-    colSpan: 2,
+    title: "Preparada para tus anuncios",
+    body: "La dejamos lista para que tus campañas en Instagram y Facebook funcionen desde el primer día.",
   },
   {
-    icon: "chart",
-    title: "Lista para anuncios",
-    description: "Pixel de Meta y GA4 instalados desde el día 1. Cuando lances campañas, ya tienes data acumulada.",
-    meta: "Día 1",
-  },
-  {
-    icon: "shield",
-    title: "Dominio, correos y hosting",
-    description: "Todo incluido. Dominio .cl, correos profesionales (tu@tunegocio.cl), hosting con uptime y certificado SSL.",
-    meta: "Incluido",
+    title: "Dominio y correos, te guiamos",
+    body: "El dominio (.cl) y los correos profesionales se pagan aparte directo al proveedor — y quedan a tu nombre. Te asesoramos en la compra para que no te equivoques.",
   },
 ];
 
+const clients = [
+  { name: "Venpu", url: "https://venpu.cl", logo: "/logos/venpu.png" },
+  { name: "Te Ayudamos Laboral", url: "https://teayudamoslaboral.cl", logo: "/logos/teayudamoslaboral.svg" },
+];
+
 const faqs = [
-  {
-    question: "¿Cuánto se demoran en armar la web?",
-    answer: "Entre 1 y 3 semanas dependiendo del rubro y la cantidad de páginas. Te entregamos un primer borrador a la semana 1 con el diseño armado, y vamos iterando hasta que quede.",
-  },
-  {
-    question: "¿Yo tengo que escribir los textos?",
-    answer: "No. Te hacemos una llamada de 20 minutos donde nos cuentas a qué te dedicas, a quién atiendes y qué te diferencia. Con eso armamos toda la web. Tú solo revisas y nos dices qué cambiar.",
-  },
-  {
-    question: "¿Qué pasa si ya tengo una web?",
-    answer: "Tienes dos caminos. Si tu web ya está bien armada, la operamos y mejoramos: cambios, performance, SEO, nuevas secciones, integraciones con WhatsApp y campañas — todo sin reescribirla. Si ya cumplió su ciclo, la reemplazamos desde cero migrando dominio y contenido. En la llamada te decimos cuál te conviene.",
-  },
-  {
-    question: "¿La web es mía o de Lelemon?",
-    answer: "Tuya. El dominio queda a tu nombre, los correos son tuyos. Si algún día decides irte, te entregamos todo y sigues adelante. Sin candados.",
-  },
-  {
-    question: "¿Puedo agregar páginas o secciones después?",
-    answer: "Sí. El plan mensual incluye actualizaciones razonables: agregar un servicio nuevo, cambiar precios, sumar testimonios, ajustar copy. Si quieres construir una sección compleja desde cero, lo cotizamos por separado.",
-  },
-  {
-    question: "¿Necesito comprar el dominio aparte?",
-    answer: "No. El dominio .cl está incluido en la implementación. Si ya tienes uno, lo migramos sin costo extra.",
-  },
-  {
-    question: "¿Y si necesito una tienda online (e-commerce)?",
-    answer: "Sí, manejamos e-commerce vía Shopify. Te montamos la tienda completa: catálogo, pagos, envíos, integraciones con WhatsApp y el agente IA. Importante: el plan de Shopify lo pagas tú directo a Shopify (parte aparte de nuestra fee). La implementación se cotiza según el tamaño del catálogo y las integraciones que necesites.",
-  },
+  { q: "¿Cuánto se demoran realmente?", a: "Entre 2 y 3 días tienes el primer borrador andando. Después la afinamos contigo hasta dejarla perfecta. La mayoría de los clientes la tiene online en menos de 1 semana." },
+  { q: "¿Yo escribo los textos?", a: "No. Una llamada de 20 min con nosotros y armamos toda la web. Tú solo revisas y nos dices qué cambiar." },
+  { q: "¿Y si ya tengo una web?", a: "Tienes dos caminos: la mejoramos sin partir de cero, o la rehacemos completa traspasando tu dominio y contenidos. En la llamada te decimos qué te conviene." },
+  { q: "¿Puedo agregar secciones después?", a: "Sí. El plan mensual incluye actualizaciones razonables: servicios nuevos, ofertas de temporada, testimonios, cambios de texto. Si quieres construir algo grande desde cero, lo cotizamos aparte." },
+  { q: "¿Qué pasa con dominio y correos?", a: "El dominio .cl (~$10.000 al año) y el correo profesional con tu marca (~$6.000 por usuario al mes) se pagan aparte directo al proveedor. Quedan a tu nombre. Nosotros te guiamos en la compra y los configuramos." },
 ];
 ---
 
 <Layout
   title="Web profesional para PYMES en Chile"
-  description="Una web que convierte visitas en clientes. Rápida, móvil, con WhatsApp a un toque y conectada a tus campañas. Lista en 2-3 semanas. Desde $100.000 CLP + IVA/mes."
+  description="Una web que convierte visitas en clientes. Rápida en celular, con tu WhatsApp a un toque. Lista en 2-3 días. Desde $79.990 CLP + IVA/mes."
   canonicalUrl="https://lelemon.cl/web"
 >
-  <!-- JSON-LD: Service -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "Web profesional Lelemon",
     "provider": { "@type": "Organization", "name": "Lelemon", "url": "https://lelemon.cl" },
-    "description": "Diseño y desarrollo de web profesional para PYMES en Chile. Incluye dominio, correos, hosting y SSL.",
+    "description": "Diseño y desarrollo de web profesional para PYMES en Chile. Gestión continua, auditoría mensual, todo a nombre del cliente.",
     "areaServed": { "@type": "Country", "name": "Chile" },
-    "offers": {
-      "@type": "Offer",
-      "price": "100000",
-      "priceCurrency": "CLP",
-      "priceValidUntil": "2026-12-31"
-    }
+    "offers": { "@type": "Offer", "price": "79990", "priceCurrency": "CLP", "priceValidUntil": "2026-12-31" }
   })} />
 
-  <ServiceLanding
-    whatsappUrl={whatsappUrl}
-    eyebrow="Web profesional · Volver al inicio"
-    h1Plain="Una web que convierte"
-    h1Accent="visitas en clientes."
-    subtitle="Rápida, móvil, con tu WhatsApp a un toque y conectada a tus campañas. Lista en 2 a 3 semanas. Tú apareces solo para revisar."
-    problemTitle="Una web bonita no vende. Una web que captura, sí."
-    problemBody="La mayoría de webs de PYME son tarjetas de presentación digitales: lindas pero pasivas. La gente entra, mira y se va sin que tú te enteres. Una web profesional bien hecha tiene que hacer una cosa: capturar al visitante y empujarlo a escribirte. Eso es lo que armamos."
-    featuresEyebrow="Qué incluye"
-    featuresTitle="Una web pensada para captar, no para impresionar."
-    features={features}
-    servicePriceMonthly="$100.000"
-    servicePriceImpl="$150.000"
-    faqs={faqs}
-  />
+  <Navbar whatsappUrl={whatsappUrl} variant="dark" />
+
+  <main>
+    <NicheHero
+      eyebrow="Web profesional · Chile"
+      h1Plain="Una web que convierte"
+      h1Accent="visitas en clientes."
+      subtitle="Rápida en celular y conectada a tu WhatsApp. Lista en 2 a 3 días. Tú apareces solo a revisar."
+      bullets={bullets}
+      priceFrom="$79.990"
+      whatsappUrl={whatsappUrl}
+      testimonial={{
+        quote: "Cerré mis 3 primeros clientes el primer mes.",
+        name: "Nicolás V.",
+        role: "Abogado",
+        site: "teayudamoslaboral.cl",
+      }}
+    >
+      <div slot="visual" class="relative">
+        <div class="absolute -inset-8 bg-yellow-400/10 blur-3xl rounded-full" aria-hidden="true"></div>
+
+        <!-- Browser wireframe abstracto -->
+        <div class="relative bg-neutral-900 rounded-xl p-2.5 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] border border-neutral-800 rotate-[-1deg]">
+          <!-- Browser bar -->
+          <div class="flex items-center gap-1.5 mb-3 px-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-red-400/80"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-yellow-400/80"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-green-400/80"></div>
+            <div class="ml-2 flex-1 bg-neutral-800 rounded h-5 px-2 flex items-center text-[10px] text-neutral-400 font-mono">tunegocio.cl</div>
+          </div>
+
+          <!-- Wireframe: hero -->
+          <div class="bg-neutral-950 rounded-md p-5 sm:p-7 aspect-video relative overflow-hidden">
+            <!-- Gradient bg sutil -->
+            <div class="absolute top-0 right-0 w-[60%] h-[80%] bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.18)_0%,_transparent_70%)]" aria-hidden="true"></div>
+
+            <div class="relative">
+              <!-- Eyebrow -->
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-5 h-px bg-yellow-400"></div>
+                <div class="h-1.5 w-20 bg-neutral-800 rounded-full"></div>
+              </div>
+              <!-- Headline placeholder -->
+              <div class="space-y-2">
+                <div class="h-3 w-[70%] bg-neutral-700 rounded"></div>
+                <div class="h-3 w-[55%] bg-yellow-400/80 rounded"></div>
+              </div>
+              <!-- Subtitle placeholder -->
+              <div class="mt-3 space-y-1.5">
+                <div class="h-1.5 w-[80%] bg-neutral-800 rounded-full"></div>
+                <div class="h-1.5 w-[60%] bg-neutral-800 rounded-full"></div>
+              </div>
+              <!-- CTAs -->
+              <div class="mt-4 flex gap-2">
+                <div class="h-6 w-24 bg-yellow-400 rounded"></div>
+                <div class="h-6 w-20 border border-yellow-400/40 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge flotante: Lista en 2-3 días -->
+        <div class="absolute -top-3 -right-2 sm:-right-4 bg-yellow-400 text-neutral-950 px-3 py-2 rounded-lg shadow-xl rotate-[6deg]">
+          <p class="text-[10px] font-bold uppercase tracking-wider leading-none">Lista en</p>
+          <p class="text-base sm:text-lg font-black leading-tight">2-3 días</p>
+        </div>
+
+        <!-- Badge flotante: Mobile mockup -->
+        <div class="absolute -bottom-6 -right-4 sm:-right-6 w-24 sm:w-28 bg-neutral-900 rounded-2xl p-1.5 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)] border border-neutral-800 rotate-[8deg]">
+          <div class="bg-neutral-950 rounded-xl aspect-[9/16] p-2 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_rgba(250,204,21,0.15)_0%,_transparent_60%)]"></div>
+            <div class="relative space-y-1.5">
+              <div class="h-1 w-8 bg-yellow-400 rounded-full"></div>
+              <div class="h-2 w-[80%] bg-neutral-700 rounded"></div>
+              <div class="h-2 w-[60%] bg-yellow-400/80 rounded"></div>
+              <div class="space-y-1 mt-2">
+                <div class="h-1 w-full bg-neutral-800 rounded-full"></div>
+                <div class="h-1 w-[80%] bg-neutral-800 rounded-full"></div>
+              </div>
+              <div class="h-3 w-full bg-yellow-400 rounded mt-2"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge flotante: vendiendo -->
+        <div class="absolute -left-4 sm:-left-8 bottom-12 bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 shadow-lg rotate-[-4deg] hidden lg:block">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <p class="text-[11px] text-neutral-300 font-medium">Lista para vender</p>
+          </div>
+        </div>
+      </div>
+    </NicheHero>
+
+    <!-- Logos clientes (strip minimalista) -->
+    <section class="bg-white border-y border-neutral-200 py-10 px-6 sm:px-10">
+      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center gap-8 sm:gap-12">
+        <p class="text-[11px] sm:text-xs font-bold uppercase tracking-[0.25em] text-neutral-500 whitespace-nowrap">Ya trabajan con nosotros</p>
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-10 sm:gap-x-14 gap-y-6">
+          {clients.map((c) => (
+            <a
+              href={c.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block opacity-60 hover:opacity-100 transition-opacity"
+              title={`Visitar ${c.name}`}
+              aria-label={c.name}
+            >
+              <img src={c.logo} alt={c.name} loading="lazy" class="h-8 sm:h-9 w-auto" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué incluye (bento oscuro con accent) -->
+    <section class="bg-neutral-950 text-white py-16 sm:py-24 px-6 sm:px-10 relative overflow-hidden">
+      <div class="absolute inset-0 grid-pattern opacity-[0.03]" aria-hidden="true"></div>
+      <div class="absolute top-0 left-1/4 w-[40%] h-[60%] bg-[radial-gradient(ellipse,_rgba(250,204,21,0.08)_0%,_transparent_70%)]" aria-hidden="true"></div>
+
+      <div class="relative max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-px bg-yellow-400"></div>
+          <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-yellow-400/80">Qué incluye</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black leading-[1.05] tracking-tight max-w-3xl mb-12 sm:mb-14">
+          No solo te armamos la web.<br/>
+          <span class="text-yellow-400">La operamos contigo.</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-6 gap-3 sm:gap-4">
+          <!-- Card destacado: gestión profesional -->
+          <div class="sm:col-span-4 sm:row-span-2 group relative bg-gradient-to-br from-yellow-400 to-yellow-500 text-neutral-950 p-6 sm:p-8 overflow-hidden">
+            <div class="absolute -bottom-8 -right-8 text-[12rem] sm:text-[14rem] font-black opacity-10 leading-none select-none pointer-events-none">∞</div>
+            <div class="relative">
+              <div class="w-11 h-11 bg-neutral-950 text-yellow-400 flex items-center justify-center mb-5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-black tracking-tight mb-3">La cuidamos cada mes</h3>
+              <p class="text-sm sm:text-base text-neutral-900/85 leading-relaxed max-w-md">La revisamos mes a mes y la mejoramos según lo que necesite tu negocio. Cambios de temporada, ofertas nuevas, secciones extra — todo incluido en el plan.</p>
+            </div>
+          </div>
+
+          <div class="sm:col-span-2 group bg-neutral-900 border border-neutral-800 hover:border-yellow-400/40 p-6 transition-colors">
+            <div class="w-10 h-10 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="font-bold text-base mb-1.5">Lista en días, no semanas</h3>
+            <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">Primer borrador entre 2 y 3 días. Después la afinamos hasta que quede.</p>
+          </div>
+
+          <div class="sm:col-span-2 group bg-neutral-900 border border-neutral-800 hover:border-yellow-400/40 p-6 transition-colors">
+            <div class="w-10 h-10 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="font-bold text-base mb-1.5">Todo a tu nombre</h3>
+            <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">Dominio, web y contenidos quedan registrados a ti. Sin candados.</p>
+          </div>
+
+          <div class="sm:col-span-2 group bg-neutral-900 border border-neutral-800 hover:border-yellow-400/40 p-6 transition-colors">
+            <div class="w-10 h-10 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="font-bold text-base mb-1.5">Rápida en cualquier celular</h3>
+            <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">Carga en menos de 2 segundos. La mayoría te ven desde el celular.</p>
+          </div>
+
+          <div class="sm:col-span-2 group bg-neutral-900 border border-neutral-800 hover:border-yellow-400/40 p-6 transition-colors">
+            <div class="w-10 h-10 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+            </div>
+            <h3 class="font-bold text-base mb-1.5">Preparada para tus anuncios</h3>
+            <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">Lista para que tus campañas en Instagram y Facebook funcionen desde el día uno.</p>
+          </div>
+
+          <div class="sm:col-span-2 group bg-neutral-900 border border-neutral-800 hover:border-yellow-400/40 p-6 transition-colors">
+            <div class="w-10 h-10 bg-yellow-400/10 text-yellow-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="font-bold text-base mb-1.5">Dominio y correos, te guiamos</h3>
+            <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">El .cl y los correos van aparte directo al proveedor — quedan a tu nombre. Te asesoramos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ corto -->
+    <section class="bg-white py-14 sm:py-20 px-6 sm:px-10">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-black text-neutral-950 mb-8">Dudas comunes</h2>
+        <div class="space-y-3">
+          {faqs.map((f) => (
+            <details class="group bg-neutral-50 border border-neutral-200 px-4 py-3.5">
+              <summary class="cursor-pointer font-bold text-neutral-950 text-sm sm:text-base flex justify-between items-center gap-3 list-none">
+                <span>{f.q}</span>
+                <svg class="w-4 h-4 shrink-0 text-neutral-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <p class="text-sm text-neutral-600 mt-3 leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="bg-neutral-950 text-white py-16 px-6 sm:px-10">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Listo para tu web.</h2>
+        <p class="mt-4 text-neutral-400 text-sm sm:text-base">20 min y sabes si te calza. Sin compromiso.</p>
+        <button type="button" data-open-lead-modal class="mt-7 inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-7 py-4 text-sm uppercase tracking-wider transition-all">
+          Cuéntame qué vendes
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
 </Layout>

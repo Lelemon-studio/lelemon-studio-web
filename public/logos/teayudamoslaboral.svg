@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none">
+  <circle cx="28" cy="28" r="24" fill="#1A2E4A"/>
+  <circle cx="28" cy="28" r="24" fill="none" stroke="#C9A961" stroke-width="1.5"/>
+  <text x="28" y="35" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-weight="bold" fill="white" letter-spacing="1">PV</text>
+  <text x="64" y="34" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1A2E4A">Te Ayudamos</text>
+  <text x="221" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-style="italic" fill="#C9A961">Laboral</text>
+</svg>
