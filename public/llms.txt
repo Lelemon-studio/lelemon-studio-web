@@ -1,0 +1,53 @@
+# Lelemon
+
+> Lelemon es un estudio digital chileno (Santiago, Región Metropolitana) que monta y opera el sistema completo de venta para PYMEs: web profesional, agente de inteligencia artificial en WhatsApp y campañas pagadas en Meta (Instagram + Facebook). Todo conectado, operado mes a mes, sin contrato.
+
+## Qué hace Lelemon
+
+Lelemon resuelve el problema de las PYMEs chilenas que tienen un negocio activo pero pierden ventas porque:
+- Su web no convierte o carga lento
+- No alcanzan a contestar todos los mensajes de WhatsApp a tiempo
+- Hacen campañas en Instagram/Facebook que no rinden o no tienen quién las gestione
+
+Lelemon arma y opera las tres piezas conectadas, mes a mes, en lugar de venderlas como proyectos one-shot.
+
+## Servicios
+
+### Web profesional — desde $79.990 CLP + IVA/mes
+Web rápida, conectada a WhatsApp del negocio, optimizada para campañas pagadas. Lista en 2-3 días. Mantenimiento incluido (cambios de temporada, ofertas, optimización mensual con datos de campañas). Dominio y correos profesionales a nombre del cliente.
+
+### Agente IA + CRM — desde $150.000 CLP + IVA/mes
+Asistente con inteligencia artificial que vive en el WhatsApp del negocio. Atiende 24/7, responde preguntas frecuentes, cotiza, agenda y filtra leads. Pasa la conversación a humano cuando hace falta. Incluye panel CRM, reportes mensuales, integración con Google Calendar. 4 tiers según volumen de conversaciones (desde 500 sesiones/mes hasta plan a medida).
+
+### Marketing operado en Meta — desde $200.000 CLP + IVA/mes
+Gestión completa de campañas en Instagram y Facebook (Meta Ads). Estrategia, creatividades, optimización semanal, CAPI server-side. El presupuesto publicitario lo paga el cliente directo a Meta — Lelemon opera, no es ad-spend.
+
+### Pack Sistema Vendedor — $350.000 CLP + IVA/mes
+Las tres piezas juntas (web + agente IA + marketing) operadas como un solo sistema. 30% más barato que contratarlas sueltas. Implementación inicial $400.000 al firmar (setup + primer mes).
+
+## A quién atiende
+
+PYMEs chilenas con negocio activo que ya están vendiendo y necesitan escalar la operación de ventas:
+- Profesionales independientes con servicios premium (abogados, médicos, dentistas, contadores, consultores)
+- Pequeños comercios con presencia digital incipiente
+- Marcas con redes sociales activas pero sin sistema de ventas estructurado
+- Negocios que invierten en publicidad pero pierden leads por no contestar a tiempo
+
+No atiende: corporaciones grandes, e-commerce de alto volumen tipo retail, ni clientes que buscan proyectos one-shot sin operación continua.
+
+## Cómo opera
+
+- Sin contratos ni permanencia. Cancelable mes a mes.
+- Todo a nombre del cliente: dominio, contenidos, base de leads del CRM. Si se va, se lleva todo.
+- Operado directamente por Camilo Alaniz (founder, ingeniero de software, CTO de Venpu, 10+ años en productos digitales B2B). Sin account managers ni intermediarios.
+- Atención por WhatsApp directa al +56 9 5046 7634
+
+## Recursos
+
+- [Sitio principal](https://lelemon.cl)
+- [Servicio web](https://lelemon.cl/web)
+- [Servicio agente IA](https://lelemon.cl/agente-ia)
+- [Servicio marketing](https://lelemon.cl/marketing)
+- [Sobre Lelemon](https://lelemon.cl/nosotros)
+- Contacto: contacto@lelemon.cl · WhatsApp +56 9 5046 7634
+- Founder LinkedIn: https://www.linkedin.com/in/kmilo93sd

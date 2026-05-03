@@ -65,10 +65,13 @@ const { whatsappUrl, rubros } = Astro.props;
       </div>
 
       <div class="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 hero-fade" style="--i:4">
-        <button type="button" data-open-lead-modal class="group inline-flex items-center justify-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-7 py-4 transition-all text-sm uppercase tracking-wider">
-          <span>Cuéntame qué vendes</span>
-          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </button>
+        <div class="flex flex-col gap-2">
+          <button type="button" data-open-lead-modal class="group inline-flex items-center justify-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-bold px-7 py-4 transition-all text-sm uppercase tracking-wider">
+            <span>Cuéntame qué vendes</span>
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+          <p class="text-[12px] text-neutral-500 text-center">Te respondemos por WhatsApp al instante.</p>
+        </div>
       </div>
 
       <!-- Social proof row -->
